@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Soul Land: Awakening World: Wiki</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
+<link rel="stylesheet" href="css/style.css?v=1012">
+</head>
+<body class="cosmic-bg">
+
+<header class="site-header">
+  <div class="header-inner">
+    <div class="brand" id="brandLink">
+      <svg class="brand-logo" viewBox="0 0 100 100" fill="none" aria-hidden="true">
+        <polygon points="50,4 96,50 50,96 4,50" stroke="#cfe0ff" stroke-width="4" fill="rgba(255,255,255,0.04)"/>
+        <polygon points="50,26 74,50 50,74 26,50" stroke="#cfe0ff" stroke-width="3"/>
+        <circle cx="50" cy="50" r="6" fill="#cfe0ff"/>
+      </svg>
+      <div class="brand-text">
+        <h1>Soul Land Universe</h1>
+      </div>
+    </div>
+
+    <nav class="main-nav" id="mainNav"></nav>
+    <div class="hamburger-btn" id="hamburgerBtn" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+</header>
+
+<main id="appMain"></main>
+
+<footer class="site-footer">
+  <span>Fan-made · Soul Land: Awakening World</span>
+</footer>
+
+<!-- Shared config -->
+<script src="js/categories.js?v=1"></script>
+
+<!-- Contenu du wiki -->
+<script>window.WIKI = window.WIKI || {};</script>
+<script src="content/personnages.js"></script>
+<script src="content/monstres.js"></script>
+<script src="content/objets.js"></script>
+<script src="content/guides.js"></script>
+<script src="content/zones.js"></script>
+<script src="content/trials.js"></script>
+<script src="content/tags.js"></script>
+<script src="content/glossary.js"></script>
+
+<!-- Carte interactive -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+
+<!-- Application -->
+<script src="js/app.js?v=1020"></script>
+</body>
+</html>
