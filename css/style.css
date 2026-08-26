@@ -1541,7 +1541,7 @@ footer.site-footer a{ color:var(--jade); }
 .wrap{ position:relative; z-index:1; width:100%; padding:36px 32px 100px; min-height:60vh; }
 .layout{ display:grid; grid-template-columns:1fr 1fr; gap:44px; align-items:start; }
 .form-col{ min-width:0; }
-.preview-col{ min-width:0; position:sticky; top:24px; }
+.preview-col{ min-width:0; }
 @media (max-width:1100px){
   .layout{ grid-template-columns:1fr; }
   .preview-col{ position:static; }
