@@ -1,4 +1,4 @@
-// "trials" page: generated from editeur.html on 8/18/2026
+// "trials" page: generated from editeur.html on 8/26/2026
 // You can also edit this file by hand: each object is one entry.
 window.WIKI = window.WIKI || {};
 window.WIKI.trials = [
@@ -291,7 +291,7 @@ window.WIKI.trials = [
           },
           {
             "title": "Challenge Attempts",
-            "description": "* Each Monster has a limited number of Challenge attempts. You need to use these attempts to earn rewards.\n* At the start of each Event, Monster Challenge attempts are automatically refilled to the maximum.\n* Unlocking a new Stage grants you free Challenge attempts. These do not use up your Monster attempts or your Exorcism Orders."
+            "description": "* Each Monster has a limited number of Challenge attempts. You need to use these attempts to earn rewards.\n* At the start of each Event, Monster Challenge attempts are automatically refilled to the maximum.\n* Unlocking a new Stage grants you free Challenge attempts. These do not use up your Monster attempts or your Exorcism Orders.\n* Once you run out of Challenge attempts, you will automatically enter Assist Mode. In Assist Mode, you cannot use attempts to earn rewards. If everyone in the room is in Assist Mode, the battle cannot be started, this prevents boss farming exploits."
           },
           {
             "title": "Event Time",
@@ -304,6 +304,96 @@ window.WIKI.trials = [
           {
             "title": "Challenge Quest",
             "description": "* Unlocking Purgatory difficulty in the Heavenia Competition chapter unlocks Challenge Quest mode.\n* Challenge Quests are time-limited and must be completed within the given time."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "teambattle",
+    "title": "Team Battle",
+    "subtitle": "Team Fight Rally",
+    "image": "images/trials/teambattle/teambattle-image.png",
+    "imageUrl": "",
+    "useLocalImage": true,
+    "tags": [],
+    "stats": [],
+    "description": "This is a large-scale, limited-time team event where 8 players unite to take down a powerful twin-boss encounter across multiple phases. Complete stages to earn rewards, rack up team battle scores, and contribute to a server-wide rally for bonus buffs.",
+    "difficulty": "Purgatory",
+    "docBlocks": [],
+    "categoryBlocks": [
+      {
+        "image": "",
+        "title": "Rules",
+        "description": "",
+        "subtitles": [
+          {
+            "title": "Teaming",
+            "description": "* This mode is a limited-time team Challenge, requiring 8 players teamed up to complete it."
+          },
+          {
+            "title": "Event Time",
+            "description": "* The event opens every Monday at 5:00 and settles every Sunday at 23:59.\n* During the event, team Challenges are open daily from 11:00 to 23:00."
+          },
+          {
+            "title": "Gameplay",
+            "description": "* **Stage Completion Rewards**: at the start of each event, the first time you complete each stage grants stage completion rewards.\n* **Team Battle Score Rewards**: completing each stage under specific conditions earns points. Your total score for the event is based on your highest score across multiple attempts, and you can claim different rewards based on score milestones."
+          },
+          {
+            "title": "Team Battle Rally",
+            "description": "* During the event, when the total number of completions across the whole server reaches a target value, rewards can be claimed.\n* Once 300 players have completed the challenge, a server-wide rally Buff activates, increasing Damage dealt and reducing Damage received in team battles."
+          }
+        ]
+      },
+      {
+        "image": "images/teambattle/category-1787449511720.png",
+        "title": "Dungeon Guide",
+        "description": "",
+        "subtitles": [
+          {
+            "title": "Dungeon Progression",
+            "description": "* Players are split into 2 groups to challenge the **Yue Guan Route** and the **Gui Mei Route**.\n* **Phase 1 – Outpost Elite**: teams of 2 players take on this challenge. Players on the same route can support each other.\n* **Phase 2 – Outpost Leader**: teams of 4 players take on this challenge. Players from both routes can now support each other.\n* **Phase 3 – Team Showdown**: all 8 players unite to take down the Yue Guan and Gui Mei Twin Bosses together."
+          }
+        ]
+      },
+      {
+        "image": "images/teambattle/category-1787449528656.png",
+        "title": "",
+        "description": "",
+        "subtitles": [
+          {
+            "title": "Boss Overview",
+            "description": "* **Phase One**: players are split into 2 groups, each facing off against either Gui Mei or Yue Guan. During this phase, the two teams cannot support each other or cross the dividing line. Once either Boss's HP drops below 85%, Phase 2 begins.\n* **Phase Two**: the Boss's HP locks at 70% and it enters an Enfeebled state. Once both Bosses are Enfeebled, the fight moves to Phase 3.\n* **Phase Three**: the Bosses enter a charging state. Break their Shields within 70 seconds, as prompted, to weaken them. If you fail, that Boss's Damage increases by 20%.\n* **Phase Four**: Yue Guan and Gui Mei combine their powers to unleash the Fusion Skill, Stalled Pole Domain. All players are put into a stalled state.\n* **Phase Four (continued)**: Yue Guan and Gui Mei then target specific players with attacks. Targeted players are temporarily freed from the stalled state. Pay attention to figure out whether you've been targeted by Yue Guan or Gui Mei."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "gengxinsecretvault",
+    "title": "Gengxin Secret Vault",
+    "subtitle": "",
+    "image": "images/trials/gengxinsecretvault/gengxinsecretvault-image.png",
+    "imageUrl": "",
+    "useLocalImage": true,
+    "tags": [],
+    "stats": [],
+    "description": "This is a treasure-hunting event where you dig through a Vault made up of multiple prize tiers, using Crystal Keys earned from quests. Every dig guarantees a reward, and finding the Grand Prize in each tier unlocks the next, better tier.",
+    "difficulty": "",
+    "docBlocks": [],
+    "categoryBlocks": [
+      {
+        "image": "",
+        "title": "Rules",
+        "description": "",
+        "subtitles": [
+          {
+            "title": "Event Rules",
+            "description": "* During the event, Spirmasters can obtain Crystal Keys by completing Key Acquisition quests.\n* Tap the Chest to consume 1 treasure-digging item and claim a reward."
+          },
+          {
+            "title": "Prize Pool Info",
+            "description": "* The Vault has 3 Prize Tiers. Each tier contains Normal, Special, and Grand Prize rewards.\n* Uncovering the Grand Prize in a tier unlocks the next tier. Spirmasters can choose to keep digging in the current tier or move on to the next one.\n* Tap the left tab to switch between tiers and preview the Grand Prizes.\n* The number of reward slots varies by tier, but every attempt guarantees a reward."
           }
         ]
       }

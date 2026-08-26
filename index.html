@@ -6,7 +6,7 @@
 <title>Soul Land: Awakening World: Wiki</title>
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
-<link rel="stylesheet" href="css/style.css?v=1012">
+<link rel="stylesheet" href="css/style.css?v=1069">
 </head>
 <body class="cosmic-bg">
 
@@ -32,8 +32,40 @@
 
 <main id="appMain"></main>
 
-<footer class="site-footer">
-  <span>Fan-made · Soul Land: Awakening World</span>
+<footer class="site-footer-full">
+  <div class="footer-columns">
+    <div class="footer-brand-col">
+      <div class="footer-logo">
+        <svg viewBox="0 0 100 100" fill="none" aria-hidden="true" width="20" height="20">
+          <polygon points="50,4 96,50 50,96 4,50" stroke="#cfe0ff" stroke-width="4" fill="rgba(255,255,255,0.04)"/>
+          <polygon points="50,26 74,50 50,74 26,50" stroke="#cfe0ff" stroke-width="3"/>
+          <circle cx="50" cy="50" r="6" fill="#cfe0ff"/>
+        </svg>
+        <span>Soul Land Universe</span>
+      </div>
+      <p class="footer-tagline">Fan-made · Soul Land: Awakening World</p>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Explore</div>
+      <a href="#/personnages">Spirits</a>
+      <a href="#/monstres">Beast</a>
+      <a href="#/objets">Bag</a>
+      <a href="#/zones">Zones</a>
+      <a href="#/trials">Trial</a>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Guides</div>
+      <a href="#/guides">Browse Guides</a>
+      <a href="guides-hub">Contribute a Guide</a>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Resources</div>
+      <a href="https://gevents.37games.com/globalexchange/index.html?gameId=416" target="_blank" rel="noopener">Gift Code Exchange ↗</a>
+      <a href="https://pay.37games.com/platform/officialTopupNew.html?gameId=416" target="_blank" rel="noopener">Official Top-up Page ↗</a>
+      <a href="https://discord.gg/p4R8uungD" target="_blank" rel="noopener">Official Discord ↗</a>
+    </div>
+  </div>
+  <div class="footer-bottom">Fan-made · Not affiliated with the official Soul Land: Awakening World team</div>
 </footer>
 
 <!-- Shared config -->
@@ -54,6 +86,11 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 
 <!-- Application -->
-<script src="js/app.js?v=1020"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-app-check-compat.js"></script>
+<script src="js/firebase-config.js"></script>
+<script src="js/app.js?v=1038"></script>
 </body>
 </html>

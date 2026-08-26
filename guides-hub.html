@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Guides, Soul Land Universe</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="stylesheet" href="css/style.css?v=1069">
+</head>
+<body class="cosmic-bg">
+
+<header class="site-header">
+  <div class="header-inner">
+    <div class="brand" onclick="location.href='index'" style="cursor:pointer;">
+      <svg class="brand-logo" viewBox="0 0 100 100" fill="none" aria-hidden="true">
+        <polygon points="50,4 96,50 50,96 4,50" stroke="#cfe0ff" stroke-width="4" fill="rgba(255,255,255,0.04)"/>
+        <polygon points="50,26 74,50 50,74 26,50" stroke="#cfe0ff" stroke-width="3"/>
+        <circle cx="50" cy="50" r="6" fill="#cfe0ff"/>
+      </svg>
+      <div class="brand-text"><h1>Soul Land Universe</h1></div>
+    </div>
+  </div>
+</header>
+
+<!-- Shown briefly while Firebase resolves the session, avoids any flicker -->
+<div id="loadingView"><div class="loading-spinner"></div></div>
+
+<!-- Logged OUT: login / register tabs -->
+<div id="loggedOutView" class="hub-view">
+  <div class="hub-wrap-narrow">
+    <div class="hub-card">
+      <h2 class="hub-title" data-i18n="title_contribute">Contribute a Guide</h2>
+      <p class="hub-subtitle" data-i18n="subtitle_contribute">Log in or create an account to submit guides for review.</p>
+
+      <div class="hub-tabs">
+        <div class="hub-tab active" id="tabLogin" data-i18n="tab_login">Log In</div>
+        <div class="hub-tab" id="tabRegister" data-i18n="tab_register">Register</div>
+      </div>
+
+      <div class="hub-error" id="authError"></div>
+      <div class="hub-success" id="authSuccess"></div>
+
+      <div class="hub-view active" id="loginView">
+        <div class="hub-field">
+          <label data-i18n="label_email">Email</label>
+          <input type="email" id="loginEmail" placeholder="you@example.com">
+        </div>
+        <div class="hub-field">
+          <label data-i18n="label_password">Password</label>
+          <input type="password" id="loginPassword" placeholder="••••••••">
+        </div>
+        <button class="hub-submit" id="loginBtn" data-i18n="btn_login">Log In</button>
+        <div style="text-align:center; margin-top:14px;">
+          <a id="forgotPasswordLink" style="color:var(--jade); font-size:13px; cursor:pointer; text-decoration:underline;" data-i18n="link_forgot_password">Forgot your password?</a>
+        </div>
+      </div>
+
+      <div class="hub-view" id="registerView">
+        <div class="hub-field">
+          <label data-i18n="label_username">Username</label>
+          <input type="text" id="regUsername" placeholder="Choose a username">
+        </div>
+        <div class="hub-field">
+          <label data-i18n="label_password">Password</label>
+          <input type="password" id="regPassword" placeholder="8+ chars, upper/lowercase, a number">
+        </div>
+        <div class="hub-field">
+          <label data-i18n="label_confirm_password">Confirm Password</label>
+          <input type="password" id="regPasswordConfirm" placeholder="Type it again">
+        </div>
+        <div class="hub-field">
+          <label data-i18n="email_note">Email (used only to verify your account, never shown publicly)</label>
+          <input type="email" id="regEmail" placeholder="you@example.com">
+        </div>
+        <div class="hub-row">
+          <div class="hub-field">
+            <label data-i18n="label_server">Server</label>
+            <select id="regServer">
+              <option>Crest Serpent</option>
+              <option>Datura Snake</option>
+              <option>Anthropotula</option>
+              <option>Fierce Light</option>
+              <option>Tiger Shield</option>
+              <option>Flaming Phoenix</option>
+              <option>Mystic Force</option>
+              <option>Jade Hand</option>
+              <option>Bat-Wing Cycle</option>
+              <option>Silent Arrow</option>
+              <option>Flying Claw</option>
+              <option>Poseidon's Light</option>
+              <option>Phoenix Rebirth</option>
+              <option>Vajra Transformation</option>
+              <option>Bão Vũ Lê Hoa Châm</option>
+              <option>Phật Nộ Đường Liên</option>
+              <option>Lam Ngân Hoàng</option>
+              <option>Bát Chu Mâu</option>
+              <option>Đường Địa Ngục</option>
+              <option>Kiếm Đạo Trần Tâm</option>
+              <option>Cốt Đấu La</option>
+              <option>Tiêm Vĩ Vũ Yến</option>
+              <option>Bản Giáp Cự Tê</option>
+              <option>Silvan Twine</option>
+              <option>Violoculus</option>
+              <option>Grappling Hand</option>
+              <option>Shadow Mirage</option>
+              <option>Acalian Stance</option>
+              <option>Phoenix Strike</option>
+              <option>Silvan Spear</option>
+              <option>Angel Wings</option>
+              <option>Asura's Blade</option>
+              <option>Wraith Tiger</option>
+              <option>Pear Blossom</option>
+              <option>Fury Lotus</option>
+              <option>Silvan Emperor</option>
+              <option>Spider Stings</option>
+              <option>Tứ Nhãn Miêu Ưng</option>
+              <option>Hell Road</option>
+              <option>Lục Dực Thiên Sứ</option>
+              <option>Bích Lân Xà Hoàng</option>
+              <option>Phá Hồn Thương</option>
+              <option>Cửu Tâm Hải Đường</option>
+              <option>Tà Ma Hổ Kình</option>
+              <option>Ám Ma Tà Thần Hổ</option>
+              <option>Thái Thản Cự Viên</option>
+              <option>Phệ Hồn Ảnh Thích</option>
+              <option>Tử Vong Nhện Mạng</option>
+              <option>Đại Tu Di Chùy</option>
+              <option>Bone Guru</option>
+              <option>Swift</option>
+              <option>Armored Rhino</option>
+              <option>Four-Eyed Owl</option>
+              <option>Mighty Bear</option>
+              <option>Celestimums</option>
+              <option>Seraph</option>
+              <option>Emerald Serpent</option>
+              <option>Soulbreaker</option>
+              <option>Ennea Begonia</option>
+              <option>Cặp đôi Tam Vũ</option>
+              <option>Phá Địch Vạn Quân</option>
+              <option>Địa Liệt Thiên Băng</option>
+              <option>Lạc Thiên Lôi Chùy</option>
+              <option>Sức Mạnh Hạo Thiên</option>
+              <option>Búa Thái Thản</option>
+              <option>Phệ Hồn Ma Ngục Hoa</option>
+              <option>Tử Tinh Ám Ảnh Hổ</option>
+              <option>Jadehorn</option>
+              <option>Núi Thiên Hồn</option>
+              <option>Rừng Săn Hồn</option>
+              <option>Thôn Đấu Linh</option>
+              <option>Thành Nặc Đinh</option>
+              <option>Thất Sát Kiếm</option>
+              <option>U Minh Linh Miêu</option>
+              <option>Tà Mâu Bạch Hổ</option>
+              <option>Tà Hỏa Phượng Hoàng</option>
+              <option>Chuyên Bán Xúc Xích</option>
+              <option>Cửu Bảo Lưu Ly</option>
+              <option>Thất Bảo Lưu Ly</option>
+              <option>Nhu Cốt Mị Thố</option>
+              <option>Lam Ngân Thảo</option>
+              <option>Hạo Thiên Chùy</option>
+              <option>Thunderex</option>
+              <option>Felorca</option>
+              <option>Great White</option>
+              <option>Demon Whale King</option>
+              <option>Alpha Ant</option>
+              <option>Demonic Tiger</option>
+              <option>Titan Ape</option>
+              <option>Celestial Oxerpent</option>
+              <option>Soul-Eating Strike</option>
+              <option>Deathweb</option>
+              <option>Great Sumeru Hammer</option>
+              <option>Giant Bastion</option>
+              <option>Fated Battle</option>
+              <option>Three-Five Duo</option>
+              <option>Thunderous Collapse</option>
+              <option>Overwhelming Force</option>
+              <option>Earthshatter</option>
+              <option>Thunder Hammer</option>
+              <option>Empyrean Might</option>
+              <option>Titan's Hammer</option>
+              <option>Soulrender Bloom</option>
+              <option>Steel Phantom Eagle</option>
+              <option>Nightstalker</option>
+              <option>Phantasm Nightwing</option>
+              <option>Lithocrystal Scorpid</option>
+              <option>Netherworld Flower</option>
+              <option>Geoforge Serpent</option>
+              <option>Mirage Hawk</option>
+              <option>Skysoul Mine</option>
+              <option>Hunting Forest</option>
+              <option>Spirit-Wrest Village</option>
+              <option>Nuoding City</option>
+              <option>Fiery Phoenix</option>
+              <option>Sausage Vendor</option>
+              <option>Ennea Pagoda</option>
+              <option>Septa Pagoda</option>
+              <option>Charming Rabbit</option>
+              <option>Silvan Grass</option>
+              <option>Haotian Hammer</option>
+              <option>Soul Land</option>
+              <option>Frost Slayer</option>
+              <option>欧洲正式游戏提审服</option>
+              <option>美洲正式游戏提审服</option>
+              <option>LQAtest</option>
+              <option>Other…</option>
+            </select>
+          </div>
+          <div class="hub-field">
+            <label data-i18n="label_language">Language</label>
+            <select id="regLanguage">
+              <option>English</option>
+              <option>Français</option>
+              <option>Español</option>
+              <option>Português</option>
+              <option>ไทย</option>
+              <option>Filipino</option>
+              <option>Bahasa Indonesia</option>
+              <option>Tiếng Việt</option>
+            </select>
+          </div>
+        </div>
+        <div class="hub-field" id="customServerField" style="display:none;">
+          <label data-i18n="label_server_name">Server name</label>
+          <input type="text" id="regCustomServer" placeholder="Type your server name">
+        </div>
+        <button class="hub-submit" id="registerBtn" data-i18n="btn_create_account">Create Account</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Logged IN: DeviantArt-style profile dashboard -->
+<div id="dashboardView">
+
+  <div class="profile-banner"></div>
+
+  <div class="identity-bar">
+    <div class="identity-left">
+      <div class="profile-avatar-corner" id="profileAvatar">?</div>
+      <div class="identity-text">
+        <div class="profile-username" id="profileUsername">...</div>
+        <div class="profile-meta" id="profileMeta">...</div>
+      </div>
+    </div>
+    <div class="identity-right-actions">
+      <div class="notif-bell-btn" id="notifBellBtn" title="Notifications">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+        <span class="notif-badge" id="notifBadge"></span>
+      </div>
+    <div class="gear-btn" id="editProfileToggle" title="Edit profile">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+    </div>
+    </div>
+  </div>
+
+  <div class="tab-bar">
+    <div class="tab-bar-inner">
+      <div class="tabs-left">
+        <div class="tab-item active" data-view="guides" data-i18n="my_guides">My Guides</div>
+        <div class="tab-item" data-view="glossary" data-i18n="glossary_tab">Glossary</div>
+      </div>
+      <div class="tabs-actions">
+        <a href="guide-create" class="action-pill primary" id="createGuideBtn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          <span data-i18n="create_guide">Create a Guide</span>
+        </a>
+        <a href="index#/guides" class="action-pill" data-i18n="browse_guides">Browse Guides</a>
+        <div class="action-pill" id="adminReviewBtn" style="display:none;" data-i18n="review_queue">🛡 Review Queue</div>
+        <div class="action-pill danger" id="logoutBtn" data-i18n="log_out">Log Out</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="verify-banner" id="verifyBanner" style="display:none;">
+    <span data-i18n="verify_banner">Please verify your email before submitting a guide. Check your inbox (and your spam/junk folder) for a confirmation link.</span>
+    <br><a id="resendVerifyLink" data-i18n="resend_verification">Resend verification email</a> · <a id="refreshVerifyLink" data-i18n="refresh_verified">I've verified, refresh</a>
+  </div>
+
+  <div id="guidesView" class="content-grid">
+    <div class="myguides-panel">
+      <div class="myguides-title"><span class="dot"></span><span data-i18n="my_guides">My Guides</span></div>
+      <div id="myGuidesList">
+        <div class="myguides-empty" data-i18n="empty_guides">You haven't created any guides yet, click <strong>+ Create a Guide</strong> to get started.</div>
+      </div>
+    </div>
+
+    <div class="about-panel">
+      <div class="about-title" data-i18n="about">About</div>
+      <div class="about-row">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 3v4M8 3v4M2 11h20"/></svg>
+        <span id="aboutServer">...</span>
+      </div>
+      <div class="about-row">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+        <span id="aboutLanguage">...</span>
+      </div>
+      <div class="about-row">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        <span id="aboutJoined">...</span>
+      </div>
+    </div>
+  </div>
+
+  <div id="glossaryView" class="glossary-view" style="display:none;">
+    <div class="glossary-panel">
+      <div class="myguides-title"><span class="dot"></span><span data-i18n="glossary_tab">Glossary</span></div>
+      <p class="glossary-intro" data-i18n="glossary_intro">Define terms once here, then use [[Term]] anywhere in your guides to link to their definition. Only your own guides show your definitions.</p>
+      <div class="glossary-add-row">
+        <input type="text" id="glossaryNewTerm" placeholder="Term (e.g. Aggro)" data-i18n-placeholder="glossary_term_placeholder">
+        <input type="text" id="glossaryNewDef" placeholder="Definition" data-i18n-placeholder="glossary_def_placeholder">
+        <div class="btn btn-primary" id="glossaryAddBtn" data-i18n="glossary_add">+ Add</div>
+      </div>
+      <div id="glossaryList" class="glossary-list"></div>
+    </div>
+  </div>
+
+</div>
+
+<footer class="site-footer">
+  <nav class="footer-menu">
+    <a href="index">← Back to Wiki</a>
+    <a href="index#/guides">Browse Guides</a>
+  </nav>
+  <span>Fan-made · Soul Land: Awakening World</span>
+</footer>
+
+<!-- Edit Profile modal -->
+<div class="modal-overlay" id="cropModal">
+  <div class="modal-box" style="max-width:400px; text-align:center;">
+    <div class="modal-head">
+      <h3>Adjust your photo</h3>
+      <div class="modal-close" id="closeCropModal">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </div>
+    </div>
+    <div class="crop-stage" id="cropStage">
+      <img id="cropImage" draggable="false">
+      <div class="crop-circle-mask"></div>
+    </div>
+    <div style="display:flex; align-items:center; gap:10px; margin:16px 0;">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--text-dim)" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input type="range" id="cropZoom" min="100" max="300" value="100" style="flex:1;">
+    </div>
+    <p style="font-size:12px; color:var(--text-dim); margin:0 0 16px;">Drag the photo to reposition · use the slider to zoom</p>
+    <button class="hub-submit" id="confirmCropBtn">Use This Photo</button>
+  </div>
+</div>
+
+<div class="modal-overlay" id="editProfileModal">
+  <div class="modal-box">
+    <div class="modal-head">
+      <h3 data-i18n="edit_profile">Edit Profile</h3>
+      <div class="modal-close" id="closeEditModal">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </div>
+    </div>
+
+    <div class="hub-error" id="profileError"></div>
+    <div class="hub-success" id="profileSuccess"></div>
+
+    <div class="settings-columns">
+    <div class="settings-col">
+    <div class="modal-group">
+      <p class="hub-subhead-small" data-i18n="profile">Profile</p>
+      <div class="hub-field">
+        <label data-i18n="label_username">Username</label>
+        <input type="text" id="editUsername">
+      </div>
+      <div class="hub-field">
+        <label data-i18n="profile_picture">Profile Picture</label>
+        <label class="hub-submit" style="display:block; text-align:center; cursor:pointer; background:var(--panel-2); color:var(--text); border:1px solid var(--line);">
+          <span data-i18n="choose_from_device">📁 Choose from device</span>
+          <input type="file" id="avatarFileInput" accept="image/*" style="display:none;">
+        </label>
+        <div id="avatarUploadStatus" style="font-size:12px; color:var(--text-dim); margin-top:8px;"></div>
+        <input type="hidden" id="editAvatarUrl">
+      </div>
+    </div>
+
+    <div class="modal-group">
+      <p class="hub-subhead-small">Settings</p>
+      <div class="hub-field">
+        <label data-i18n="label_server">Server</label>
+        <select id="editServer">
+              <option>Crest Serpent</option>
+              <option>Datura Snake</option>
+              <option>Anthropotula</option>
+              <option>Fierce Light</option>
+              <option>Tiger Shield</option>
+              <option>Flaming Phoenix</option>
+              <option>Mystic Force</option>
+              <option>Jade Hand</option>
+              <option>Bat-Wing Cycle</option>
+              <option>Silent Arrow</option>
+              <option>Flying Claw</option>
+              <option>Poseidon's Light</option>
+              <option>Phoenix Rebirth</option>
+              <option>Vajra Transformation</option>
+              <option>Bão Vũ Lê Hoa Châm</option>
+              <option>Phật Nộ Đường Liên</option>
+              <option>Lam Ngân Hoàng</option>
+              <option>Bát Chu Mâu</option>
+              <option>Đường Địa Ngục</option>
+              <option>Kiếm Đạo Trần Tâm</option>
+              <option>Cốt Đấu La</option>
+              <option>Tiêm Vĩ Vũ Yến</option>
+              <option>Bản Giáp Cự Tê</option>
+              <option>Silvan Twine</option>
+              <option>Violoculus</option>
+              <option>Grappling Hand</option>
+              <option>Shadow Mirage</option>
+              <option>Acalian Stance</option>
+              <option>Phoenix Strike</option>
+              <option>Silvan Spear</option>
+              <option>Angel Wings</option>
+              <option>Asura's Blade</option>
+              <option>Wraith Tiger</option>
+              <option>Pear Blossom</option>
+              <option>Fury Lotus</option>
+              <option>Silvan Emperor</option>
+              <option>Spider Stings</option>
+              <option>Tứ Nhãn Miêu Ưng</option>
+              <option>Hell Road</option>
+              <option>Lục Dực Thiên Sứ</option>
+              <option>Bích Lân Xà Hoàng</option>
+              <option>Phá Hồn Thương</option>
+              <option>Cửu Tâm Hải Đường</option>
+              <option>Tà Ma Hổ Kình</option>
+              <option>Ám Ma Tà Thần Hổ</option>
+              <option>Thái Thản Cự Viên</option>
+              <option>Phệ Hồn Ảnh Thích</option>
+              <option>Tử Vong Nhện Mạng</option>
+              <option>Đại Tu Di Chùy</option>
+              <option>Bone Guru</option>
+              <option>Swift</option>
+              <option>Armored Rhino</option>
+              <option>Four-Eyed Owl</option>
+              <option>Mighty Bear</option>
+              <option>Celestimums</option>
+              <option>Seraph</option>
+              <option>Emerald Serpent</option>
+              <option>Soulbreaker</option>
+              <option>Ennea Begonia</option>
+              <option>Cặp đôi Tam Vũ</option>
+              <option>Phá Địch Vạn Quân</option>
+              <option>Địa Liệt Thiên Băng</option>
+              <option>Lạc Thiên Lôi Chùy</option>
+              <option>Sức Mạnh Hạo Thiên</option>
+              <option>Búa Thái Thản</option>
+              <option>Phệ Hồn Ma Ngục Hoa</option>
+              <option>Tử Tinh Ám Ảnh Hổ</option>
+              <option>Jadehorn</option>
+              <option>Núi Thiên Hồn</option>
+              <option>Rừng Săn Hồn</option>
+              <option>Thôn Đấu Linh</option>
+              <option>Thành Nặc Đinh</option>
+              <option>Thất Sát Kiếm</option>
+              <option>U Minh Linh Miêu</option>
+              <option>Tà Mâu Bạch Hổ</option>
+              <option>Tà Hỏa Phượng Hoàng</option>
+              <option>Chuyên Bán Xúc Xích</option>
+              <option>Cửu Bảo Lưu Ly</option>
+              <option>Thất Bảo Lưu Ly</option>
+              <option>Nhu Cốt Mị Thố</option>
+              <option>Lam Ngân Thảo</option>
+              <option>Hạo Thiên Chùy</option>
+              <option>Thunderex</option>
+              <option>Felorca</option>
+              <option>Great White</option>
+              <option>Demon Whale King</option>
+              <option>Alpha Ant</option>
+              <option>Demonic Tiger</option>
+              <option>Titan Ape</option>
+              <option>Celestial Oxerpent</option>
+              <option>Soul-Eating Strike</option>
+              <option>Deathweb</option>
+              <option>Great Sumeru Hammer</option>
+              <option>Giant Bastion</option>
+              <option>Fated Battle</option>
+              <option>Three-Five Duo</option>
+              <option>Thunderous Collapse</option>
+              <option>Overwhelming Force</option>
+              <option>Earthshatter</option>
+              <option>Thunder Hammer</option>
+              <option>Empyrean Might</option>
+              <option>Titan's Hammer</option>
+              <option>Soulrender Bloom</option>
+              <option>Steel Phantom Eagle</option>
+              <option>Nightstalker</option>
+              <option>Phantasm Nightwing</option>
+              <option>Lithocrystal Scorpid</option>
+              <option>Netherworld Flower</option>
+              <option>Geoforge Serpent</option>
+              <option>Mirage Hawk</option>
+              <option>Skysoul Mine</option>
+              <option>Hunting Forest</option>
+              <option>Spirit-Wrest Village</option>
+              <option>Nuoding City</option>
+              <option>Fiery Phoenix</option>
+              <option>Sausage Vendor</option>
+              <option>Ennea Pagoda</option>
+              <option>Septa Pagoda</option>
+              <option>Charming Rabbit</option>
+              <option>Silvan Grass</option>
+              <option>Haotian Hammer</option>
+              <option>Soul Land</option>
+              <option>Frost Slayer</option>
+              <option>欧洲正式游戏提审服</option>
+              <option>美洲正式游戏提审服</option>
+              <option>LQAtest</option>
+              <option>Other…</option>
+            </select>
+      </div>
+      <div class="hub-field" id="editCustomServerField" style="display:none;">
+        <label data-i18n="label_server_name">Server name</label>
+        <input type="text" id="editCustomServer" placeholder="Type your server name">
+      </div>
+      <div class="hub-field">
+        <label data-i18n="label_language">Language</label>
+        <select id="editLanguage">
+          <option>English</option>
+          <option>Français</option>
+          <option>Español</option>
+          <option>Português</option>
+          <option>ไทย</option>
+          <option>Filipino</option>
+          <option>Bahasa Indonesia</option>
+          <option>Tiếng Việt</option>
+        </select>
+      </div>
+      <button class="hub-submit" id="saveProfileBtn" data-i18n="save_profile">Save Profile</button>
+    </div>
+    </div>
+
+    <div class="settings-col">
+    <div class="modal-group">
+      <p class="hub-subhead-small" data-i18n="change_email">Change Email</p>
+      <div class="hub-field">
+        <label data-i18n="label_current_password">Current Password</label>
+        <input type="password" id="emailChangePassword" placeholder="••••••••">
+      </div>
+      <div class="hub-field">
+        <label data-i18n="label_new_email">New Email</label>
+        <input type="email" id="newEmail" placeholder="new@example.com">
+      </div>
+      <button class="hub-submit" id="saveEmailBtn" data-i18n="update_email">Update Email</button>
+    </div>
+
+    <div class="modal-group">
+      <p class="hub-subhead-small" data-i18n="change_password">Change Password</p>
+      <div class="hub-field">
+        <label data-i18n="label_current_password">Current Password</label>
+        <input type="password" id="passwordChangeCurrent" placeholder="••••••••">
+      </div>
+      <div class="hub-field">
+        <label data-i18n="label_new_password">New Password</label>
+        <input type="password" id="newPassword" placeholder="At least 6 characters">
+      </div>
+      <button class="hub-submit" id="savePasswordBtn" data-i18n="update_password">Update Password</button>
+    </div>
+    </div>
+    </div>
+
+  </div>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-app-check-compat.js"></script>
+<script src="js/firebase-config.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/custom-dialog.js"></script>
+<script src="js/notifications.js"></script>
+<script src="js/i18n.js"></script>
+<script>applyCachedLanguageInstantly();</script>
+<script src="js/guides-hub.js"></script>
+</body>
+</html>

@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Create a Guide, Soul Land Universe</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="stylesheet" href="css/style.css?v=1069">
+</head>
+<body class="cosmic-bg">
+
+<header class="site-header">
+  <div class="header-inner">
+    <div class="brand" onclick="location.href='index'" style="cursor:pointer;">
+      <svg class="brand-logo" viewBox="0 0 100 100" fill="none" aria-hidden="true">
+        <polygon points="50,4 96,50 50,96 4,50" stroke="#cfe0ff" stroke-width="4" fill="rgba(255,255,255,0.04)"/>
+        <polygon points="50,26 74,50 50,74 26,50" stroke="#cfe0ff" stroke-width="3"/>
+        <circle cx="50" cy="50" r="6" fill="#cfe0ff"/>
+      </svg>
+      <div class="brand-text"><h1>Soul Land Universe</h1></div>
+    </div>
+  </div></header>
+
+<div class="dash-subnav">
+  <div class="dash-subnav-inner">
+    <a href="guides-hub" class="dash-subnav-back">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+      <span data-i18n="gc_back_dashboard">Back to Dashboard</span>
+    </a>
+    <div class="dash-subnav-title">📝 <span data-i18n="gc_page_title">Create a Guide</span></div>
+  </div>
+</div>
+
+<!-- Gated views -->
+<div id="loadingGate" class="gate-view"><div class="loading-spinner" style="width:30px;height:30px;border-radius:50%;border:3px solid var(--line);border-top-color:var(--gold);animation:spin .8s linear infinite;margin:0 auto;"></div></div>
+
+<div id="notLoggedInGate" class="gate-view" style="display:none;">
+  <div class="gate-card">
+    <h2 data-i18n="gc_login_required">Log in required</h2>
+    <p data-i18n="gc_login_required_text">You need an account to create a guide.</p>
+    <a href="guides-hub" class="btn btn-primary" data-i18n="gc_go_login">Go to Log In</a>
+  </div>
+</div>
+
+<div id="notVerifiedGate" class="gate-view" style="display:none;">
+  <div class="gate-card">
+    <h2 data-i18n="gc_verify_first">Verify your email first</h2>
+    <p data-i18n="gc_verify_first_text">Check your inbox for a confirmation link before creating a guide.</p>
+    <a href="guides-hub" class="btn btn-primary" data-i18n="gc_back_dashboard">Back to Dashboard</a>
+  </div>
+</div>
+
+<!-- Main editor -->
+<div class="wrap" id="editorWrap" style="display:none;">
+  <div class="layout">
+  <div class="form-col">
+
+  <div style="display:flex; align-items:center; gap:12px; margin-bottom:6px;">
+    <h1 style="margin:0;" data-i18n="gc_page_title">Create a Guide</h1>
+    <span id="statusBadge" class="status-badge" style="display:none;"></span>
+  </div>
+  <p class="subhead" data-i18n="gc_build_subhead">Build your guide section by section. Add headings, tips, images, and more.</p>
+
+  <div id="pendingLockBanner" class="locked-banner" style="display:none;">
+    <span data-i18n="gc_locked_banner">This guide is currently under review. It's locked until an admin approves or rejects it.</span>
+  </div>
+
+  <div id="publishPanel" class="publish-panel" style="display:none;">
+    <div class="publish-panel-title">✅ <span data-i18n="gc_publish_ready">Approved, ready to publish</span></div>
+    <p class="publish-panel-text" data-i18n="gc_publish_ready_text">An admin approved this guide. You decide when it goes live.</p>
+    <div style="display:flex; gap:10px; flex-wrap:wrap;">
+      <div class="btn btn-primary" id="publishNowBtn" data-i18n="gc_publish_now">Publish Now</div>
+      <div class="btn" id="showScheduleBtn">🕒 <span data-i18n="gc_schedule">Schedule…</span></div>
+    </div>
+    <div id="scheduleRow" style="display:none; margin-top:12px; display:flex; gap:10px; align-items:center;">
+      <input type="datetime-local" id="scheduleDateInput">
+      <div class="btn btn-primary" id="confirmScheduleBtn" data-i18n="gc_confirm_schedule">Confirm Schedule</div>
+    </div>
+  </div>
+
+  <div class="field">
+    <label data-i18n="gc_guide_title_label">Guide Title</label>
+    <input type="text" id="guideTitle" placeholder="e.g. Beginner's Guide to Spirit Fusion" data-i18n-placeholder="gc_title_placeholder">
+  </div>
+  <div class="field" style="display:flex; gap:14px;">
+    <div style="flex:1;">
+      <label data-i18n="label_language">Language</label>
+      <select id="guideLang">
+        <option>English</option>
+        <option>Français</option>
+        <option>Español</option>
+        <option>Português</option>
+        <option>ไทย</option>
+        <option>Filipino</option>
+        <option>Bahasa Indonesia</option>
+        <option>Tiếng Việt</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="field">
+    <label data-i18n="gc_tags_label">Tags</label>
+    <div style="display:flex; gap:8px;">
+      <input type="text" id="tagInput" placeholder="Type a new tag and press Enter…" style="margin-bottom:0;" data-i18n-placeholder="gc_tag_placeholder">
+      <div class="btn" id="addTagBtn" data-i18n="gc_add_tag">Add</div>
+    </div>
+    <div id="tagChips" style="display:flex; flex-wrap:wrap; gap:6px; margin-top:10px;"></div>
+    <div id="existingTagsWrap" style="margin-top:14px; display:none;">
+      <div style="font-size:12px; color:var(--text-dim); margin-bottom:8px;" data-i18n="gc_pick_existing">Or pick from existing tags:</div>
+      <div id="existingTagsRow" style="display:flex; flex-wrap:wrap; gap:6px;"></div>
+    </div>
+  </div>
+
+  <div class="field">
+    <label data-i18n="gc_glossary_label">Glossary</label>
+    <p style="font-size:12px; color:var(--text-dim); margin:0 0 10px;" data-i18n="gc_glossary_hint">Add a term here, then use [[Term]] anywhere in this guide's text to link to it.</p>
+    <div style="display:flex; gap:8px;">
+      <input type="text" id="gcGlossaryTerm" placeholder="Term" data-i18n-placeholder="glossary_term_placeholder" style="flex:0 0 160px; margin-bottom:0;">
+      <input type="text" id="gcGlossaryDef" placeholder="Definition" data-i18n-placeholder="glossary_def_placeholder" style="flex:1; margin-bottom:0;">
+      <div class="btn btn-primary" id="gcGlossaryAddBtn" data-i18n="glossary_add" style="flex-shrink:0;">+ Add</div>
+    </div>
+    <div id="gcGlossaryStatus" style="font-size:12px; color:var(--jade); margin-top:8px; display:none;"></div>
+  </div>
+
+  <div class="field">
+    <label data-i18n="gc_cover_image_label">Cover Image</label>
+    <div style="display:flex; gap:8px; margin-bottom:8px;">
+      <label class="btn" style="cursor:pointer;"><span data-i18n="gc_choose_file">📁 Choose file</span><input type="file" id="coverFileInput" accept="image/*" style="display:none;"></label>
+    </div>
+    <div id="coverPreviewFrame" class="cover-frame cover-editor-preview" style="display:none;">
+      <img id="coverPreviewImg" class="cover-fg">
+    </div>
+  </div>
+
+  <div class="blocks" id="blocksWrap"></div>
+  <div id="emptyHint" class="empty-hint" data-i18n="gc_empty_hint">No sections yet, click "+ Add a section" below to start writing.</div>
+
+  <div class="add-block-wrap">
+    <div class="add-block-menu" id="addBlockMenu">
+      <div class="add-block-option" data-type="heading"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 4v16M18 4v16M6 12h12"/></svg><span data-i18n="block_heading">Heading</span></div>
+      <div class="add-block-option" data-type="paragraph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="14" y2="18"/></svg><span data-i18n="block_paragraph">Paragraph</span></div>
+      <div class="add-block-option" data-type="image"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg><span data-i18n="block_image">Image</span></div>
+      <div class="add-block-option" data-type="callout"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><span data-i18n="block_callout">Tip / Warning</span></div>
+      <div class="add-block-option" data-type="video"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="15" height="16" rx="2"/><polygon points="10 9 15 12 10 15 10 9"/></svg><span data-i18n="block_video">YouTube Video</span></div>
+      <div class="add-block-option" data-type="table"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/><line x1="12" y1="3" x2="12" y2="21"/></svg><span data-i18n="block_table">Table</span></div>
+      <div class="add-block-option" data-type="itemcard"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="8" cy="8" r="4"/><circle cx="16" cy="8" r="4"/><circle cx="12" cy="16" r="4"/></svg><span data-i18n="block_itemcard">Item Cards</span></div>
+      <div class="add-block-option" data-type="ratingcard"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15 9 22 9.5 17 14.5 18.5 22 12 18 5.5 22 7 14.5 2 9.5 9 9 12 2"/></svg><span data-i18n="block_ratingcard">Rating Card</span></div>
+      <div class="add-block-option" data-type="collapsible"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><polyline points="9 10 12 13 15 10"/></svg><span data-i18n="block_collapsible">Collapsible</span></div>
+      <div class="add-block-option" data-type="divider"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="12" x2="20" y2="12"/></svg><span data-i18n="block_divider">Divider</span></div>
+    </div>
+    <div class="btn btn-primary" id="addBlockBtn" data-i18n="gc_add_section">+ Add a section</div>
+  </div>
+
+  <div class="submit-row">
+    <div class="btn btn-reject" id="deleteBtn" data-i18n="gc_delete" style="display:none; margin-right:auto;">🗑 Delete</div>
+    <div class="btn" id="cancelBtn" data-i18n="gc_cancel">Cancel</div>
+    <div class="btn" id="saveDraftBtn" data-i18n="gc_save_draft">Save as Draft</div>
+    <div class="btn btn-primary" id="submitBtn" data-i18n="gc_submit_review">Submit for Review</div>
+  </div>
+  <div class="save-status" id="saveStatus"></div>
+
+  </div>
+
+  <div class="preview-col">
+    <div class="section-divider" data-i18n="gc_live_preview">Live Preview</div>
+    <div class="preview" id="previewArea"></div>
+  </div>
+  </div>
+
+  <div id="blockCropModal" class="itemcard-modal">
+    <div class="itemcard-modal-inner" style="max-width:520px; text-align:center;">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
+        <h3 style="margin:0;" data-i18n="gc_adjust_image">Adjust your image</h3>
+        <div class="btn" onclick="closeBlockCropModal()">✕ Close</div>
+      </div>
+      <div class="crop-ratio-row" style="display:flex; gap:8px; justify-content:center; margin-bottom:14px;">
+        <div class="btn crop-ratio-btn" data-ratio="free" data-i18n="gc_free">Free</div>
+        <div class="btn crop-ratio-btn" data-ratio="1.7778">16:9</div>
+        <div class="btn crop-ratio-btn" data-ratio="1.3333">4:3</div>
+        <div class="btn crop-ratio-btn" data-ratio="1">1:1</div>
+      </div>
+      <div class="block-crop-stage" id="blockCropStage">
+        <img id="blockCropImage" draggable="false">
+      </div>
+      <div style="display:flex; align-items:center; gap:10px; margin:16px 0;">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--text-dim)" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input type="range" id="blockCropZoom" min="100" max="300" value="100" style="flex:1;">
+      </div>
+      <p style="font-size:12px; color:var(--text-dim); margin:0 0 16px;" data-i18n="gc_choose_shape">Choose a shape, drag to reposition, use the slider to zoom.</p>
+      <div class="btn btn-primary" id="confirmBlockCropBtn" style="width:100%; justify-content:center;" data-i18n="gc_use_image">Use This Image</div>
+    </div>
+  </div>
+
+  <div id="itemCardModal" class="itemcard-modal">
+    <div class="itemcard-modal-inner">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
+        <h3 style="margin:0;" data-i18n="gc_add_from_site">Add elements from the site</h3>
+        <div class="btn" onclick="closeItemCardPicker()">✕ Close</div>
+      </div>
+      <div class="field" style="display:flex; gap:8px; margin-bottom:0;">
+        <input type="text" id="itemCardSearch" placeholder="Search Spirits, Beast, Bag, Zones, Trial…" oninput="renderItemCardPickerList()" style="margin-bottom:12px;" data-i18n-placeholder="gc_search_site_placeholder">
+        <select id="itemCardCategoryFilter" onchange="renderItemCardPickerList()" style="max-width:160px; margin-bottom:12px;">
+          <option value="" data-i18n="gc_all_categories">All Categories</option>
+          <option value="personnages">Spirits</option>
+          <option value="monstres">Beast</option>
+          <option value="objets">Bag</option>
+          <option value="zones">Zones</option>
+          <option value="trials">Trial</option>
+        </select>
+      </div>
+      <div id="itemCardPickerList" style="display:grid; grid-template-columns:1fr 1fr; gap:8px; overflow-y:auto; flex:1;"></div>
+    </div>
+  </div>
+
+  <div id="linkPickerModal" class="itemcard-modal">
+    <div class="itemcard-modal-inner">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
+        <h3 style="margin:0;" data-i18n="gc_link_to">Link to…</h3>
+        <div class="btn" onclick="closeLinkPicker()">✕ Close</div>
+      </div>
+      <div class="field" style="display:flex; gap:8px; margin-bottom:0;">
+        <input type="text" id="linkPickerSearch" placeholder="Search…" oninput="renderLinkPickerList()" style="margin-bottom:12px;" data-i18n-placeholder="gc_search_placeholder">
+        <select id="linkPickerCategoryFilter" onchange="renderLinkPickerList()" style="max-width:160px; margin-bottom:12px;">
+          <option value="" data-i18n="gc_all_categories">All Categories</option>
+          <option value="personnages">Spirits</option>
+          <option value="monstres">Beast</option>
+          <option value="objets">Bag</option>
+          <option value="zones">Zones</option>
+          <option value="trials">Trial</option>
+        </select>
+      </div>
+      <div id="linkPickerList" style="display:grid; grid-template-columns:1fr 1fr; gap:8px; overflow-y:auto; flex:1;"></div>
+    </div>
+  </div>
+
+</div>
+
+<footer class="site-footer">
+  <nav class="footer-menu">
+    <a href="index">← Back to Wiki</a>
+    <a href="guides-hub">My Guides Dashboard</a>
+  </nav>
+  <span>Fan-made · Soul Land: Awakening World</span>
+</footer>
+
+<script src="js/categories.js?v=1"></script>
+<script src="content/personnages.js"></script>
+<script src="content/monstres.js"></script>
+<script src="content/objets.js"></script>
+<script src="content/zones.js"></script>
+<script src="content/trials.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-app-check-compat.js"></script>
+<script src="js/firebase-config.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/i18n.js"></script>
+<script>applyCachedLanguageInstantly();</script>
+<script src="js/custom-dialog.js"></script>
+<script src="js/guide-create.js"></script>
+</body>
+</html>

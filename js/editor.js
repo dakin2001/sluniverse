@@ -57,6 +57,12 @@ function attachAllFormatToolbars(){
   });
 }
 
+function truncateTitle(str, max){
+  max = max || 10;
+  str = str || '';
+  return str.length > max ? str.slice(0, max) + '…' : str;
+}
+
 function slugify(str){
   return (str || '')
     .toLowerCase()
@@ -300,7 +306,7 @@ function populateFuseWithSelect(selected){
   const list = (window.WIKI.personnages || []).filter(p => p.id !== editingId);
   const sel = document.getElementById('sp_fusion_fuseWith');
   if (!sel) return;
-  sel.innerHTML = `<option value="">— Choose a Spirit —</option>` +
+  sel.innerHTML = `<option value="">Choose a Spirit</option>` +
     list.map(p => `<option value="${p.id}"${p.id === selected ? ' selected' : ''}>${p.title}</option>`).join('');
 }
 
@@ -526,7 +532,7 @@ document.getElementById('parseSkillImportBtn').addEventListener('click', () => {
     parsed.skill.skill2, parsed.skill.skill6, parsed.passive.skill3, parsed.passive.skill5].filter(Boolean).length;
   if (!found){ showToast('Could not recognize any skill blocks in that text'); return; }
   applyParsedSkills(parsed);
-  showToast(`${found} skill block(s) imported — review below, then Save`);
+  showToast(`${found} skill block(s) imported, review below, then Save`);
 });
 
 function populateBeastZoneSelect(selected){
@@ -723,12 +729,16 @@ document.getElementById('parseSpiriboneImportBtn').addEventListener('click', () 
   const parsed = parseSpiriboneImport(text);
   if (!parsed.skillName && !parsed.genre){ showToast('Could not recognize that text format'); return; }
   applySpiriboneImport(parsed);
-  showToast('Spiribone imported — review the fields below, then Save');
+  showToast('Spiribone imported, review the fields below, then Save');
 });
 
 function updateTrialFieldsVisibility(){
   const el = document.getElementById('trialFieldsField');
   if (el) el.style.display = currentCat === 'trials' ? 'block' : 'none';
+}
+function updateEventFieldsVisibility(){
+  const el = document.getElementById('eventFieldsField');
+  if (el) el.style.display = currentCat === 'events' ? 'block' : 'none';
 }
 /* ---------- Bag "Contains" picker (this entry holds/rewards other Bag items) ---------- */
 let containsSelectedIds = [];
@@ -816,6 +826,16 @@ document.getElementById('linkPickerModal').addEventListener('click', (e) => {
 document.getElementById('linkPickerSearch').addEventListener('input', renderLinkPickerList);
 document.getElementById('linkPickerCategoryFilter').addEventListener('change', renderLinkPickerList);
 
+let markerLinkTargetRow = null;
+function openMarkerLinkPicker(row){
+  markerLinkTargetRow = row;
+  containsPickerTarget = 'marker';
+  document.getElementById('containsPickerModal').style.display = 'flex';
+  document.getElementById('containsPickerSearch').value = '';
+  document.getElementById('containsPickerTypeFilter').value = '';
+  renderContainsPickerList();
+}
+
 function openContainsPicker(target){
   containsPickerTarget = target || 'bag';
   document.getElementById('containsPickerModal').style.display = 'flex';
@@ -830,9 +850,11 @@ function renderContainsPickerList(){
   const search = document.getElementById('containsPickerSearch').value.toLowerCase();
   const typeFilter = document.getElementById('containsPickerTypeFilter').value;
   const selfId = document.getElementById('fId').value.trim();
-  const activeIds = containsPickerTarget === 'beast' ? beastContainsSelectedIds : containsSelectedIds;
+  const activeIds = containsPickerTarget === 'beast' ? beastContainsSelectedIds
+    : containsPickerTarget === 'marker' ? (markerLinkTargetRow ? [markerLinkTargetRow.dataset.linkedItemId] : [])
+    : containsSelectedIds;
   const items = ((window.WIKI && window.WIKI.objets) || []).filter(o => {
-    if (o.id === selfId) return false;
+    if (containsPickerTarget !== 'marker' && o.id === selfId) return false;
     if (typeFilter && o.bagType !== typeFilter) return false;
     if (search && !o.title.toLowerCase().includes(search)) return false;
     return true;
@@ -846,13 +868,25 @@ function renderContainsPickerList(){
     <div class="entry-row" data-id="${o.id}" style="cursor:pointer; ${activeIds.includes(o.id) ? 'border-color:var(--gold); background:rgba(240,193,75,0.08);' : ''}">
       <div class="row-top">
         <div class="thumb" style="${o.image ? `background-image:url('${o.image}')` : ''}"></div>
-        <div class="info"><div class="t">${o.title}</div></div>
+        <div class="info"><div class="t" title="${o.title}">${truncateTitle(o.title)}</div></div>
       </div>
     </div>
   `).join('');
   list.querySelectorAll('.entry-row').forEach(row => {
     row.addEventListener('click', () => {
       const id = row.dataset.id;
+      if (containsPickerTarget === 'marker'){
+        const linkedItem = ((window.WIKI && window.WIKI.objets) || []).find(o => o.id === id);
+        markerLinkTargetRow.dataset.linkedItemId = id;
+        markerLinkTargetRow.querySelector('.markerLinkBtn').textContent = '🔗 Linked';
+        if (linkedItem){
+          markerLinkTargetRow.querySelector('.markerIcon').value = '📦';
+          markerLinkTargetRow.querySelector('.markerName').value = linkedItem.category || '';
+          markerLinkTargetRow.querySelector('.markerDesc').value = linkedItem.title;
+        }
+        closeContainsPicker();
+        return;
+      }
       if (containsPickerTarget === 'beast'){
         if (beastContainsSelectedIds.includes(id)) beastContainsSelectedIds = beastContainsSelectedIds.filter(x => x !== id);
         else beastContainsSelectedIds.push(id);
@@ -1006,7 +1040,7 @@ function populateBeastSpiriboneSelects(selected1, selected2){
   const monsterType = document.getElementById('fMonsterType').value;
   const matches = ((window.WIKI && window.WIKI.objets) || [])
     .filter(o => o.bagType === 'spiribone' && o.spiriboneType === monsterType);
-  const optionsHtml = `<option value="">— None —</option>` +
+  const optionsHtml = `<option value="">None</option>` +
     matches.map(o => `<option value="${o.id}">${o.title}</option>`).join('');
   const sel1 = document.getElementById('fSpiribone1');
   const sel2 = document.getElementById('fSpiribone2');
@@ -1336,6 +1370,7 @@ function renderCatTabs(){
   document.getElementById('imageField').style.display = currentCat === 'zones' ? 'none' : 'block';
   document.getElementById('imageFieldZoneNote').style.display = currentCat === 'zones' ? 'block' : 'none';
   updateTrialFieldsVisibility();
+  updateEventFieldsVisibility();
   document.getElementById('rarityField').style.display = currentCat === 'personnages' ? 'block' : 'none';
   const isSubcatPage = currentCat === 'objets' || currentCat === 'monstres';
   document.getElementById('subcatField').style.display = isSubcatPage ? 'block' : 'none';
@@ -1448,9 +1483,9 @@ function addSubtitleRow(subtitlesWrap, title, description){
   attachFormatToolbar(row.querySelector('[data-role="subtitle-description"]'));
   row.querySelector('[data-role="remove"]').addEventListener('click', () => row.remove());
 }
-function addCategoryBlock(data){
+function addCategoryBlock(containerId, data){
   data = data || {};
-  const wrap = document.getElementById('categoryBlockRows');
+  const wrap = document.getElementById(containerId);
   const card = document.createElement('div');
   card.className = 'card';
   card.style.cssText = 'background:var(--panel-2); padding:16px; margin-bottom:14px; border:1px solid var(--line);';
@@ -1493,11 +1528,11 @@ function addCategoryBlock(data){
     }
   });
 }
-function clearCategoryBlocks(){
-  document.getElementById('categoryBlockRows').innerHTML = '';
+function clearCategoryBlocks(containerId){
+  document.getElementById(containerId).innerHTML = '';
 }
-function readCategoryBlocks(){
-  return Array.from(document.querySelectorAll('#categoryBlockRows > .card')).map(card => ({
+function readCategoryBlocks(containerId){
+  return Array.from(document.querySelectorAll(`#${containerId} > .card`)).map(card => ({
     image: card.querySelector('[data-role="image"]').value.trim(),
     title: card.querySelector('[data-role="cat-title"]').value.trim(),
     description: card.querySelector('[data-role="cat-description"]').value,
@@ -1507,7 +1542,9 @@ function readCategoryBlocks(){
     })).filter(s => s.title || s.description),
   })).filter(c => c.image || c.title || c.description || c.subtitles.length);
 }
-document.getElementById('addCategoryBlockBtn').addEventListener('click', () => addCategoryBlock());
+document.getElementById('addCategoryBlockBtn').addEventListener('click', () => addCategoryBlock('categoryBlockRows'));
+document.getElementById('addEventCategoryBlockBtn').addEventListener('click', () => addCategoryBlock('eventCategoryBlockRows'));
+document.getElementById('addEventDocBlockBtn').addEventListener('click', () => addDocBlockRow('eventDocBlockRows', '', ''));
 
 function clearMarkerPreview(){
   document.getElementById('markerRows').innerHTML = '';
@@ -1556,11 +1593,15 @@ function addMarkerRow(marker){
   row.dataset.id = marker.id;
   row.dataset.x = marker.x;
   row.dataset.y = marker.y;
-  row.style.gridTemplateColumns = '52px 1fr 1fr auto';
+  row.dataset.linkedItemId = marker.linkedItemId || '';
+  row.style.gridTemplateColumns = '52px 1fr 1fr auto auto';
   row.innerHTML = `
     <input type="text" class="markerIcon" value="${marker.icon || '📍'}" style="text-align:center;">
     <input type="text" class="markerName" value="${marker.name || ''}" placeholder="Marker name">
     <input type="text" class="markerDesc" value="${marker.description || ''}" placeholder="Short note (optional)">
+    <div class="btn markerLinkBtn" title="Link this marker to a Bag item" style="white-space:nowrap;">
+      ${marker.linkedItemId ? '🔗 Linked' : '🔗 Link item'}
+    </div>
     <div class="icon-btn removeMarkerRow" title="Remove">
       <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
     </div>
@@ -1570,6 +1611,7 @@ function addMarkerRow(marker){
     const pin = markerPreviewPins.find(p => p._markerId === marker.id);
     if (pin){ markerPreviewMapInstance.removeLayer(pin); markerPreviewPins = markerPreviewPins.filter(p => p !== pin); }
   });
+  row.querySelector('.markerLinkBtn').addEventListener('click', () => openMarkerLinkPicker(row));
   rows.appendChild(row);
 }
 
@@ -1581,6 +1623,7 @@ function readMarkerRows(){
     icon: row.querySelector('.markerIcon').value.trim() || '📍',
     name: row.querySelector('.markerName').value.trim(),
     description: row.querySelector('.markerDesc').value.trim(),
+    linkedItemId: row.dataset.linkedItemId || '',
   })).filter(m => m.name);
 }
 
@@ -1781,7 +1824,12 @@ function clearForm(){
   if (currentCat === 'trials'){
     document.getElementById('fTrialDifficulty').value = '';
     clearDocBlockRows('trialDocBlockRows');
-    clearCategoryBlocks();
+    clearCategoryBlocks('categoryBlockRows');
+  }
+  if (currentCat === 'events'){
+    document.getElementById('fEventActive').checked = false;
+    clearDocBlockRows('eventDocBlockRows');
+    clearCategoryBlocks('eventCategoryBlockRows');
   }
   if (currentCat === 'personnages') clearSpiritForm();
 }
@@ -1886,8 +1934,15 @@ function fillForm(page){
     document.getElementById('fTrialDifficulty').value = page.difficulty || '';
     clearDocBlockRows('trialDocBlockRows');
     (page.docBlocks || []).forEach(b => addDocBlockRow('trialDocBlockRows', b.image, b.description));
-    clearCategoryBlocks();
-    (page.categoryBlocks || []).forEach(c => addCategoryBlock(c));
+    clearCategoryBlocks('categoryBlockRows');
+    (page.categoryBlocks || []).forEach(c => addCategoryBlock('categoryBlockRows', c));
+  }
+  if (currentCat === 'events'){
+    document.getElementById('fEventActive').checked = !!page.active;
+    clearDocBlockRows('eventDocBlockRows');
+    (page.docBlocks || []).forEach(b => addDocBlockRow('eventDocBlockRows', b.image, b.description));
+    clearCategoryBlocks('eventCategoryBlockRows');
+    (page.categoryBlocks || []).forEach(c => addCategoryBlock('eventCategoryBlockRows', c));
   }
   if (currentCat === 'personnages') fillSpiritForm(page);
 }
@@ -1920,7 +1975,12 @@ function saveEntry(){
   if (currentCat === 'trials'){
     entry.difficulty = document.getElementById('fTrialDifficulty').value;
     entry.docBlocks = readDocBlockRows('trialDocBlockRows');
-    entry.categoryBlocks = readCategoryBlocks();
+    entry.categoryBlocks = readCategoryBlocks('categoryBlockRows');
+  }
+  if (currentCat === 'events'){
+    entry.active = document.getElementById('fEventActive').checked;
+    entry.docBlocks = readDocBlockRows('eventDocBlockRows');
+    entry.categoryBlocks = readCategoryBlocks('eventCategoryBlockRows');
   }
   if (currentCat === 'objets' || currentCat === 'monstres'){
     entry.category = document.getElementById('fSubcat').value;
@@ -2121,7 +2181,7 @@ function renderEntryList(){
   wrap.innerHTML = filtered.map(p => `
     <div class="entry-row" data-id="${p.id}">
       <div class="row-top">
-        <div class="thumb" style="${p.image ? `background-image:url('${p.image}')` : ''}"></div>
+        <div class="thumb" style="${(p.coverImage || p.image || p.mapFile) ? `background-image:url('${p.coverImage || p.image || p.mapFile}')` : ''}"></div>
         <div class="info">
           <div class="t">${p.title}</div>
         </div>
@@ -2151,7 +2211,7 @@ function renderEntryList(){
       editingId = null;
       fillForm(copy);
       document.getElementById('formTitle').textContent = 'New entry (duplicated)';
-      showToast('Duplicated — adjust the title, then Save');
+      showToast('Duplicated, adjust the title, then Save');
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   });

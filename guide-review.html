@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Dashboard: Soul Land Universe</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="stylesheet" href="css/style.css?v=1069">
+<meta name="robots" content="noindex, nofollow">
+</head>
+<body>
+
+<div id="adminGate" class="admin-gate">
+  <div id="adminGateLoading" class="admin-gate-spinner-wrap"><div class="admin-gate-spinner"></div></div>
+  <div id="adminGateForm" class="admin-gate-card" style="display:none;">
+    <h2 class="admin-gate-title">Admin Access</h2>
+    <p class="admin-gate-subtitle">This page is restricted to site administrators.</p>
+    <div id="adminGateError" class="admin-gate-error" style="display:none;"></div>
+    <div class="admin-gate-field"><label>Email</label><input type="email" id="adminGateEmail" placeholder="you@example.com"></div>
+    <div class="admin-gate-field"><label>Password</label><input type="password" id="adminGatePassword" placeholder="••••••••"></div>
+    <button id="adminGateLoginBtn" class="admin-gate-submit">Log In</button>
+  </div>
+  <div id="adminGateDenied" class="admin-gate-card admin-gate-denied" style="display:none;">
+    <h2 class="admin-gate-title">Access denied</h2>
+    <p class="admin-gate-subtitle">This account doesn't have admin access.</p>
+    <button id="adminGateLogoutBtn" class="admin-gate-logout">Log Out</button>
+  </div>
+</div>
+
+<header class="site-header">
+  <div class="header-inner">
+    <div class="brand" style="cursor:default;">
+      <div class="eyebrow">Soul Land · Awakening World</div>
+      <h1 data-i18n="gr_admin_dashboard">Admin Dashboard</h1>
+    </div>
+    <div></div>
+    <div class="editor-header-actions">
+      <a href="guides-hub" class="btn" style="text-decoration:none;" data-i18n="gr_back_dashboard_link">← Back to Dashboard</a>
+    </div>
+  </div>
+</header>
+
+<div class="dash-shell">
+  <aside class="dash-sidebar">
+    <div class="dash-sidebar-item active" data-view="queue">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+      <span data-i18n="gr_sidebar_queue">Review Queue</span>
+    </div>
+    <div class="dash-sidebar-item" data-view="all">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+      <span data-i18n="gr_sidebar_all">All Guides</span>
+    </div>
+    <div class="dash-sidebar-item" data-view="contributors">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      <span data-i18n="gr_sidebar_contributors">Contributors</span>
+    </div>
+  </aside>
+
+  <main class="dash-main">
+    <div class="dash-stats-row" id="dashStatsRow"></div>
+
+    <!-- Review Queue view -->
+    <div id="viewQueue" class="dash-view active">
+      <div class="dash-toolbar">
+        <input type="text" id="queueSearch" placeholder="Search guides…" data-i18n-placeholder="gr_search_guides">
+        <select id="queueLangFilter">
+          <option value="" data-i18n="gr_all_languages">All Languages</option>
+          <option>English</option><option>Français</option><option>Español</option><option>Português</option>
+          <option>ไทย</option><option>Filipino</option><option>Bahasa Indonesia</option><option>Tiếng Việt</option>
+        </select>
+      </div>
+      <div id="queueGrid" class="dash-card-grid"></div>
+    </div>
+
+    <!-- All Guides view -->
+    <div id="viewAll" class="dash-view">
+      <div class="dash-toolbar">
+        <input type="text" id="allSearch" placeholder="Search guides…" data-i18n-placeholder="gr_search_guides">
+        <select id="allStatusFilter">
+          <option value="" data-i18n="gr_all_statuses">All Statuses</option>
+          <option value="draft" data-i18n="gr_status_draft">Draft</option>
+          <option value="pending" data-i18n="gr_status_pending">Pending</option>
+          <option value="approved" data-i18n="gr_status_approved">Approved</option>
+          <option value="published" data-i18n="gr_status_published">Published</option>
+          <option value="rejected" data-i18n="gr_status_rejected">Rejected</option>
+        </select>
+        <select id="allLangFilter">
+          <option value="" data-i18n="gr_all_languages">All Languages</option>
+          <option>English</option><option>Français</option><option>Español</option><option>Português</option>
+          <option>ไทย</option><option>Filipino</option><option>Bahasa Indonesia</option><option>Tiếng Việt</option>
+        </select>
+      </div>
+      <div id="allGrid" class="dash-card-grid"></div>
+    </div>
+
+    <!-- Contributors view -->
+    <div id="viewContributors" class="dash-view">
+      <div class="dash-toolbar">
+        <input type="text" id="contribSearch" placeholder="Search contributors…" data-i18n-placeholder="gr_search_contrib">
+      </div>
+      <div id="contribGrid" class="dash-contrib-grid"></div>
+    </div>
+
+    <!-- Contributor profile sub-view -->
+    <div id="viewContribProfile" class="dash-view">
+      <div class="dash-subnav-back-inline" onclick="showView('contributors')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+        <span data-i18n="gr_back_contributors">Back to Contributors</span>
+      </div>
+      <div id="contribProfileCard" class="dash-profile-card"></div>
+      <div class="dash-section-title" data-i18n="gr_their_guides">Their Guides</div>
+      <div id="contribGuidesGrid" class="dash-card-grid"></div>
+      <div class="dash-section-title" style="margin-top:28px;" data-i18n="gr_recent_activity">Recent Activity</div>
+      <div id="contribActivityFeed" class="activity-feed"></div>
+    </div>
+  </main>
+</div>
+
+<footer class="site-footer">
+  <nav class="footer-menu">
+    <a href="index">← Back to Wiki</a>
+    <a href="guides-hub">My Guides Dashboard</a>
+  </nav>
+  <span>Fan-made · Soul Land: Awakening World</span>
+</footer>
+
+<!-- Guide detail modal -->
+<div id="guideModal" class="itemcard-modal">
+  <div class="itemcard-modal-inner" style="width:96vw; height:92vh; max-width:none; max-height:none;">
+    <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:14px; gap:12px;">
+      <div>
+        <h3 id="modalGuideTitle" style="margin:0 0 4px;">Guide title</h3>
+        <div id="modalGuideMeta" style="font-size:12.5px; color:var(--text-dim);"></div>
+      </div>
+      <div class="btn" onclick="closeGuideModal()" data-i18n="gr_close">✕ Close</div>
+    </div>
+    <div class="guide-modal-split">
+      <div id="modalGuideBody" class="guide-modal-main"></div>
+      <div class="guide-modal-side">
+        <div id="modalGuideActions"></div>
+        <div id="modalGuideLog"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-app-check-compat.js"></script>
+<script src="js/firebase-config.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/i18n.js"></script>
+<script>applyCachedLanguageInstantly();</script>
+<script src="js/custom-dialog.js"></script>
+<script src="js/notifications.js"></script>
+<script src="js/admin-gate.js"></script>
+<script src="js/guide-review.js"></script>
+</body>
+</html>

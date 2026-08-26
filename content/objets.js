@@ -1,4 +1,4 @@
-// "objets" page: generated from editeur.html on 8/18/2026
+// "objets" page: generated from editeur.html on 8/26/2026
 // You can also edit this file by hand: each object is one entry.
 window.WIKI = window.WIKI || {};
 window.WIKI.objets = [
@@ -5763,7 +5763,9 @@ window.WIKI.objets = [
     "description": "Use to obtain Gold",
     "category": "Item",
     "bagType": "item",
-    "sources": [],
+    "sources": [
+      "gengxinsecretvault"
+    ],
     "contains": [],
     "textSources": [
       "Mall",
@@ -5809,7 +5811,8 @@ window.WIKI.objets = [
     "bagType": "item",
     "sources": [
       "duelassembly",
-      "duelbattle"
+      "duelbattle",
+      "gengxinsecretvault"
     ],
     "contains": [],
     "textSources": [
@@ -5833,7 +5836,8 @@ window.WIKI.objets = [
     "category": "Item",
     "bagType": "item",
     "sources": [
-      "duelbattle"
+      "duelbattle",
+      "gengxinsecretvault"
     ],
     "contains": [],
     "textSources": [
@@ -6482,8 +6486,8 @@ window.WIKI.objets = [
     "materialApplicableSpirits": []
   },
   {
-    "id": "large-bag-of-gold-2-copy",
-    "title": "Large Bag of Gold 2 (Copy)",
+    "id": "large-bag-of-gold-22",
+    "title": "Large Bag of Gold 2 2",
     "subtitle": "",
     "image": "images/objets/largebagofgoldtwo/largebagofgoldtwo-image.png",
     "imageUrl": "",
@@ -6702,7 +6706,8 @@ window.WIKI.objets = [
     "category": "Item",
     "bagType": "item",
     "sources": [
-      "duelbattle"
+      "duelbattle",
+      "gengxinsecretvault"
     ],
     "contains": [
       "soulcorebruiseragility",
@@ -6789,7 +6794,8 @@ window.WIKI.objets = [
     "category": "Material",
     "bagType": "material",
     "sources": [
-      "duelbattle"
+      "duelbattle",
+      "gengxinsecretvault"
     ],
     "contains": [],
     "textSources": [
@@ -7098,5 +7104,1921 @@ window.WIKI.objets = [
       "Event Reward"
     ],
     "materialApplicableSpirits": []
+  },
+  {
+    "id": "arraybreaksoulcondensingorb",
+    "title": "Array Break Soul Condensing Orb",
+    "subtitle": "Halo Advence Item",
+    "image": "images/objets/arraybreaksoulcondensingorb/arraybreaksoulcondensingorb-image.png",
+    "imageUrl": "",
+    "useLocalImage": true,
+    "tags": [],
+    "stats": [],
+    "description": "Can be used in Bruiser Spirit Halo Advance, replacing one 50k-year Material Halo.",
+    "category": "Material",
+    "bagType": "material",
+    "sources": [],
+    "contains": [],
+    "textSources": [
+      "Mall",
+      "Top Up Gift"
+    ],
+    "materialApplicableSpirits": [
+      "Bruiser"
+    ]
+  },
+  {
+    "id": "shadowsoulcondensingorb",
+    "title": "Shadow Soul Condensing Orb",
+    "subtitle": "Halo Advence Item",
+    "image": "images/objets/shadowsoulcondensingorb/shadowsoulcondensingorb-image.png",
+    "imageUrl": "",
+    "useLocalImage": true,
+    "tags": [],
+    "stats": [],
+    "description": "Can be used in Agility Spirit Halo Advance, replacing one 50k-year Material Halo.",
+    "category": "Material",
+    "bagType": "material",
+    "sources": [],
+    "contains": [],
+    "textSources": [
+      "Mall",
+      "Top Up Gift"
+    ],
+    "materialApplicableSpirits": [
+      "Agility"
+    ]
+  },
+  {
+    "id": "guardiansoulcondensingorb",
+    "title": "Guardian Soul Condensing Orb",
+    "subtitle": "Halo Advence Item",
+    "image": "images/objets/guardiansoulcondensingorb/guardiansoulcondensingorb-image.png",
+    "imageUrl": "",
+    "useLocalImage": true,
+    "tags": [],
+    "stats": [],
+    "description": "Can be used in Control & Defense Spirit Halo Advance, replacing one 50k-year Material Halo.",
+    "category": "Material",
+    "bagType": "material",
+    "sources": [],
+    "contains": [],
+    "textSources": [
+      "Mall",
+      "Top Up Gift"
+    ],
+    "materialApplicableSpirits": [
+      "Control",
+      "Defense"
+    ]
+  },
+  {
+    "id": "restorationsoulcondensingorb",
+    "title": "Restoration Soul Condensing Orb",
+    "subtitle": "Halo Advence Item",
+    "image": "images/objets/restorationsoulcondensingorb/restorationsoulcondensingorb-image.png",
+    "imageUrl": "",
+    "useLocalImage": true,
+    "tags": [],
+    "stats": [],
+    "description": "Can be used in Support Spirit Halo Advance, replacing one 50k-year Material Halo.",
+    "category": "Material",
+    "bagType": "material",
+    "sources": [],
+    "contains": [],
+    "textSources": [
+      "Mall",
+      "Top Up Gift"
+    ],
+    "materialApplicableSpirits": [
+      "Support"
+    ]
+  },
+  {
+    "id": "haloadvancechoicebox",
+    "title": "Halo Advance Choice box",
+    "subtitle": "",
+    "image": "images/objets/haloadvancechoicebox/haloadvancechoicebox-image.png",
+    "imageUrl": "",
+    "useLocalImage": true,
+    "tags": [],
+    "stats": [],
+    "description": "Use to select 1 rewards from the options below. ",
+    "category": "Item",
+    "bagType": "item",
+    "sources": [
+      "gengxinsecretvault"
+    ],
+    "contains": [
+      "arraybreaksoulcondensingorb",
+      "guardiansoulcondensingorb",
+      "shadowsoulcondensingorb",
+      "restorationsoulcondensingorb",
+      "replicahalo"
+    ],
+    "textSources": [
+      "Mall",
+      "Top Up Gift"
+    ],
+    "materialApplicableSpirits": [
+      "Bruiser",
+      "Control",
+      "Defense",
+      "Agility",
+      "Support"
+    ]
+  },
+  {
+    "id": "goldenlimbspiribonerune",
+    "title": "Golden Limb Spiribone Rune",
+    "subtitle": "Spiribone Rune Box",
+    "image": "images/objets/goldenlimbspiribonerune/goldenlimbspiribonerune-image.png",
+    "imageUrl": "",
+    "useLocalImage": true,
+    "tags": [],
+    "stats": [],
+    "description": "Use to randomly obtain 1 rewards",
+    "category": "Material",
+    "bagType": "material",
+    "sources": [
+      "teambattle"
+    ],
+    "contains": [
+      "blessing-robost",
+      "blessing-shielding",
+      "blessing-healing",
+      "blessing-heart-command",
+      "blessing-agile-mind",
+      "blessing-war-command",
+      "blessing-bone-strengthening",
+      "divinity-assault",
+      "divinity-instinct",
+      "divinity-pierce",
+      "divinity-fatal",
+      "divinity-blast",
+      "divinity-focus",
+      "divinity-offensive",
+      "oracle-radiance",
+      "oracle-venomous",
+      "oracle-destruction",
+      "oracle-thunder-tribulation",
+      "oracle-soul-shatter",
+      "oracleblazing",
+      "oracle-chaotic-blade"
+    ],
+    "textSources": [],
+    "materialApplicableSpirits": [
+      "Bruiser",
+      "Control",
+      "Defense",
+      "Agility",
+      "Support"
+    ]
+  },
+  {
+    "id": "purplecorespiribonerune",
+    "title": "Purple Core Spiribone Rune",
+    "subtitle": "Spiribone Rune Box",
+    "image": "images/objets/purplecorespiribonerune/purplecorespiribonerune-image.png",
+    "imageUrl": "",
+    "useLocalImage": true,
+    "tags": [],
+    "stats": [],
+    "description": "Use to randomly obtain 1 rewards",
+    "category": "Material",
+    "bagType": "material",
+    "sources": [
+      "teambattle"
+    ],
+    "contains": [
+      "purple-heart-fate",
+      "purple-heart-protection",
+      "purple-heart-focus",
+      "purple-heart-wrath",
+      "purple-heart-conquest",
+      "purple-heart-genesis",
+      "purple-heart-insight"
+    ],
+    "textSources": [],
+    "materialApplicableSpirits": [
+      "Bruiser",
+      "Control",
+      "Defense",
+      "Agility",
+      "Support"
+    ]
+  },
+  {
+    "id": "bluecorespiribonerune",
+    "title": "Blue Core Spiribone Rune",
+    "subtitle": "Spiribone Rune Box",
+    "image": "images/objets/bluecorespiribonerune/bluecorespiribonerune-image.png",
+    "imageUrl": "",
+    "useLocalImage": true,
+    "tags": [],
+    "stats": [],
+    "description": "Use to randomly obtain 1 rewards",
+    "category": "Material",
+    "bagType": "material",
+    "sources": [
+      "teambattle"
+    ],
+    "contains": [
+      "heartgenesis",
+      "heart-conquest",
+      "heart-wrath",
+      "heart-insight",
+      "heart-focus",
+      "heart-fate",
+      "heart-protection"
+    ],
+    "textSources": [],
+    "materialApplicableSpirits": [
+      "Bruiser",
+      "Control",
+      "Defense",
+      "Agility",
+      "Support"
+    ]
+  },
+  {
+    "id": "heartgenesis",
+    "title": "Heart Genesis",
+    "subtitle": "Spiribone Rune",
+    "image": "images/objets/heartgenesis/heartgenesis-image.png",
+    "imageUrl": "",
+    "useLocalImage": true,
+    "tags": [],
+    "stats": [
+      {
+        "label": "ATK",
+        "value": "264"
+      },
+      {
+        "label": "Purple",
+        "value": "Non-Boss Suppression +3%"
+      },
+      {
+        "label": "Gold",
+        "value": "Boss Suppression +3%"
+      },
+      {
+        "label": "Dark-Gold",
+        "value": "ATK Bonus +2%"
+      }
+    ],
+    "description": "The Genesis Sigil is a Heart Vein Rune type, which can be embedded into the rune slots of the Skull or Trunk.\nWhen embedded into the Skull, Control, DEF, and Support Spirits receive an effect bonus.\nWhen embedded into the Trunk, Bruiser and Agility Spirits receive an effect bonus.",
+    "category": "Material",
+    "bagType": "material",
+    "sources": [],
+    "contains": [],
+    "textSources": [],
+    "materialApplicableSpirits": [
+      "Bruiser",
+      "Control",
+      "Defense",
+      "Agility",
+      "Support"
+    ]
+  },
+  {
+    "id": "randomspiribonebox",
+    "title": "Random Spiribone Box",
+    "subtitle": "",
+    "image": "images/objets/randomspiribonebox/randomspiribonebox-image.png",
+    "imageUrl": "",
+    "useLocalImage": true,
+    "tags": [],
+    "stats": [],
+    "description": "Use to randomly obtain 1 rewards",
+    "category": "Item",
+    "bagType": "item",
+    "sources": [
+      "teambattle"
+    ],
+    "contains": [
+      "tigerclawslash",
+      "hunt-thrill",
+      "steel-wing-metamorphosis",
+      "steel-wing-slash"
+    ],
+    "textSources": [],
+    "materialApplicableSpirits": [
+      "Bruiser",
+      "Control",
+      "Defense",
+      "Agility",
+      "Support"
+    ]
+  },
+  {
+    "id": "heart-fate",
+    "title": "Heart Fate",
+    "subtitle": "Spiribone Rune",
+    "image": "images/objets/heart-fate/heart-fate-image.png",
+    "imageUrl": "",
+    "useLocalImage": true,
+    "tags": [],
+    "stats": [
+      {
+        "label": "HP",
+        "value": "1320"
+      },
+      {
+        "label": "Purple",
+        "value": "Shield Boost Efficiency +3%"
+      },
+      {
+        "label": "Gold",
+        "value": "Healing Bonus +3%"
+      },
+      {
+        "label": "Dark-Gold",
+        "value": "HP Bonus +2%"
+      }
+    ],
+    "description": "The Genesis Sigil is a Heart Vein Rune type, which can be embedded into the rune slots of the Skull or Trunk.\nWhen embedded into the Skull, Control, DEF, and Support Spirits receive an effect bonus.\nWhen embedded into the Trunk, Bruiser and Agility Spirits receive an effect bonus.",
+    "category": "Material",
+    "bagType": "material",
+    "sources": [],
+    "contains": [],
+    "textSources": [],
+    "materialApplicableSpirits": [
+      "Bruiser",
+      "Control",
+      "Defense",
+      "Agility",
+      "Support"
+    ]
+  },
+  {
+    "id": "heart-conquest",
+    "title": "Heart Conquest",
+    "subtitle": "Spiribone Rune",
+    "image": "images/objets/heart-conquest/heart-conquest-image.png",
+    "imageUrl": "",
+    "useLocalImage": true,
+    "tags": [],
+    "stats": [
+      {
+        "label": "All Build Dmg",
+        "value": "+6.6%"
+      },
+      {
+        "label": "Purple",
+        "value": "Strike Dmg +5%"
+      },
+      {
+        "label": "Gold",
+        "value": "Crit Dmg +5%"
+      },
+      {
+        "label": "Dark-Gold",
+        "value": "ATK Bonus +2%"
+      }
+    ],
+    "description": "The Genesis Sigil is a Heart Vein Rune type, which can be embedded into the rune slots of the Skull or Trunk.\nWhen embedded into the Skull, Control, DEF, and Support Spirits receive an effect bonus.\nWhen embedded into the Trunk, Bruiser and Agility Spirits receive an effect bonus.",
+    "category": "Material",
+    "bagType": "material",
+    "sources": [],
+    "contains": [],
+    "textSources": [],
+    "materialApplicableSpirits": [
+      "Bruiser",
+      "Control",
+      "Defense",
+      "Agility",
+      "Support"
+    ]
+  },
+  {
+    "id": "heart-protection",
+    "title": "Heart Protection",
+    "subtitle": "Spiribone Rune",
+    "image": "images/objets/heart-protection/heart-protection-image.png",
+    "imageUrl": "",
+    "useLocalImage": true,
+    "tags": [],
+    "stats": [
+      {
+        "label": "Final Dmg Res",
+        "value": "1.1%"
+      },
+      {
+        "label": "Purple",
+        "value": "Non-Boss Dmg Res +3%"
+      },
+      {
+        "label": "Gold",
+        "value": "Boss Dmg Res +3%"
+      },
+      {
+        "label": "Dark-Gold",
+        "value": "HP Bonus +2%"
+      }
+    ],
+    "description": "The Genesis Sigil is a Heart Vein Rune type, which can be embedded into the rune slots of the Skull or Trunk.\nWhen embedded into the Skull, Control, DEF, and Support Spirits receive an effect bonus.\nWhen embedded into the Trunk, Bruiser and Agility Spirits receive an effect bonus.",
+    "category": "Material",
+    "bagType": "material",
+    "sources": [],
+    "contains": [],
+    "textSources": [],
+    "materialApplicableSpirits": [
+      "Bruiser",
+      "Control",
+      "Defense",
+      "Agility",
+      "Support"
+    ]
+  },
+  {
+    "id": "heart-wrath",
+    "title": "Heart Wrath",
+    "subtitle": "Spiribone Rune",
+    "image": "images/objets/heart-wrath/heart-wrath-image.png",
+    "imageUrl": "",
+    "useLocalImage": true,
+    "tags": [],
+    "stats": [
+      {
+        "label": "Crit Dmg",
+        "value": "+2.2%"
+      },
+      {
+        "label": "Purple",
+        "value": "Spiribone Skill Strength +3K Year"
+      },
+      {
+        "label": "Gold",
+        "value": "Control Critical Bonus +5%"
+      },
+      {
+        "label": "Dark-Gold",
+        "value": "ATK Bonus +2%"
+      }
+    ],
+    "description": "The Genesis Sigil is a Heart Vein Rune type, which can be embedded into the rune slots of the Skull or Trunk.\nWhen embedded into the Skull, Control, DEF, and Support Spirits receive an effect bonus.\nWhen embedded into the Trunk, Bruiser and Agility Spirits receive an effect bonus.",
+    "category": "Material",
+    "bagType": "material",
+    "sources": [],
+    "contains": [],
+    "textSources": [],
+    "materialApplicableSpirits": [
+      "Bruiser",
+      "Control",
+      "Defense",
+      "Agility",
+      "Support"
+    ]
+  },
+  {
+    "id": "heart-focus",
+    "title": "Heart Focus",
+    "subtitle": "Spiribone Rune",
+    "image": "images/objets/heart-focus/heart-focus-image.png",
+    "imageUrl": "",
+    "useLocalImage": true,
+    "tags": [],
+    "stats": [
+      {
+        "label": "Strike Dmg",
+        "value": "+2.2%"
+      },
+      {
+        "label": "Purple",
+        "value": "Spiribone Skill Strength +3K Year"
+      },
+      {
+        "label": "Gold",
+        "value": "Control Strike Bonus +5%"
+      },
+      {
+        "label": "Dark-Gold",
+        "value": "ATK Bonus +2%"
+      }
+    ],
+    "description": "The Genesis Sigil is a Heart Vein Rune type, which can be embedded into the rune slots of the Skull or Trunk.\nWhen embedded into the Skull, Control, DEF, and Support Spirits receive an effect bonus.\nWhen embedded into the Trunk, Bruiser and Agility Spirits receive an effect bonus.",
+    "category": "Material",
+    "bagType": "material",
+    "sources": [],
+    "contains": [],
+    "textSources": [],
+    "materialApplicableSpirits": [
+      "Bruiser",
+      "Control",
+      "Defense",
+      "Agility",
+      "Support"
+    ]
+  },
+  {
+    "id": "heart-insight",
+    "title": "Heart Insight",
+    "subtitle": "Spiribone Rune",
+    "image": "images/objets/heart-insight/heart-insight-image.png",
+    "imageUrl": "",
+    "useLocalImage": true,
+    "tags": [],
+    "stats": [
+      {
+        "label": "Willpower",
+        "value": "1.8"
+      },
+      {
+        "label": "Purple",
+        "value": "Spiribone Skill Strength +3K Year"
+      },
+      {
+        "label": "Gold",
+        "value": "DoT Res +5%"
+      },
+      {
+        "label": "Dark-Gold",
+        "value": "HP Bonus +2%"
+      }
+    ],
+    "description": "The Genesis Sigil is a Heart Vein Rune type, which can be embedded into the rune slots of the Skull or Trunk.\nWhen embedded into the Skull, Control, DEF, and Support Spirits receive an effect bonus.\nWhen embedded into the Trunk, Bruiser and Agility Spirits receive an effect bonus.",
+    "category": "Material",
+    "bagType": "material",
+    "sources": [],
+    "contains": [],
+    "textSources": [],
+    "materialApplicableSpirits": [
+      "Bruiser",
+      "Control",
+      "Defense",
+      "Agility",
+      "Support"
+    ]
+  },
+  {
+    "id": "purple-heart-genesis",
+    "title": "Purple Heart Genesis",
+    "subtitle": "Spiribone Rune",
+    "image": "images/objets/purple-heart-genesis/purple-heart-genesis-image.png",
+    "imageUrl": "",
+    "useLocalImage": true,
+    "tags": [],
+    "stats": [
+      {
+        "label": "ATK",
+        "value": "504"
+      },
+      {
+        "label": "Purple",
+        "value": "Non-Boss Suppression +3%"
+      },
+      {
+        "label": "Gold",
+        "value": "Boss Suppression +3%"
+      },
+      {
+        "label": "Dark-Gold",
+        "value": "ATK Bonus +2%"
+      }
+    ],
+    "description": "The Genesis Sigil is a Heart Vein Rune type, which can be embedded into the rune slots of the Skull or Trunk.\nWhen embedded into the Skull, Control, DEF, and Support Spirits receive an effect bonus.\nWhen embedded into the Trunk, Bruiser and Agility Spirits receive an effect bonus.",
+    "category": "Material",
+    "bagType": "material",
+    "sources": [],
+    "contains": [],
+    "textSources": [],
+    "materialApplicableSpirits": [
+      "Bruiser",
+      "Control",
+      "Defense",
+      "Agility",
+      "Support"
+    ]
+  },
+  {
+    "id": "purple-heart-fate",
+    "title": "Purple Heart Fate",
+    "subtitle": "Spiribone Rune",
+    "image": "images/objets/purple-heart-fate/purple-heart-fate-image.png",
+    "imageUrl": "",
+    "useLocalImage": true,
+    "tags": [],
+    "stats": [
+      {
+        "label": "HP",
+        "value": "2520"
+      },
+      {
+        "label": "Purple",
+        "value": "Shield Boost Efficiency +3%"
+      },
+      {
+        "label": "Gold",
+        "value": "Healing Bonus +3%"
+      },
+      {
+        "label": "Dark-Gold",
+        "value": "HP Bonus +2%"
+      }
+    ],
+    "description": "The Genesis Sigil is a Heart Vein Rune type, which can be embedded into the rune slots of the Skull or Trunk.\nWhen embedded into the Skull, Control, DEF, and Support Spirits receive an effect bonus.\nWhen embedded into the Trunk, Bruiser and Agility Spirits receive an effect bonus.",
+    "category": "Material",
+    "bagType": "material",
+    "sources": [],
+    "contains": [],
+    "textSources": [],
+    "materialApplicableSpirits": [
+      "Bruiser",
+      "Control",
+      "Defense",
+      "Agility",
+      "Support"
+    ]
+  },
+  {
+    "id": "purple-heart-conquest",
+    "title": "Purple Heart Conquest",
+    "subtitle": "Spiribone Rune",
+    "image": "images/objets/purple-heart-conquest/purple-heart-conquest-image.png",
+    "imageUrl": "",
+    "useLocalImage": true,
+    "tags": [],
+    "stats": [
+      {
+        "label": "All Build Dmg",
+        "value": "+12.6%"
+      },
+      {
+        "label": "Purple",
+        "value": "Strike Dmg +5%"
+      },
+      {
+        "label": "Gold",
+        "value": "Crit Dmg +5%"
+      },
+      {
+        "label": "Dark-Gold",
+        "value": "ATK Bonus +2%"
+      }
+    ],
+    "description": "The Genesis Sigil is a Heart Vein Rune type, which can be embedded into the rune slots of the Skull or Trunk.\nWhen embedded into the Skull, Control, DEF, and Support Spirits receive an effect bonus.\nWhen embedded into the Trunk, Bruiser and Agility Spirits receive an effect bonus.",
+    "category": "Material",
+    "bagType": "material",
+    "sources": [],
+    "contains": [],
+    "textSources": [],
+    "materialApplicableSpirits": [
+      "Bruiser",
+      "Control",
+      "Defense",
+      "Agility",
+      "Support"
+    ]
+  },
+  {
+    "id": "purple-heart-protection",
+    "title": "Purple Heart Protection",
+    "subtitle": "Spiribone Rune",
+    "image": "images/objets/purple-heart-protection/purple-heart-protection-image.png",
+    "imageUrl": "",
+    "useLocalImage": true,
+    "tags": [],
+    "stats": [
+      {
+        "label": "Final Dmg Res",
+        "value": "2.1%"
+      },
+      {
+        "label": "Purple",
+        "value": "Non-Boss Dmg Res +3%"
+      },
+      {
+        "label": "Gold",
+        "value": "Boss Dmg Res +3%"
+      },
+      {
+        "label": "Dark-Gold",
+        "value": "HP Bonus +2%"
+      }
+    ],
+    "description": "The Genesis Sigil is a Heart Vein Rune type, which can be embedded into the rune slots of the Skull or Trunk.\nWhen embedded into the Skull, Control, DEF, and Support Spirits receive an effect bonus.\nWhen embedded into the Trunk, Bruiser and Agility Spirits receive an effect bonus.",
+    "category": "Material",
+    "bagType": "material",
+    "sources": [],
+    "contains": [],
+    "textSources": [],
+    "materialApplicableSpirits": [
+      "Bruiser",
+      "Control",
+      "Defense",
+      "Agility",
+      "Support"
+    ]
+  },
+  {
+    "id": "purple-heart-wrath",
+    "title": "Purple Heart Wrath",
+    "subtitle": "Spiribone Rune",
+    "image": "images/objets/purple-heart-wrath/purple-heart-wrath-image.png",
+    "imageUrl": "",
+    "useLocalImage": true,
+    "tags": [],
+    "stats": [
+      {
+        "label": "Crit Dmg",
+        "value": "+4.2%"
+      },
+      {
+        "label": "Purple",
+        "value": "Spiribone Skill Strength +3K Year"
+      },
+      {
+        "label": "Gold",
+        "value": "Control Critical Bonus +5%"
+      },
+      {
+        "label": "Dark-Gold",
+        "value": "ATK Bonus +2%"
+      }
+    ],
+    "description": "The Genesis Sigil is a Heart Vein Rune type, which can be embedded into the rune slots of the Skull or Trunk.\nWhen embedded into the Skull, Control, DEF, and Support Spirits receive an effect bonus.\nWhen embedded into the Trunk, Bruiser and Agility Spirits receive an effect bonus.",
+    "category": "Material",
+    "bagType": "material",
+    "sources": [],
+    "contains": [],
+    "textSources": [],
+    "materialApplicableSpirits": [
+      "Bruiser",
+      "Control",
+      "Defense",
+      "Agility",
+      "Support"
+    ]
+  },
+  {
+    "id": "purple-heart-focus",
+    "title": "Purple Heart Focus",
+    "subtitle": "Spiribone Rune",
+    "image": "images/objets/purple-heart-focus/purple-heart-focus-image.png",
+    "imageUrl": "",
+    "useLocalImage": true,
+    "tags": [],
+    "stats": [
+      {
+        "label": "Strike Dmg",
+        "value": "+4.2%"
+      },
+      {
+        "label": "Purple",
+        "value": "Spiribone Skill Strength +3K Year"
+      },
+      {
+        "label": "Gold",
+        "value": "Control Strike Bonus +5%"
+      },
+      {
+        "label": "Dark-Gold",
+        "value": "ATK Bonus +2%"
+      }
+    ],
+    "description": "The Genesis Sigil is a Heart Vein Rune type, which can be embedded into the rune slots of the Skull or Trunk.\nWhen embedded into the Skull, Control, DEF, and Support Spirits receive an effect bonus.\nWhen embedded into the Trunk, Bruiser and Agility Spirits receive an effect bonus.",
+    "category": "Material",
+    "bagType": "material",
+    "sources": [],
+    "contains": [],
+    "textSources": [],
+    "materialApplicableSpirits": [
+      "Bruiser",
+      "Control",
+      "Defense",
+      "Agility",
+      "Support"
+    ]
+  },
+  {
+    "id": "purple-heart-insight",
+    "title": "Purple Heart Insight",
+    "subtitle": "Spiribone Rune",
+    "image": "images/objets/purple-heart-insight/purple-heart-insight-image.png",
+    "imageUrl": "",
+    "useLocalImage": true,
+    "tags": [],
+    "stats": [
+      {
+        "label": "Willpower",
+        "value": "3.4"
+      },
+      {
+        "label": "Purple",
+        "value": "Spiribone Skill Strength +3K Year"
+      },
+      {
+        "label": "Gold",
+        "value": "DoT Res +5%"
+      },
+      {
+        "label": "Dark-Gold",
+        "value": "HP Bonus +2%"
+      }
+    ],
+    "description": "The Genesis Sigil is a Heart Vein Rune type, which can be embedded into the rune slots of the Skull or Trunk.\nWhen embedded into the Skull, Control, DEF, and Support Spirits receive an effect bonus.\nWhen embedded into the Trunk, Bruiser and Agility Spirits receive an effect bonus.",
+    "category": "Material",
+    "bagType": "material",
+    "sources": [],
+    "contains": [],
+    "textSources": [],
+    "materialApplicableSpirits": [
+      "Bruiser",
+      "Control",
+      "Defense",
+      "Agility",
+      "Support"
+    ]
+  },
+  {
+    "id": "oracleblazing",
+    "title": "Oracle Blazing",
+    "subtitle": "Spiribone Rune",
+    "image": "images/objets/oracleblazing/oracleblazing-image.png",
+    "imageUrl": "",
+    "useLocalImage": true,
+    "tags": [],
+    "stats": [
+      {
+        "label": "Scorch Dmg",
+        "value": "+21.6%"
+      },
+      {
+        "label": "Spiribone Skill Strength",
+        "value": "+3K Year"
+      },
+      {
+        "label": "Spiribone Skill Strength",
+        "value": "+5000 years"
+      },
+      {
+        "label": "Scorching Dmg Bonus",
+        "value": "+12%"
+      }
+    ],
+    "description": "* Healing Hymn is a Support Rune type, and can be embedded into the rune slots of the Arms and Legs.\n* When embedded into the Arm Bone (L), Control, DEF Spirit gains an effect bonus.\n* When embedded into the Arm Bone (R), Bruiser Spirit gains an effect bonus.\n* When embedded into the Leg Bone (L), Support Spirit gains an effect bonus.\n* When embedded into the Leg Bone (R), Agility Spirit gains an effect bonus.",
+    "category": "Material",
+    "bagType": "material",
+    "sources": [],
+    "contains": [],
+    "textSources": [],
+    "materialApplicableSpirits": [
+      "Bruiser",
+      "Control",
+      "Defense",
+      "Agility",
+      "Support"
+    ]
+  },
+  {
+    "id": "oracle-chaotic-blade",
+    "title": "Oracle Chaotic Blade",
+    "subtitle": "Spiribone Rune",
+    "image": "images/objets/oracle-chaotic-blade/oracle-chaotic-blade-image.png",
+    "imageUrl": "",
+    "useLocalImage": true,
+    "tags": [],
+    "stats": [
+      {
+        "label": "Laceration Dmg",
+        "value": "+21.6%"
+      },
+      {
+        "label": "Purple",
+        "value": "Spiribone Skill Strength +3K Year"
+      },
+      {
+        "label": "Gold",
+        "value": "Spiribone Skill Strength +5000 years"
+      },
+      {
+        "label": "Dark-Gold",
+        "value": "Laceration Dmg Bonus +12%"
+      }
+    ],
+    "description": "* Healing Hymn is a Support Rune type, and can be embedded into the rune slots of the Arms and Legs.\n* When embedded into the Arm Bone (L), Control, DEF Spirit gains an effect bonus.\n* When embedded into the Arm Bone (R), Bruiser Spirit gains an effect bonus.\n* When embedded into the Leg Bone (L), Support Spirit gains an effect bonus.\n* When embedded into the Leg Bone (R), Agility Spirit gains an effect bonus.",
+    "category": "Material",
+    "bagType": "material",
+    "sources": [],
+    "contains": [],
+    "textSources": [],
+    "materialApplicableSpirits": [
+      "Bruiser",
+      "Control",
+      "Defense",
+      "Agility",
+      "Support"
+    ]
+  },
+  {
+    "id": "oracle-soul-shatter",
+    "title": "Oracle Soul Shatter",
+    "subtitle": "Spiribone Rune",
+    "image": "images/objets/oracle-soul-shatter/oracle-soul-shatter-image.png",
+    "imageUrl": "",
+    "useLocalImage": true,
+    "tags": [],
+    "stats": [
+      {
+        "label": "Vibration Dmg",
+        "value": "+21.6%"
+      },
+      {
+        "label": "Purple",
+        "value": "Spiribone Skill Strength +3K Year"
+      },
+      {
+        "label": "Gold",
+        "value": "Spiribone Skill Strength +5000 years"
+      },
+      {
+        "label": "Dark-Gold",
+        "value": "Quake Dmg Bonus +12%"
+      }
+    ],
+    "description": "* Healing Hymn is a Support Rune type, and can be embedded into the rune slots of the Arms and Legs.\n* When embedded into the Arm Bone (L), Control, DEF Spirit gains an effect bonus.\n* When embedded into the Arm Bone (R), Bruiser Spirit gains an effect bonus.\n* When embedded into the Leg Bone (L), Support Spirit gains an effect bonus.\n* When embedded into the Leg Bone (R), Agility Spirit gains an effect bonus.",
+    "category": "Material",
+    "bagType": "material",
+    "sources": [],
+    "contains": [],
+    "textSources": [],
+    "materialApplicableSpirits": [
+      "Bruiser",
+      "Control",
+      "Defense",
+      "Agility",
+      "Support"
+    ]
+  },
+  {
+    "id": "oracle-thunder-tribulation",
+    "title": "Oracle Thunder Tribulation",
+    "subtitle": "Spiribone Rune",
+    "image": "images/objets/oracle-thunder-tribulation/oracle-thunder-tribulation-image.png",
+    "imageUrl": "",
+    "useLocalImage": true,
+    "tags": [],
+    "stats": [
+      {
+        "label": "Electrified Dmg",
+        "value": "+21.6%"
+      },
+      {
+        "label": "Purple",
+        "value": "Spiribone Skill Strength +3K Year"
+      },
+      {
+        "label": "Gold",
+        "value": "Spiribone Skill Strength +5000 years"
+      },
+      {
+        "label": "Dark-Gold",
+        "value": "Electrified Dmg Bonus +12%"
+      }
+    ],
+    "description": "* Healing Hymn is a Support Rune type, and can be embedded into the rune slots of the Arms and Legs.\n* When embedded into the Arm Bone (L), Control, DEF Spirit gains an effect bonus.\n* When embedded into the Arm Bone (R), Bruiser Spirit gains an effect bonus.\n* When embedded into the Leg Bone (L), Support Spirit gains an effect bonus.\n* When embedded into the Leg Bone (R), Agility Spirit gains an effect bonus.",
+    "category": "Material",
+    "bagType": "material",
+    "sources": [],
+    "contains": [],
+    "textSources": [],
+    "materialApplicableSpirits": [
+      "Bruiser",
+      "Control",
+      "Defense",
+      "Agility",
+      "Support"
+    ]
+  },
+  {
+    "id": "oracle-destruction",
+    "title": "Oracle Destruction",
+    "subtitle": "Spiribone Rune",
+    "image": "images/objets/oracle-destruction/oracle-destruction-image.png",
+    "imageUrl": "",
+    "useLocalImage": true,
+    "tags": [],
+    "stats": [
+      {
+        "label": "Severe Wound Dmg",
+        "value": "+21.6%"
+      },
+      {
+        "label": "Purple",
+        "value": "Spiribone Skill Strength +3K Year"
+      },
+      {
+        "label": "Gold",
+        "value": "Spiribone Skill Strength +5000 years"
+      },
+      {
+        "label": "Dark-Gold",
+        "value": "Severe Wound Dmg Bonus +12%"
+      }
+    ],
+    "description": "* Healing Hymn is a Support Rune type, and can be embedded into the rune slots of the Arms and Legs.\n* When embedded into the Arm Bone (L), Control, DEF Spirit gains an effect bonus.\n* When embedded into the Arm Bone (R), Bruiser Spirit gains an effect bonus.\n* When embedded into the Leg Bone (L), Support Spirit gains an effect bonus.\n* When embedded into the Leg Bone (R), Agility Spirit gains an effect bonus.",
+    "category": "Material",
+    "bagType": "material",
+    "sources": [],
+    "contains": [],
+    "textSources": [],
+    "materialApplicableSpirits": [
+      "Bruiser",
+      "Control",
+      "Defense",
+      "Agility",
+      "Support"
+    ]
+  },
+  {
+    "id": "oracle-radiance",
+    "title": "Oracle Radiance",
+    "subtitle": "Spiribone Rune",
+    "image": "images/objets/oracle-radiance/oracle-radiance-image.png",
+    "imageUrl": "",
+    "useLocalImage": true,
+    "tags": [],
+    "stats": [
+      {
+        "label": "Flash Dmg",
+        "value": "+21.6%"
+      },
+      {
+        "label": "Purple",
+        "value": "Spiribone Skill Strength +3K Year"
+      },
+      {
+        "label": "Gold",
+        "value": "Spiribone Skill Strength +5000 years"
+      },
+      {
+        "label": "Dark-Gold",
+        "value": "Flash Dmg Bonus +12%"
+      }
+    ],
+    "description": "* Healing Hymn is a Support Rune type, and can be embedded into the rune slots of the Arms and Legs.\n* When embedded into the Arm Bone (L), Control, DEF Spirit gains an effect bonus.\n* When embedded into the Arm Bone (R), Bruiser Spirit gains an effect bonus.\n* When embedded into the Leg Bone (L), Support Spirit gains an effect bonus.\n* When embedded into the Leg Bone (R), Agility Spirit gains an effect bonus.",
+    "category": "Material",
+    "bagType": "material",
+    "sources": [],
+    "contains": [],
+    "textSources": [],
+    "materialApplicableSpirits": [
+      "Bruiser",
+      "Control",
+      "Defense",
+      "Agility",
+      "Support"
+    ]
+  },
+  {
+    "id": "oracle-venomous",
+    "title": "Oracle Venomous",
+    "subtitle": "Spiribone Rune",
+    "image": "images/objets/oracle-venomous/oracle-venomous-image.png",
+    "imageUrl": "",
+    "useLocalImage": true,
+    "tags": [],
+    "stats": [
+      {
+        "label": "Poison Dmg",
+        "value": "+21.6%"
+      },
+      {
+        "label": "Purple",
+        "value": "Spiribone Skill Strength +3K Year"
+      },
+      {
+        "label": "Gold",
+        "value": "Spiribone Skill Strength +5000 years"
+      },
+      {
+        "label": "Dark-Gold",
+        "value": "Poison Dmg Bonus +12%"
+      }
+    ],
+    "description": "* Healing Hymn is a Support Rune type, and can be embedded into the rune slots of the Arms and Legs.\n* When embedded into the Arm Bone (L), Control, DEF Spirit gains an effect bonus.\n* When embedded into the Arm Bone (R), Bruiser Spirit gains an effect bonus.\n* When embedded into the Leg Bone (L), Support Spirit gains an effect bonus.\n* When embedded into the Leg Bone (R), Agility Spirit gains an effect bonus.",
+    "category": "Material",
+    "bagType": "material",
+    "sources": [],
+    "contains": [],
+    "textSources": [],
+    "materialApplicableSpirits": [
+      "Bruiser",
+      "Control",
+      "Defense",
+      "Agility",
+      "Support"
+    ]
+  },
+  {
+    "id": "divinity-offensive",
+    "title": "Divinity Offensive",
+    "subtitle": "Spiribone Rune",
+    "image": "images/objets/divinity-offensive/divinity-offensive-image.png",
+    "imageUrl": "",
+    "useLocalImage": true,
+    "tags": [],
+    "stats": [
+      {
+        "label": "ATK",
+        "value": "1296"
+      },
+      {
+        "label": "Purple",
+        "value": "Initiative Dmg Bonus +10%"
+      },
+      {
+        "label": "Gold",
+        "value": "Spiribone Skill Strength +5000 years"
+      },
+      {
+        "label": "Dark-Gold",
+        "value": "ATK +900"
+      }
+    ],
+    "description": "* Healing Hymn is a Support Rune type, and can be embedded into the rune slots of the Arms and Legs.\n* When embedded into the Arm Bone (L), Control, DEF Spirit gains an effect bonus.\n* When embedded into the Arm Bone (R), Bruiser Spirit gains an effect bonus.\n* When embedded into the Leg Bone (L), Support Spirit gains an effect bonus.\n* When embedded into the Leg Bone (R), Agility Spirit gains an effect bonus.",
+    "category": "Material",
+    "bagType": "material",
+    "sources": [],
+    "contains": [],
+    "textSources": [],
+    "materialApplicableSpirits": [
+      "Bruiser",
+      "Control",
+      "Defense",
+      "Agility",
+      "Support"
+    ]
+  },
+  {
+    "id": "divinity-focus",
+    "title": "Divinity Focus",
+    "subtitle": "Spiribone Rune",
+    "image": "images/objets/divinity-focus/divinity-focus-image.png",
+    "imageUrl": "",
+    "useLocalImage": true,
+    "tags": [],
+    "stats": [
+      {
+        "label": "Strike Dmg",
+        "value": "+10.8%"
+      },
+      {
+        "label": "Purple",
+        "value": "Initiative Dmg Bonus +10%"
+      },
+      {
+        "label": "Gold",
+        "value": "Spiribone Skill Strength +5000 years"
+      },
+      {
+        "label": "Dark-Gold",
+        "value": "Strike Dmg +5%"
+      }
+    ],
+    "description": "* Healing Hymn is a Support Rune type, and can be embedded into the rune slots of the Arms and Legs.\n* When embedded into the Arm Bone (L), Control, DEF Spirit gains an effect bonus.\n* When embedded into the Arm Bone (R), Bruiser Spirit gains an effect bonus.\n* When embedded into the Leg Bone (L), Support Spirit gains an effect bonus.\n* When embedded into the Leg Bone (R), Agility Spirit gains an effect bonus.",
+    "category": "Material",
+    "bagType": "material",
+    "sources": [],
+    "contains": [],
+    "textSources": [],
+    "materialApplicableSpirits": [
+      "Bruiser",
+      "Control",
+      "Defense",
+      "Agility",
+      "Support"
+    ]
+  },
+  {
+    "id": "divinity-blast",
+    "title": "Divinity Blast",
+    "subtitle": "Spiribone Rune",
+    "image": "images/objets/divinity-blast/divinity-blast-image.png",
+    "imageUrl": "",
+    "useLocalImage": true,
+    "tags": [],
+    "stats": [
+      {
+        "label": "Crit Dmg",
+        "value": "+10.8%"
+      },
+      {
+        "label": "Purple",
+        "value": "Initiative Dmg Bonus +10%"
+      },
+      {
+        "label": "Gold",
+        "value": "Spiribone Skill Strength +5000 years"
+      },
+      {
+        "label": "Dark-Gold",
+        "value": "Crit Dmg +5%"
+      }
+    ],
+    "description": "* Healing Hymn is a Support Rune type, and can be embedded into the rune slots of the Arms and Legs.\n* When embedded into the Arm Bone (L), Control, DEF Spirit gains an effect bonus.\n* When embedded into the Arm Bone (R), Bruiser Spirit gains an effect bonus.\n* When embedded into the Leg Bone (L), Support Spirit gains an effect bonus.\n* When embedded into the Leg Bone (R), Agility Spirit gains an effect bonus.",
+    "category": "Material",
+    "bagType": "material",
+    "sources": [],
+    "contains": [],
+    "textSources": [],
+    "materialApplicableSpirits": [
+      "Bruiser",
+      "Control",
+      "Defense",
+      "Agility",
+      "Support"
+    ]
+  },
+  {
+    "id": "divinity-fatal",
+    "title": "Divinity Fatal",
+    "subtitle": "Spiribone Rune",
+    "image": "images/objets/divinity-fatal/divinity-fatal-image.png",
+    "imageUrl": "",
+    "useLocalImage": true,
+    "tags": [],
+    "stats": [
+      {
+        "label": "Ultimate Dmg",
+        "value": "+10.8%"
+      },
+      {
+        "label": "Purple",
+        "value": "Initiative Dmg Bonus +10%"
+      },
+      {
+        "label": "Gold",
+        "value": "Spiribone Skill Strength +5000 years"
+      },
+      {
+        "label": "Dark-Gold",
+        "value": "Ultimate Dmg Bonus +5%"
+      }
+    ],
+    "description": "* Healing Hymn is a Support Rune type, and can be embedded into the rune slots of the Arms and Legs.\n* When embedded into the Arm Bone (L), Control, DEF Spirit gains an effect bonus.\n* When embedded into the Arm Bone (R), Bruiser Spirit gains an effect bonus.\n* When embedded into the Leg Bone (L), Support Spirit gains an effect bonus.\n* When embedded into the Leg Bone (R), Agility Spirit gains an effect bonus.",
+    "category": "Material",
+    "bagType": "material",
+    "sources": [],
+    "contains": [],
+    "textSources": [],
+    "materialApplicableSpirits": [
+      "Bruiser",
+      "Control",
+      "Defense",
+      "Agility",
+      "Support"
+    ]
+  },
+  {
+    "id": "divinity-pierce",
+    "title": "Divinity Pierce",
+    "subtitle": "Spiribone Rune",
+    "image": "images/objets/divinity-pierce/divinity-pierce-image.png",
+    "imageUrl": "",
+    "useLocalImage": true,
+    "tags": [],
+    "stats": [
+      {
+        "label": "Skill Dmg",
+        "value": "+10.8%"
+      },
+      {
+        "label": "Purple",
+        "value": "Initiative Dmg Bonus +10%"
+      },
+      {
+        "label": "Gold",
+        "value": "Spiribone Skill Strength +5000 years"
+      },
+      {
+        "label": "Dark-Gold",
+        "value": "Skill Dmg Bonus +5%"
+      }
+    ],
+    "description": "* Healing Hymn is a Support Rune type, and can be embedded into the rune slots of the Arms and Legs.\n* When embedded into the Arm Bone (L), Control, DEF Spirit gains an effect bonus.\n* When embedded into the Arm Bone (R), Bruiser Spirit gains an effect bonus.\n* When embedded into the Leg Bone (L), Support Spirit gains an effect bonus.\n* When embedded into the Leg Bone (R), Agility Spirit gains an effect bonus.",
+    "category": "Material",
+    "bagType": "material",
+    "sources": [],
+    "contains": [],
+    "textSources": [],
+    "materialApplicableSpirits": [
+      "Bruiser",
+      "Control",
+      "Defense",
+      "Agility",
+      "Support"
+    ]
+  },
+  {
+    "id": "divinity-instinct",
+    "title": "Divinity Instinct",
+    "subtitle": "Spiribone Rune",
+    "image": "images/objets/divinity-instinct/divinity-instinct-image.png",
+    "imageUrl": "",
+    "useLocalImage": true,
+    "tags": [],
+    "stats": [
+      {
+        "label": "Passive Dmg",
+        "value": "+10.8%"
+      },
+      {
+        "label": "Purple",
+        "value": "Initiative Dmg Bonus +10%"
+      },
+      {
+        "label": "Gold",
+        "value": "Spiribone Skill Strength +5000 years"
+      },
+      {
+        "label": "Dark-Gold",
+        "value": "Passive Dmg Bonus +5%"
+      }
+    ],
+    "description": "* Healing Hymn is a Support Rune type, and can be embedded into the rune slots of the Arms and Legs.\n* When embedded into the Arm Bone (L), Control, DEF Spirit gains an effect bonus.\n* When embedded into the Arm Bone (R), Bruiser Spirit gains an effect bonus.\n* When embedded into the Leg Bone (L), Support Spirit gains an effect bonus.\n* When embedded into the Leg Bone (R), Agility Spirit gains an effect bonus.",
+    "category": "Material",
+    "bagType": "material",
+    "sources": [],
+    "contains": [],
+    "textSources": [],
+    "materialApplicableSpirits": [
+      "Bruiser",
+      "Control",
+      "Defense",
+      "Agility",
+      "Support"
+    ]
+  },
+  {
+    "id": "divinity-assault",
+    "title": "Divinity Assault",
+    "subtitle": "Spiribone Rune",
+    "image": "images/objets/divinity-assault/divinity-assault-image.png",
+    "imageUrl": "",
+    "useLocalImage": true,
+    "tags": [],
+    "stats": [
+      {
+        "label": "Normal Attack Dmg",
+        "value": "+10.8%"
+      },
+      {
+        "label": "Purple",
+        "value": "Initiative Dmg Bonus +10%"
+      },
+      {
+        "label": "Gold",
+        "value": "Spiribone Skill Strength +5000 years"
+      },
+      {
+        "label": "Dark-Gold",
+        "value": "Normal Attack Dmg Bonus +5%"
+      }
+    ],
+    "description": "* Healing Hymn is a Support Rune type, and can be embedded into the rune slots of the Arms and Legs.\n* When embedded into the Arm Bone (L), Control, DEF Spirit gains an effect bonus.\n* When embedded into the Arm Bone (R), Bruiser Spirit gains an effect bonus.\n* When embedded into the Leg Bone (L), Support Spirit gains an effect bonus.\n* When embedded into the Leg Bone (R), Agility Spirit gains an effect bonus.",
+    "category": "Material",
+    "bagType": "material",
+    "sources": [],
+    "contains": [],
+    "textSources": [],
+    "materialApplicableSpirits": [
+      "Bruiser",
+      "Control",
+      "Defense",
+      "Agility",
+      "Support"
+    ]
+  },
+  {
+    "id": "blessing-bone-strengthening",
+    "title": "Blessing Bone Strengthening",
+    "subtitle": "Spiribone Rune",
+    "image": "images/objets/blessing-bone-strengthening/blessing-bone-strengthening-image.png",
+    "imageUrl": "",
+    "useLocalImage": true,
+    "tags": [],
+    "stats": [
+      {
+        "label": "Spiribone Skill Strength",
+        "value": "7.2k Yr"
+      },
+      {
+        "label": "Purple",
+        "value": "ATK +300"
+      },
+      {
+        "label": "Gold",
+        "value": "Enfeeble Target Vulnerability +5%"
+      },
+      {
+        "label": "Dark-Gold",
+        "value": "Spiribone Skill Strength +6K Year"
+      }
+    ],
+    "description": "* Healing Hymn is a Support Rune type, and can be embedded into the rune slots of the Arms and Legs.\n* When embedded into the Arm Bone (L), Control, DEF Spirit gains an effect bonus.\n* When embedded into the Arm Bone (R), Bruiser Spirit gains an effect bonus.\n* When embedded into the Leg Bone (L), Support Spirit gains an effect bonus.\n* When embedded into the Leg Bone (R), Agility Spirit gains an effect bonus.",
+    "category": "Material",
+    "bagType": "material",
+    "sources": [],
+    "contains": [],
+    "textSources": [],
+    "materialApplicableSpirits": [
+      "Bruiser",
+      "Control",
+      "Defense",
+      "Agility",
+      "Support"
+    ]
+  },
+  {
+    "id": "blessing-agile-mind",
+    "title": "Blessing Agile Mind",
+    "subtitle": "Spiribone Rune",
+    "image": "images/objets/blessing-agile-mind/blessing-agile-mind-image.png",
+    "imageUrl": "",
+    "useLocalImage": true,
+    "tags": [],
+    "stats": [
+      {
+        "label": "Willpower",
+        "value": "7.2"
+      },
+      {
+        "label": "Purple",
+        "value": "Hp +1500"
+      },
+      {
+        "label": "Gold",
+        "value": "Enfeeble Target Vulnerability +5%"
+      },
+      {
+        "label": "Dark-Gold",
+        "value": "Willpower +4"
+      }
+    ],
+    "description": "* Healing Hymn is a Support Rune type, and can be embedded into the rune slots of the Arms and Legs.\n* When embedded into the Arm Bone (L), Control, DEF Spirit gains an effect bonus.\n* When embedded into the Arm Bone (R), Bruiser Spirit gains an effect bonus.\n* When embedded into the Leg Bone (L), Support Spirit gains an effect bonus.\n* When embedded into the Leg Bone (R), Agility Spirit gains an effect bonus.",
+    "category": "Material",
+    "bagType": "material",
+    "sources": [],
+    "contains": [],
+    "textSources": [],
+    "materialApplicableSpirits": [
+      "Bruiser",
+      "Control",
+      "Defense",
+      "Agility",
+      "Support"
+    ]
+  },
+  {
+    "id": "blessing-war-command",
+    "title": "Blessing War Command",
+    "subtitle": "Spiribone Rune",
+    "image": "images/objets/blessing-war-command/blessing-war-command-image.png",
+    "imageUrl": "",
+    "useLocalImage": true,
+    "tags": [],
+    "stats": [
+      {
+        "label": "Vulnerability Critical Dmg",
+        "value": "+7.2%"
+      },
+      {
+        "label": "Purple",
+        "value": "ATK +300"
+      },
+      {
+        "label": "Gold",
+        "value": "Enfeeble Target Vulnerability +5%"
+      },
+      {
+        "label": "Dark-Gold",
+        "value": "Control Critical Bonus +4%"
+      }
+    ],
+    "description": "* Healing Hymn is a Support Rune type, and can be embedded into the rune slots of the Arms and Legs.\n* When embedded into the Arm Bone (L), Control, DEF Spirit gains an effect bonus.\n* When embedded into the Arm Bone (R), Bruiser Spirit gains an effect bonus.\n* When embedded into the Leg Bone (L), Support Spirit gains an effect bonus.\n* When embedded into the Leg Bone (R), Agility Spirit gains an effect bonus.",
+    "category": "Material",
+    "bagType": "material",
+    "sources": [],
+    "contains": [],
+    "textSources": [],
+    "materialApplicableSpirits": [
+      "Bruiser",
+      "Control",
+      "Defense",
+      "Agility",
+      "Support"
+    ]
+  },
+  {
+    "id": "blessing-heart-command",
+    "title": "Blessing Heart Command",
+    "subtitle": "Spiribone Rune",
+    "image": "images/objets/blessing-heart-command/blessing-heart-command-image.png",
+    "imageUrl": "",
+    "useLocalImage": true,
+    "tags": [],
+    "stats": [
+      {
+        "label": "Vulnerability Strike Dmg",
+        "value": "+7.2%"
+      },
+      {
+        "label": "Purple",
+        "value": "ATK +300"
+      },
+      {
+        "label": "Gold",
+        "value": "Enfeeble Target Vulnerability +5%"
+      },
+      {
+        "label": "Dark-Gold",
+        "value": "Control Strike Bonus +4%"
+      }
+    ],
+    "description": "* Healing Hymn is a Support Rune type, and can be embedded into the rune slots of the Arms and Legs.\n* When embedded into the Arm Bone (L), Control, DEF Spirit gains an effect bonus.\n* When embedded into the Arm Bone (R), Bruiser Spirit gains an effect bonus.\n* When embedded into the Leg Bone (L), Support Spirit gains an effect bonus.\n* When embedded into the Leg Bone (R), Agility Spirit gains an effect bonus.",
+    "category": "Material",
+    "bagType": "material",
+    "sources": [],
+    "contains": [],
+    "textSources": [],
+    "materialApplicableSpirits": [
+      "Bruiser",
+      "Control",
+      "Defense",
+      "Agility",
+      "Support"
+    ]
+  },
+  {
+    "id": "blessing-robost",
+    "title": "Blessing Robost",
+    "subtitle": "Spiribone Rune",
+    "image": "images/objets/blessing-robost/blessing-robost-image.png",
+    "imageUrl": "",
+    "useLocalImage": true,
+    "tags": [],
+    "stats": [
+      {
+        "label": "HP",
+        "value": "6480"
+      },
+      {
+        "label": "Purple",
+        "value": "Shield Boost Efficiency +3%"
+      },
+      {
+        "label": "Gold",
+        "value": "Healing Bonus +3%"
+      },
+      {
+        "label": "Dark-Gold",
+        "value": "Hp +4500"
+      }
+    ],
+    "description": "* Healing Hymn is a Support Rune type, and can be embedded into the rune slots of the Arms and Legs.\n* When embedded into the Arm Bone (L), Control, DEF Spirit gains an effect bonus.\n* When embedded into the Arm Bone (R), Bruiser Spirit gains an effect bonus.\n* When embedded into the Leg Bone (L), Support Spirit gains an effect bonus.\n* When embedded into the Leg Bone (R), Agility Spirit gains an effect bonus.",
+    "category": "Material",
+    "bagType": "material",
+    "sources": [],
+    "contains": [],
+    "textSources": [],
+    "materialApplicableSpirits": [
+      "Bruiser",
+      "Control",
+      "Defense",
+      "Agility",
+      "Support"
+    ]
+  },
+  {
+    "id": "blessing-healing",
+    "title": "Blessing Healing",
+    "subtitle": "Spiribone Rune",
+    "image": "images/objets/blessing-healing/blessing-healing-image.png",
+    "imageUrl": "",
+    "useLocalImage": true,
+    "tags": [],
+    "stats": [
+      {
+        "label": "Healing Bonus",
+        "value": "3.6%"
+      },
+      {
+        "label": "Purple",
+        "value": "Hp +1500"
+      },
+      {
+        "label": "Gold",
+        "value": "Willpower +6"
+      },
+      {
+        "label": "Dark-Gold",
+        "value": "Healing Bonus +2%"
+      }
+    ],
+    "description": "* Healing Hymn is a Support Rune type, and can be embedded into the rune slots of the Arms and Legs.\n* When embedded into the Arm Bone (L), Control, DEF Spirit gains an effect bonus.\n* When embedded into the Arm Bone (R), Bruiser Spirit gains an effect bonus.\n* When embedded into the Leg Bone (L), Support Spirit gains an effect bonus.\n* When embedded into the Leg Bone (R), Agility Spirit gains an effect bonus.",
+    "category": "Material",
+    "bagType": "material",
+    "sources": [],
+    "contains": [],
+    "textSources": [],
+    "materialApplicableSpirits": [
+      "Bruiser",
+      "Control",
+      "Defense",
+      "Agility",
+      "Support"
+    ]
+  },
+  {
+    "id": "blessing-shielding",
+    "title": "Blessing Shielding",
+    "subtitle": "Spiribone Rune",
+    "image": "images/objets/blessing-shielding/blessing-shielding-image.png",
+    "imageUrl": "",
+    "useLocalImage": true,
+    "tags": [],
+    "stats": [
+      {
+        "label": "Shield Efficiency",
+        "value": "+3.6%"
+      },
+      {
+        "label": "Purple",
+        "value": "Hp +1500"
+      },
+      {
+        "label": "Gold",
+        "value": "Willpower +6"
+      },
+      {
+        "label": "Dark-Gold",
+        "value": "Shield Boost Efficiency +2%"
+      }
+    ],
+    "description": "* Healing Hymn is a Support Rune type, and can be embedded into the rune slots of the Arms and Legs.\n* When embedded into the Arm Bone (L), Control, DEF Spirit gains an effect bonus.\n* When embedded into the Arm Bone (R), Bruiser Spirit gains an effect bonus.\n* When embedded into the Leg Bone (L), Support Spirit gains an effect bonus.\n* When embedded into the Leg Bone (R), Agility Spirit gains an effect bonus.",
+    "category": "Material",
+    "bagType": "material",
+    "sources": [],
+    "contains": [],
+    "textSources": [],
+    "materialApplicableSpirits": [
+      "Bruiser",
+      "Control",
+      "Defense",
+      "Agility",
+      "Support"
+    ]
+  },
+  {
+    "id": "omniadvancestone",
+    "title": "Omni Advance Stone",
+    "subtitle": "Spirit Level Advance",
+    "image": "images/objets/omniadvancestone/omniadvancestone-image.png",
+    "imageUrl": "",
+    "useLocalImage": true,
+    "tags": [],
+    "stats": [],
+    "description": "Omni Advance Stone. Can be converted into any Advance Material in Spirit Advance.",
+    "category": "Material",
+    "bagType": "material",
+    "sources": [],
+    "contains": [],
+    "textSources": [
+      "Mall"
+    ],
+    "materialApplicableSpirits": [
+      "Bruiser",
+      "Control",
+      "Defense",
+      "Agility",
+      "Support"
+    ]
+  },
+  {
+    "id": "jadeelixirbottle",
+    "title": "Jade Elixir Bottle",
+    "subtitle": "Medicine Crafting Material",
+    "image": "images/objets/jadeelixirbottle/jadeelixirbottle-image.png",
+    "imageUrl": "",
+    "useLocalImage": true,
+    "tags": [],
+    "stats": [],
+    "description": "Widely used as a basic material for medicine crafting.",
+    "category": "Material",
+    "bagType": "material",
+    "sources": [],
+    "contains": [],
+    "textSources": [
+      "Mall"
+    ],
+    "materialApplicableSpirits": [
+      "Bruiser",
+      "Control",
+      "Defense",
+      "Agility",
+      "Support"
+    ]
+  },
+  {
+    "id": "heartsourcekey",
+    "title": "Heart Source Key",
+    "subtitle": "",
+    "image": "images/objets/heartsourcekey/heartsourcekey-image.png",
+    "imageUrl": "",
+    "useLocalImage": true,
+    "tags": [],
+    "stats": [],
+    "description": "Breaks through to higher levels of Collection Insight Points.",
+    "category": "Item",
+    "bagType": "item",
+    "sources": [],
+    "contains": [],
+    "textSources": [
+      "Mall"
+    ],
+    "materialApplicableSpirits": []
+  },
+  {
+    "id": "starreconstructionpill",
+    "title": "Star Reconstruction Pill",
+    "subtitle": "",
+    "image": "images/objets/starreconstructionpill/starreconstructionpill-image.png",
+    "imageUrl": "",
+    "useLocalImage": true,
+    "tags": [],
+    "stats": [],
+    "description": "Can be used for Spirimaster gender change.",
+    "category": "Item",
+    "bagType": "item",
+    "sources": [],
+    "contains": [],
+    "textSources": [],
+    "materialApplicableSpirits": []
+  },
+  {
+    "id": "wisdomlight",
+    "title": "Wisdom Light",
+    "subtitle": "",
+    "image": "images/objets/wisdomlight/wisdomlight-image.png",
+    "imageUrl": "",
+    "useLocalImage": true,
+    "tags": [],
+    "stats": [],
+    "description": "Enhances the level of Collection Insight Points.",
+    "category": "Item",
+    "bagType": "item",
+    "sources": [],
+    "contains": [],
+    "textSources": [],
+    "materialApplicableSpirits": []
+  },
+  {
+    "id": "trunkspiribonechoicepack",
+    "title": "Trunk Spiribone Choice Pack",
+    "subtitle": "",
+    "image": "images/objets/trunkspiribonechoicepack/trunkspiribonechoicepack-image.png",
+    "imageUrl": "",
+    "useLocalImage": true,
+    "tags": [],
+    "stats": [],
+    "description": "Use to select 1 reward from the options below.",
+    "category": "Item",
+    "bagType": "item",
+    "sources": [],
+    "contains": [
+      "accompanying-decay",
+      "infernal-dragon-soul",
+      "doomshadow-ascension",
+      "aether-water-rhythm",
+      "gathering-of-spirits",
+      "legendary-titan"
+    ],
+    "textSources": [
+      "Mall"
+    ],
+    "materialApplicableSpirits": [
+      "Bruiser",
+      "Control",
+      "Defense",
+      "Agility",
+      "Support"
+    ]
+  },
+  {
+    "id": "foxtaildew",
+    "title": "Foxtail Dew",
+    "subtitle": "",
+    "image": "images/objets/foxtaildew/foxtaildew-image.png",
+    "imageUrl": "",
+    "useLocalImage": true,
+    "tags": [],
+    "stats": [],
+    "description": "Obtained from collecting Foxtail Dew, used in crafting Ethereal Nectar and Restoration Elixir.",
+    "category": "Item",
+    "bagType": "item",
+    "sources": [],
+    "contains": [],
+    "textSources": [],
+    "materialApplicableSpirits": []
+  },
+  {
+    "id": "ditianscommand",
+    "title": "Di Tian's Command",
+    "subtitle": "Title Pass",
+    "image": "images/objets/ditianscommand/ditianscommand-image.png",
+    "imageUrl": "",
+    "useLocalImage": true,
+    "tags": [],
+    "stats": [],
+    "description": "Usable for Guardian Title promotion.\n\nIn Sect gameplay, DMG Dealt increases by 20% against players with lower titles.",
+    "category": "Material",
+    "bagType": "material",
+    "sources": [],
+    "contains": [],
+    "textSources": [
+      "Sect Auction"
+    ],
+    "materialApplicableSpirits": [
+      "Bruiser",
+      "Control",
+      "Defense",
+      "Agility",
+      "Support"
+    ]
+  },
+  {
+    "id": "mythicluckystone",
+    "title": "Mythic Lucky Stone",
+    "subtitle": "Soulcore Blessing Material",
+    "image": "images/objets/mythicluckystone/mythicluckystone-image.png",
+    "imageUrl": "",
+    "useLocalImage": true,
+    "tags": [],
+    "stats": [],
+    "description": "Grants a Tier 1 Blessing for Soulcore, increasing the chance of Star Promotion by 11% during Year Advance.",
+    "category": "Material",
+    "bagType": "material",
+    "sources": [],
+    "contains": [],
+    "textSources": [
+      "Mall",
+      "Event Reward"
+    ],
+    "materialApplicableSpirits": [
+      "Bruiser",
+      "Control",
+      "Defense",
+      "Agility",
+      "Support"
+    ]
+  },
+  {
+    "id": "sectfund",
+    "title": "Sect Fund",
+    "subtitle": "",
+    "image": "images/objets/sectfund/sectfund-image.png",
+    "imageUrl": "",
+    "useLocalImage": true,
+    "tags": [],
+    "stats": [],
+    "description": "Gain 1 Sect Fund upon acquisition, used for Sect Building upgrades.",
+    "category": "Item",
+    "bagType": "item",
+    "sources": [],
+    "contains": [],
+    "textSources": [
+      "Sect Event",
+      "Sect Construction"
+    ],
+    "materialApplicableSpirits": []
+  },
+  {
+    "id": "seabreathspiritcore",
+    "title": "Sea Breath Spirit Core",
+    "subtitle": "",
+    "image": "images/objets/seabreathspiritcore/seabreathspiritcore-image.png",
+    "imageUrl": "",
+    "useLocalImage": true,
+    "tags": [],
+    "stats": [],
+    "description": "Used to advance a 60,000-year Halo to a 70,000-year Halo, increasing Halo Advance success rate",
+    "category": "Material",
+    "bagType": "material",
+    "sources": [
+      "asterhunt"
+    ],
+    "contains": [],
+    "textSources": [
+      "Corrupted Beastlord"
+    ],
+    "materialApplicableSpirits": [
+      "Bruiser",
+      "Control",
+      "Defense",
+      "Agility",
+      "Support"
+    ]
   }
 ];

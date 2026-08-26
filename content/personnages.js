@@ -1,4 +1,4 @@
-// "personnages" page: generated from editeur.html on 8/18/2026
+// "personnages" page: generated from editeur.html on 8/26/2026
 // You can also edit this file by hand: each object is one entry.
 window.WIKI = window.WIKI || {};
 window.WIKI.personnages = [
@@ -6390,7 +6390,7 @@ window.WIKI.personnages = [
     "id": "silvanemperor",
     "title": "Silvan Emperor",
     "subtitle": "Mother and Child United - Dual Sovereigns' Forbidden Domain - Cycle of Life and Death",
-    "image": "images/personnages/silvanemperor/silvanemperor-image.png",
+    "image": "images/personnages/silvanemperor/silvanemperor-image.jpg",
     "imageUrl": "",
     "useLocalImage": true,
     "tags": [
@@ -6427,6 +6427,7 @@ window.WIKI.personnages = [
     "description": "Silvan Emperor is a walking forest of vines and thorns whose entire purpose is trapping enemies and never letting go. Nearly every Skill and Ultimate spreads [Imprison], layered with debuffs like [Sacrificial Thorn] and [Silvan Strangle] that both stack [Control Vulnerability], making every future lockdown hit harder than the last.\n\nTheir core passive revolves around summoning [Silvan Emperor] minions on entering the fight, then sacrificing them during Ultimates for bonus effects like extended Strangle duration or stacks of [Earthbind] and [Devouring Gold Silk]. It's a constant push-and-pull: keep the vine minions alive for passive Control Vulnerability, or burn them all at once for a bigger payoff when the Ultimate lands.\n\nTheir whole identity revolves around [Enfeeble], a state most of their effects either build toward or amplify once the target is in it. Between Silvan Domain zones, poison stacks, and thorn effects that trigger extra debuffs on Enfeeble, this Spirit is basically running a slow-motion strangulation of anything caught in its forest.",
     "rarity": "SSR",
     "backgroundImage": "images/personnages/silvanemperor/background/silvanemperor-background.png",
+    "mechanics": [],
     "normalAttack": {
       "title": "Silvan Retribution",
       "key": "Dmg",

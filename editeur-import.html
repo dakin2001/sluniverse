@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bulk Import: Soul Land Wiki (admin)</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="stylesheet" href="css/style.css?v=1069">
+<meta name="robots" content="noindex, nofollow">
+</head>
+<body>
+
+<div id="adminGate" class="admin-gate">
+  <div id="adminGateLoading" class="admin-gate-spinner-wrap"><div class="admin-gate-spinner"></div></div>
+  <div id="adminGateForm" class="admin-gate-card" style="display:none;">
+    <h2 class="admin-gate-title">Admin Access</h2>
+    <p class="admin-gate-subtitle">This page is restricted to site administrators.</p>
+    <div id="adminGateError" class="admin-gate-error" style="display:none;"></div>
+    <div class="admin-gate-field"><label>Email</label><input type="email" id="adminGateEmail" placeholder="you@example.com"></div>
+    <div class="admin-gate-field"><label>Password</label><input type="password" id="adminGatePassword" placeholder="••••••••"></div>
+    <button id="adminGateLoginBtn" class="admin-gate-submit">Log In</button>
+  </div>
+  <div id="adminGateDenied" class="admin-gate-card admin-gate-denied" style="display:none;">
+    <h2 class="admin-gate-title">Access denied</h2>
+    <p class="admin-gate-subtitle">This account doesn't have admin access.</p>
+    <button id="adminGateLogoutBtn" class="admin-gate-logout">Log Out</button>
+  </div>
+</div>
+
+<header class="site-header">
+  <div class="header-inner">
+    <div class="brand" style="cursor:default;">
+      <div class="eyebrow">Soul Land · Awakening World</div>
+      <h1>Bulk Import <span style="font-size:0.55em; color:var(--text-dim); font-family:var(--font-body);">(admin, not indexed)</span></h1>
+    </div>
+    <div></div>
+    <div class="editor-header-actions">
+      <a href="editeur" class="btn" style="text-decoration:none;">← Back to editor</a>
+    </div>
+  </div>
+</header>
+
+<main style="max-width:1400px; margin:0 auto; padding:28px 22px 100px;">
+
+  <div class="notice" style="margin-bottom:24px;" id="fsNotice">
+    Connect your project folder to write the imported entries straight to disk.
+    <div class="btn" id="connectFolderBtn" style="margin-top:10px; display:inline-flex;">📁 Connect project folder</div>
+    <span id="fsStatusText" style="margin-left:10px; color:var(--text-dim); font-size:13px;"></span>
+  </div>
+
+  <!-- Step 1: category (Bag only for now) -->
+  <div class="import-step">
+    <div class="import-step-num">1</div>
+    <div class="import-step-body">
+      <h3>Category</h3>
+      <select id="importCategorySelect">
+        <option value="objets">Bag</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- Step 2: reference item -->
+  <div class="import-step">
+    <div class="import-step-num">2</div>
+    <div class="import-step-body">
+      <h3>Choose a reference item</h3>
+      <p class="import-step-hint">Pick an existing entry that's already filled out correctly, new items will follow its same structure.</p>
+      <input type="text" id="referenceSearch" placeholder="Search existing Bag items…">
+      <div id="referenceList" class="import-reference-list"></div>
+    </div>
+  </div>
+
+  <!-- Step 3: field toggles -->
+  <div class="import-step" id="fieldToggleStep" style="display:none;">
+    <div class="import-step-num">3</div>
+    <div class="import-step-body">
+      <h3>Choose which fields to fill from the import text</h3>
+      <p class="import-step-hint">Fields left OFF will copy the value from <b id="refItemNameLabel"></b> for every imported item.</p>
+      <div id="fieldToggleList" class="import-field-toggles"></div>
+    </div>
+  </div>
+
+  <!-- Step 4: paste text -->
+  <div class="import-step" id="pasteStep" style="display:none;">
+    <div class="import-step-num">4</div>
+    <div class="import-step-body">
+      <h3>Paste your import text</h3>
+      <p class="import-step-hint">One block per item, separated by a blank line. Format: <code>fieldName[content]</code></p>
+      <div id="formatExample" class="import-format-example"></div>
+      <textarea id="importTextArea" placeholder="title[Rune of Fire]&#10;description[Increases ATK by 15%]&#10;&#10;title[Rune of Ice]&#10;description[Reduces damage taken by 10%]" style="min-height:220px;"></textarea>
+      <div class="btn btn-primary" id="parseBtn" style="margin-top:12px;">▶ Parse & Preview</div>
+    </div>
+  </div>
+
+  <!-- Step 5: console log -->
+  <div class="import-step" id="logStep" style="display:none;">
+    <div class="import-step-num">5</div>
+    <div class="import-step-body">
+      <h3>Log</h3>
+      <div id="importConsole" class="import-console"></div>
+      <div class="btn btn-primary" id="commitBtn" style="margin-top:14px; display:none;">💾 Write these entries to disk</div>
+    </div>
+  </div>
+
+</main>
+
+<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-app-check-compat.js"></script>
+<script src="js/firebase-config.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/admin-gate.js"></script>
+<script src="js/fsAccess.js"></script>
+<script>window.WIKI = window.WIKI || {};</script>
+<script src="content/objets.js"></script>
+<script src="js/import-tool.js"></script>
+</body>
+</html>

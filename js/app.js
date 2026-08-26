@@ -78,8 +78,27 @@ function parseRoute(){
 
 function getPages(catId){ return (window.WIKI && window.WIKI[catId]) || []; }
 
+function statLabelColor(label){
+  const l = (label || '').trim().toLowerCase();
+  if (l === 'purple') return '#c48bff';
+  if (l === 'gold') return '#f0c14b';
+  if (l === 'dark-gold') return '#e8890a';
+  return null;
+}
+function statRowHTML(s){
+  const color = statLabelColor(s.label);
+  const style = color ? ` style="color:${color};"` : '';
+  return `<tr><td${style}>${escapeHtml(s.label || '')}</td><td${style}>${escapeHtml(s.value || '')}</td></tr>`;
+}
+
 function escapeHtml(str){
   return (str || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+function guideStarsHTML(stars, plus){
+  let out = '';
+  for (let i=1; i<=5; i++) out += i <= (stars||0) ? '★' : '☆';
+  if (plus) out += '+';
+  return out;
 }
 
 // Resolves whether to show the locally-hosted image or the external URL,
@@ -94,7 +113,7 @@ function effectiveImage(p){
 // (purely visual, not clickable). Applied before the glossary pass, on plain
 // text, so it never touches already-inserted tags.
 function highlightStatFormulas(escapedText){
-  // Patterns in priority order — earlier patterns claim their text first,
+  // Patterns in priority order, earlier patterns claim their text first,
   // later patterns skip anything that overlaps an already-claimed range.
   const patterns = [
     /\d[\d.,]*%?(?:\s*\+\s*\d[\d.,]*%?)*\s*ATK/g,           // ATK-suffixed formulas
@@ -181,6 +200,8 @@ function render(){
   const route = parseRoute();
   buildNav();
   if (route.view === 'home') renderHome();
+  else if (route.view === 'category' && route.cat === 'guides') renderGuidesListView();
+  else if (route.view === 'detail' && route.cat === 'guides') renderGuideDetailView(route.id);
   else if (route.view === 'category') renderCategoryView(route.cat, route.focusId);
   else if (route.view === 'detail') renderDetailView(route.cat, route.id);
   window.scrollTo({ top:0, behavior:'instant' in window ? 'instant' : 'auto' });
@@ -225,9 +246,237 @@ function setCharBackgroundLeft(url){
   }
 }
 
+/* ---------- Public Guides (Firestore-backed) ---------- */
+let guidesLanguageFilter = '';
+
+let publicGuideAuthorGlossary = {}; // the currently-displayed guide's author glossary
+function guideParseInline(text){
+  let out = escapeHtml(text || '');
+  out = out.replace(/\[([^\[\]]+)\]\((personnages|monstres|objets|zones|trials)\/([a-zA-Z0-9\-_]+)\)/g, (m,t,cat,id) => `<a href="#/${cat}/${encodeURIComponent(id)}" class="desc-link">${t}</a>`);
+  out = out.replace(/\[\[([^\[\]]+)\]\]/g, (m, term) => {
+    const def = publicGuideAuthorGlossary[term] || publicGuideAuthorGlossary[Object.keys(publicGuideAuthorGlossary).find(k => k.toLowerCase() === term.trim().toLowerCase())];
+    return def ? `<span class="glossary-term" title="${escapeHtml(def)}">${term}</span>` : term;
+  });
+  out = out.replace(/\*\*([^\n*]+)\*\*/g, '<strong>$1</strong>');
+  out = out.replace(/_([^\n_]+)_/g, '<em>$1</em>');
+  const lines = out.split('\n');
+  let html = ''; let inList = false; let listTag = 'ul';
+  lines.forEach(line => {
+    const bulletMatch = line.match(/^\s*\*\s+(.*)$/);
+    const numMatch = line.match(/^\s*\d+\.\s+(.*)$/);
+    if (bulletMatch || numMatch){
+      const tag = bulletMatch ? 'ul' : 'ol';
+      if (!inList){ html += `<${tag}>`; inList = true; listTag = tag; }
+      html += `<li>${bulletMatch ? bulletMatch[1] : numMatch[1]}</li>`;
+    } else {
+      if (inList){ html += `</${listTag}>`; inList = false; }
+      html += line + '<br>';
+    }
+  });
+  if (inList) html += `</${listTag}>`;
+  return html;
+}
+function guideYoutubeEmbed(url){
+  const m = (url||'').match(/(?:youtu\.be\/|v=)([a-zA-Z0-9_-]{6,})/);
+  return m ? `https://www.youtube.com/embed/${m[1]}` : '';
+}
+function guideRenderBlock(b){
+  if (b.type === 'heading') return `<div class="preview-block" id="toc-${b.id}">${b.level===2 ? `<h3>${escapeHtml(b.text)}</h3>` : `<h4>${escapeHtml(b.text)}</h4>`}</div>`;
+  if (b.type === 'paragraph') return `<div class="preview-block">${guideParseInline(b.text)}</div>`;
+  if (b.type === 'image') return `<div class="preview-block">${b.url ? `<img src="${b.url}">` : ''}${b.caption ? `<div style="color:var(--text-dim); font-size:12.5px; margin-top:6px;">${escapeHtml(b.caption)}</div>` : ''}</div>`;
+  if (b.type === 'callout'){
+    const icon = b.kind==='tip' ? '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/></svg>' : '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>';
+    return `<div class="preview-block"><div class="preview-callout ${b.kind}">${icon}<div>${guideParseInline(b.text)}</div></div></div>`;
+  }
+  if (b.type === 'video'){ const embed = guideYoutubeEmbed(b.url); return embed ? `<div class="preview-block"><div class="preview-video"><iframe src="${embed}"></iframe></div></div>` : ''; }
+  if (b.type === 'table') return `<div class="preview-block"><table class="preview-table"><thead><tr>${b.rows[0].cells.map(c=>`<th>${escapeHtml(c)}</th>`).join('')}</tr></thead><tbody>${b.rows.slice(1).map(r=>`<tr>${r.cells.map(c=>`<td>${escapeHtml(c)}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`;
+  if (b.type === 'itemcard'){
+    if (!b.title && !b.description && !(b.items||[]).length) return '';
+    return `<div class="preview-block"><div class="preview-itemcard-panel">
+      ${b.title ? `<div class="preview-itemcard-title">${escapeHtml(b.title)}</div>` : ''}
+      ${b.description ? `<div class="preview-itemcard-desc">${guideParseInline(b.description)}</div>` : ''}
+      <div class="preview-itemcard-grid">${(b.items||[]).map(it => `<a href="#/${it.__cat}/${encodeURIComponent(it.id)}" class="preview-itemcard-card"><div class="preview-itemcard-thumb" style="${it.image?`background-image:url('${it.image}')`:''}"></div><div class="preview-itemcard-name">${it.title}</div></a>`).join('')}</div>
+    </div></div>`;
+  }
+  if (b.type === 'ratingcard'){
+    if (!b.title && !(b.stats||[]).length && !(b.ratings||[]).length) return '';
+    return `<div class="preview-block"><div class="preview-ratingcard">
+      <div class="preview-ratingcard-head">
+        ${b.titleLink && b.titleLink.image ? `<div class="preview-ratingcard-avatar" style="background-image:url('${b.titleLink.image}')"></div>` : ''}
+        <div class="preview-ratingcard-headtext">
+          <div class="preview-ratingcard-title">${b.titleLink ? `<a href="#/${b.titleLink.__cat}/${encodeURIComponent(b.titleLink.id)}" class="ratingcard-title-link">${escapeHtml(b.title) || 'Untitled'}</a>` : (escapeHtml(b.title) || 'Untitled')}</div>
+          ${b.role ? `<span class="preview-ratingcard-role">${escapeHtml(b.role)}</span>` : ''}
+        </div>
+      </div>
+      ${b.description ? `<div class="preview-ratingcard-desc">${guideParseInline(b.description)}</div>` : ''}
+      ${(b.stats||[]).length ? `<div class="preview-ratingcard-stats">${b.stats.map(s => `<div class="preview-ratingcard-stat"><span class="stat-label">${escapeHtml(s.label)}</span><span class="stat-value">${escapeHtml(s.value)}</span></div>`).join('')}</div>` : ''}
+      ${(b.ratings||[]).length ? `<div class="preview-ratingcard-ratings">${b.ratings.map(r => `<div class="preview-ratingcard-rating"><span class="rating-label">${escapeHtml(r.label)}</span><span class="rating-stars">${guideStarsHTML(r.stars, r.plus)}</span></div>`).join('')}</div>` : ''}
+    </div></div>`;
+  }
+  if (b.type === 'collapsible'){
+    const cid = 'guide-collapse-' + b.id;
+    return `<div class="preview-block">
+      <div class="preview-collapsible-trigger" onclick="document.getElementById('${cid}').classList.toggle('open'); this.classList.toggle('open')">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 6 15 12 9 18"/></svg>${escapeHtml(b.trigger)||'Click to reveal'}
+      </div>
+      <div id="${cid}" class="preview-collapsible-content">${guideParseInline(b.text)}</div>
+    </div>`;
+  }
+  if (b.type === 'divider') return `<div class="preview-block"><hr class="preview-divider"></div>`;
+  return '';
+}
+
+async function renderGuidesListView(){
+  setCharBackground(null);
+  setCharBackgroundLeft(null);
+  app.innerHTML = `
+    <div class="breadcrumbs">
+      <a href="#/">${LABELS.home}</a><span class="sep">/</span><span>Guides</span>
+    </div>
+    <div class="section-title">
+      <h2>Guides</h2>
+    </div>
+    <div class="search-bar with-select">
+      <input type="text" id="guidesSearchInput" placeholder="Search guides…">
+      <select id="guidesLangFilter">
+        <option value="">All Languages</option>
+        <option>English</option>
+        <option>Français</option>
+        <option>Español</option>
+        <option>Português</option>
+        <option>ไทย</option>
+        <option>Filipino</option>
+        <option>Bahasa Indonesia</option>
+        <option>Tiếng Việt</option>
+      </select>
+    </div>
+    <div id="guidesTagRow" style="margin-top:14px; display:flex; flex-wrap:wrap; gap:8px;"></div>
+    <div id="guidesListGrid" class="guide-poster-grid" style="margin-top:20px;">
+      <div class="empty-state"><div class="big">⏳</div>Loading guides…</div>
+    </div>
+  `;
+  document.getElementById('guidesLangFilter').value = guidesLanguageFilter;
+  document.getElementById('guidesLangFilter').addEventListener('change', (e) => {
+    guidesLanguageFilter = e.target.value;
+    loadAndRenderGuidesList();
+  });
+  document.getElementById('guidesSearchInput').addEventListener('input', () => loadAndRenderGuidesList());
+  loadGuidesTagFilterRow();
+  await loadAndRenderGuidesList();
+}
+
+let guidesTagFilter = '';
+async function loadGuidesTagFilterRow(){
+  try {
+    const snap = await db.collection('guideTags').get();
+    const row = document.getElementById('guidesTagRow');
+    if (!snap.size){ row.style.display = 'none'; return; }
+    row.innerHTML = snap.docs.map(d => `
+      <div class="tag-filter-chip ${guidesTagFilter === d.id ? 'active' : ''}" onclick="setGuidesTagFilter('${d.id.replace(/'/g,"\\'")}')">${escapeHtml(d.id)}</div>
+    `).join('');
+  } catch (e){ /* filter row is a nice-to-have, fail silently */ }
+}
+function setGuidesTagFilter(tag){
+  guidesTagFilter = guidesTagFilter === tag ? '' : tag;
+  loadGuidesTagFilterRow();
+  loadAndRenderGuidesList();
+}
+
+async function loadAndRenderGuidesList(){
+  const grid = document.getElementById('guidesListGrid');
+  const search = (document.getElementById('guidesSearchInput')?.value || '').toLowerCase();
+  try {
+    const query = db.collection('guides').where('status', '==', 'published');
+    const snap = await query.orderBy('createdAt', 'asc').get();
+    const now = new Date();
+    let docs = snap.docs.filter(d => {
+      const g = d.data();
+      if (g.scheduledPublishAt && g.scheduledPublishAt.toDate() > now) return false; // not time yet
+      if (guidesLanguageFilter && g.language !== guidesLanguageFilter) return false;
+      if (guidesTagFilter && !(g.tags || []).includes(guidesTagFilter)) return false;
+      return !search || (g.title || '').toLowerCase().includes(search);
+    }).reverse(); // newest first, since the query itself runs oldest-first (reuses the existing index)
+    if (!docs.length){
+      grid.innerHTML = `<div class="empty-state"><div class="big">📖</div>No guides yet.</div>`;
+      return;
+    }
+    grid.innerHTML = docs.map(doc => {
+      const g = doc.data();
+      return `
+        <div class="guide-poster-card" onclick="location.hash='#/guides/${doc.id}'">
+          <div class="guide-poster-thumb cover-frame${g.coverImageUrl ? '' : ' no-cover'}">
+            ${g.coverImageUrl ? `<div class="cover-blur" style="background-image:url('${g.coverImageUrl}')"></div><img class="cover-fg" src="${g.coverImageUrl}">` : ''}
+          </div>
+          <div class="guide-poster-body">
+            <h3>${escapeHtml(g.title || 'Untitled Guide')}</h3>
+          </div>
+        </div>
+      `;
+    }).join('');
+  } catch (e){
+    console.error('Guides list failed (you may need a Firestore index):', e);
+    grid.innerHTML = `<div class="empty-state"><div class="big">⚠️</div>Could not load guides right now.</div>`;
+  }
+}
+
+async function renderGuideDetailView(id){
+  setCharBackground(null);
+  setCharBackgroundLeft(null);
+  app.innerHTML = `<div class="empty-state"><div class="big">⏳</div>Loading…</div>`;
+  try {
+    const doc = await db.collection('guides').doc(id).get();
+    const gData = doc.exists ? doc.data() : null;
+    const notYetTime = gData && gData.scheduledPublishAt && gData.scheduledPublishAt.toDate() > new Date();
+    if (!doc.exists || gData.status !== 'published' || notYetTime){
+      app.innerHTML = `<div class="empty-state"><div class="big">❓</div>This guide isn't available.</div>`;
+      return;
+    }
+    const g = doc.data();
+    let authorAvatar = '';
+    try {
+      const authorDoc = await db.collection('users').doc(g.authorId).get();
+      if (authorDoc.exists) authorAvatar = authorDoc.data().avatarUrl || '';
+      publicGuideAuthorGlossary = (authorDoc.exists && authorDoc.data().glossary) || {};
+    } catch (e){ /* profile fetch is best-effort, guide still renders without it */ }
+
+    const bodyHTML = (g.blocks || []).map(guideRenderBlock).join('');
+    const headingBlocks = (g.blocks || []).filter(b => b.type === 'heading' && b.text);
+    const tocHTML = headingBlocks.length >= 2 ? `
+      <div class="preview-toc">
+        <div class="preview-toc-title">On this page</div>
+        ${headingBlocks.map(hb => `<a href="#toc-${hb.id}" class="preview-toc-link ${hb.level===3?'sub':''}">${escapeHtml(hb.text)}</a>`).join('')}
+      </div>
+    ` : '';
+    app.innerHTML = `
+      <div class="breadcrumbs">
+        <a href="#/">${LABELS.home}</a><span class="sep">/</span><a href="#/guides">Guides</a><span class="sep">/</span><span>${escapeHtml(g.title || 'Untitled Guide')}</span>
+      </div>
+      <div class="guide-detail-layout">
+        <div class="preview">
+          ${g.coverImageUrl ? `<div class="cover-frame preview-cover"><div class="cover-blur" style="background-image:url('${g.coverImageUrl}')"></div><img class="cover-fg" src="${g.coverImageUrl}"></div>` : ''}
+          <h2>${escapeHtml(g.title || 'Untitled Guide')}</h2>
+          ${tocHTML}
+          ${bodyHTML}
+        </div>
+        <div class="guide-side-panel">
+          <div class="guide-author-avatar" style="${authorAvatar ? `background-image:url('${authorAvatar}')` : ''}">${authorAvatar ? '' : escapeHtml((g.authorUsername||'?').charAt(0).toUpperCase())}</div>
+          <div class="guide-author-eyebrow">Written by</div>
+          <div class="guide-author-name">${escapeHtml(g.authorUsername || 'Unknown')}</div>
+          <span class="guide-lang-badge" style="margin-top:12px;">${escapeHtml(g.language || '')}</span>
+          ${(g.tags || []).length ? `<div class="guide-side-tags">${(g.tags || []).map(t => `<span class="guide-tag-badge">${escapeHtml(t)}</span>`).join('')}</div>` : ''}
+        </div>
+      </div>
+    `;
+  } catch (e){
+    console.error('Guide detail failed:', e);
+    app.innerHTML = `<div class="empty-state"><div class="big">⚠️</div>Could not load this guide.</div>`;
+  }
+}
+
 function renderHome(){
   setCharBackground(null);
   setCharBackgroundLeft(null);
+  const activeEvents = getPages('events').filter(e => e.active);
   app.innerHTML = `
     <div class="hero">
       <div class="eyebrow">Soul Land · Awakening World</div>
@@ -243,17 +492,33 @@ function renderHome(){
         </div>
       `).join('')}
     </div>
+    ${activeEvents.length ? `
+      <div class="home-events-section">
+        <div class="panel-title" style="justify-content:center; display:flex;"><span class="dot"></span>Current Events</div>
+        <div class="home-events-list">
+          ${activeEvents.map(e => `
+            <div class="home-event-banner" data-id="${e.id}">
+              ${effectiveImage(e) ? `<img src="${encodeURI(effectiveImage(e))}" alt="" loading="lazy">` : ''}
+              <div class="home-event-banner-title">${e.title}</div>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    ` : ''}
   `;
   app.querySelectorAll('.category-card').forEach(el => {
     el.addEventListener('click', () => { location.hash = `#/${el.dataset.cat}`; });
+  });
+  app.querySelectorAll('.home-event-banner').forEach(el => {
+    el.addEventListener('click', () => { location.hash = `#/events/${encodeURIComponent(el.dataset.id)}`; });
   });
 }
 
 const GROUPED_CATEGORIES = ['objets', 'monstres'];
 
-// Fixed, non-editable native menu for the Bag page — matches the game's
+// Fixed, non-editable native menu for the Bag page, matches the game's
 // own bag tabs. Unrelated to the user-defined "Category" grouping.
-// The 5 known Spirit/Soulcore type names — reused for icon lookups everywhere.
+// The 5 known Spirit/Soulcore type names, reused for icon lookups everywhere.
 const SOULCORE_TYPES = ['Bruiser', 'Control', 'Defense', 'Agility', 'Support'];
 const MECHANICS = ['Vibration', 'Electrified', 'Flash', 'Poison', 'Scorch', 'Laceration', 'Severe Wound'];
 function typeIconPath(type){ return `images/spirit-types/${type.toLowerCase()}.png`; }
@@ -273,7 +538,6 @@ const BAG_TYPES = [
   { id:'material', label:'Material', icon:'images/bag-types/material.png' },
   { id:'halo', label:'Halo', icon:'images/bag-types/halo.png' },
   { id:'spiribone', label:'Spiribone', icon:'images/bag-types/spiribone.png' },
-  { id:'fragment', label:'Fragment', icon:'images/bag-types/fragment.png' },
   { id:'soulcore', label:'Soulcore', icon:'images/bag-types/soulcore.png' },
 ];
 
@@ -526,6 +790,7 @@ function renderCategoryView(catId, focusId){
   let selectedBeastMode = 'beastlord';
   let selectedMonsterType = '';
   let selectedMonsterId = null;
+  let beastFocusHandled = false;
   const allZones = getPages('zones');
   let selectedZone = allZones.length ? allZones[0].id : '';
   let selectedSoulcoreRarities = [];
@@ -619,6 +884,15 @@ function renderCategoryView(catId, focusId){
     renderCatPager(totalPages, currentPage, (p) => { currentPage = p; draw(document.getElementById('searchInput').value); window.scrollTo({top:0, behavior:'smooth'}); });
     bindCardClicks();
     if (catId === 'monstres') bindBeastCardClicks(filtered);
+    if (catId === 'monstres' && focusId && !beastFocusHandled){
+      beastFocusHandled = true;
+      selectedMonsterId = focusId;
+      document.querySelectorAll('.beast-card').forEach(c => c.classList.toggle('selected', c.dataset.id === selectedMonsterId));
+      renderBeastDescPanel(pages); // full list, so pagination/zone filters can never hide the focused entry
+      requestAnimationFrame(() => {
+        document.getElementById('beastDescPanel')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    }
   }
 
   function spiribonePageCardHTML(p){
@@ -747,7 +1021,7 @@ function renderCategoryView(catId, focusId){
     descCol.addEventListener('click', (e) => { if (e.target === descCol) closeSpiriboneDesc(); });
     document.querySelectorAll('#spiriboneGrid .spiribone-card').forEach(c => c.classList.toggle('selected', c.dataset.id === p.id));
     requestAnimationFrame(() => {
-      descCol.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      if (window.innerWidth > 820) descCol.scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
   }
 
@@ -822,7 +1096,10 @@ function renderCategoryView(catId, focusId){
           ${p.haloATK ? `<tr><td>ATK</td><td style="text-align:right; color:var(--gold-bright);">${escapeHtml(p.haloATK)}</td></tr>` : ''}
           ${p.haloHP ? `<tr><td>HP</td><td style="text-align:right; color:var(--gold-bright);">${escapeHtml(p.haloHP)}</td></tr>` : ''}
           ${p.haloDEF ? `<tr><td>DEF</td><td style="text-align:right; color:var(--gold-bright);">${escapeHtml(p.haloDEF)}</td></tr>` : ''}
-          ${hasGenericStats ? p.stats.map(s => `<tr><td>${escapeHtml(s.label || '')}</td><td style="text-align:right; color:var(--gold-bright);">${escapeHtml(s.value || '')}</td></tr>`).join('') : ''}
+          ${hasGenericStats ? p.stats.map(s => {
+            const color = statLabelColor(s.label) || 'var(--gold-bright)';
+            return `<tr><td style="color:${color};">${escapeHtml(s.label || '')}</td><td style="text-align:right; color:${color};">${escapeHtml(s.value || '')}</td></tr>`;
+          }).join('') : ''}
         </table>
       </div>`;
     }
@@ -838,7 +1115,7 @@ function renderCategoryView(catId, focusId){
     descCol.addEventListener('click', (e) => { if (e.target === descCol) closeHaloDesc(); });
     document.querySelectorAll('#haloGrid .spiribone-card').forEach(c => c.classList.toggle('selected', c.dataset.id === p.id));
     requestAnimationFrame(() => {
-      descCol.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      if (window.innerWidth > 820) descCol.scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
   }
 
@@ -918,7 +1195,7 @@ function renderCategoryView(catId, focusId){
         return `
           <table class="soulcore-value-table">
             <tr>${stars.map(s => `<th>${s}★</th>`).join('')}</tr>
-            <tr>${stars.map((s, i) => `<td>${values[i] ? values[i] + '%' : '—'}</td>`).join('')}</tr>
+            <tr>${stars.map((s, i) => `<td>${values[i] ? values[i] + '%' : '-'}</td>`).join('')}</tr>
           </table>
         `;
       }
@@ -1059,7 +1336,7 @@ function renderCategoryView(catId, focusId){
         <div class="beast-desc-info">
           <h3>${p.title}</h3>
           ${p.subtitle ? `<div class="subtitle">${p.subtitle}</div>` : ''}
-          ${(p.stats && p.stats.length) ? `<table class="stat-table">${p.stats.map(s => `<tr><td>${s.label}</td><td>${s.value}</td></tr>`).join('')}</table>` : ''}
+          ${(p.stats && p.stats.length) ? `<table class="stat-table">${p.stats.map(statRowHTML).join('')}</table>` : ''}
           ${p.description ? `
             <div class="beast-desc-text-wrap" id="beastDescTextWrap">
               <div class="description">${parseDesc(p.description)}</div>
@@ -1332,7 +1609,7 @@ function panelHTML(titleKey, pairs){
   return html;
 }
 
-// Finds the fusion data to show on this Spirit's page — either this
+// Finds the fusion data to show on this Spirit's page, either this
 // Spirit's own fusion entry, or (if none) another Spirit's fusion entry
 // that names this one as its partner, so both pages show it without
 // having to fill it in twice.
@@ -1519,12 +1796,29 @@ function materialApplicableSpiritHTML(p){
   `;
 }
 
+function openMapSourceMarker(el){
+  const zone = getPages('zones').find(z => z.id === el.dataset.zoneId);
+  if (!zone) return;
+  const marker = (zone.markers || []).find(m => m.id === el.dataset.markerId);
+  if (!marker) return;
+  openZoneMap(zone);
+  setTimeout(() => zoomToMarker(marker), 350);
+}
+
 function sourceLinkHTML(p){
   const sourceIds = p.sources || (p.source ? [p.source] : []);
   const trials = getPages('trials').filter(t => sourceIds.includes(t.id));
   const textSources = p.textSources || [];
-  if (!trials.length && !textSources.length) return '';
-  const totalCount = trials.length + textSources.length;
+  const mapSources = [];
+  getPages('zones').forEach(zone => {
+    (zone.markers || []).forEach(marker => {
+      if (marker.linkedItemId === p.id){
+        mapSources.push({ zone, marker });
+      }
+    });
+  });
+  const totalCount = trials.length + textSources.length + mapSources.length;
+  if (!totalCount) return '';
   return `
     <div class="ability-panel" style="margin-top:20px;">
       <div class="panel-title"><span class="dot"></span>Source${totalCount > 1 ? 's' : ''}</div>
@@ -1535,6 +1829,13 @@ function sourceLinkHTML(p){
             <span class="source-row-title">${trial.title}</span>
             <svg class="source-row-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
           </a>
+        `).join('')}
+        ${mapSources.map(({ zone, marker }) => `
+          <div class="source-row" data-zone-id="${zone.id}" data-marker-id="${marker.id}" onclick="openMapSourceMarker(this)" style="cursor:pointer;">
+            <span class="source-row-bullet">📍</span>
+            <span class="source-row-title">${zone.title} · ${marker.name}</span>
+            <svg class="source-row-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+          </div>
         `).join('')}
         ${textSources.map(txt => `
           <div class="source-row source-row-static">
@@ -1597,6 +1898,39 @@ function docBlocksHTML(page){
   `;
 }
 
+function renderBeastSoloPage(page){
+  setCharBackground(null);
+  setCharBackgroundLeft(null);
+  const cat = CATEGORIES.find(c => c.id === 'monstres');
+  const zone = page.zone ? getPages('zones').find(z => z.id === page.zone || z.title === page.zone) : null;
+
+  app.innerHTML = `
+    <div class="breadcrumbs">
+      <a href="#/">${LABELS.home}</a><span class="sep">/</span>
+      <a href="#/monstres">${categoryLabel(cat)}</a><span class="sep">/</span>
+      <span>${page.title}</span>
+    </div>
+    <div class="page-detail">
+      <div class="detail-media">
+        <img src="${page.image || page.imageUrl || ''}" alt="${page.title}">
+      </div>
+      <div class="detail-body">
+        <h1>${page.title}</h1>
+        ${page.subtitle ? `<div class="subtitle">${page.subtitle}</div>` : ''}
+        ${zone ? `
+          <div class="beast-zone-row" onclick='openZoneMap(${JSON.stringify(zone).replace(/'/g, "&apos;")})'>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Found in <b>${zone.title}</b>, view on map
+          </div>
+        ` : ''}
+        ${(page.stats && page.stats.length) ? `<table class="stat-table">${page.stats.map(statRowHTML).join('')}</table>` : ''}
+        ${page.description ? `<div class="description">${parseDesc(page.description)}</div>` : ''}
+        ${beastDropsPanelHTML(page)}
+      </div>
+    </div>
+  `;
+}
+
 function renderZoneDocPage(cat, page, catId){
   const bannerSrc = effectiveImage(page) || page.mapFile;
   app.innerHTML = `
@@ -1616,7 +1950,7 @@ function renderZoneDocPage(cat, page, catId){
         </div>
       </div>` : ''}
       ${page.description ? `<div class="description" style="max-width:760px; margin:0 auto 30px;">${parseDesc(page.description)}</div>` : ''}
-      ${catId === 'trials' ? ruleBlocksHTML(page) : ''}
+      ${(catId === 'trials' || catId === 'events') ? ruleBlocksHTML(page) : ''}
       ${docBlocksHTML(page)}
       ${catId === 'trials' ? trialRewardsPanelHTML(page) : ''}
     </div>
@@ -1634,8 +1968,12 @@ function renderDetailView(catId, pageId){
     app.innerHTML = `<div class="empty-state"><div class="big">❓</div>${LABELS.noResults}</div>`;
     return;
   }
-  if (catId === 'zones' || catId === 'trials'){
+  if (catId === 'zones' || catId === 'trials' || catId === 'events'){
     renderZoneDocPage(cat, page, catId);
+    return;
+  }
+  if (catId === 'monstres'){
+    renderBeastSoloPage(page);
     return;
   }
   const isSpirit = catId === 'personnages';
@@ -1665,7 +2003,7 @@ function renderDetailView(catId, pageId){
         ${effectiveImage(page) ? `<img src="${encodeURI(effectiveImage(page))}" alt="${page.title}">` : `<div class="no-img">No image</div>`}
         ${(page.stats && page.stats.length) ? `
           <table class="stat-table">
-            ${page.stats.map(s => `<tr><td>${s.label}</td><td>${s.value}</td></tr>`).join('')}
+            ${page.stats.map(statRowHTML).join('')}
           </table>
         ` : ''}
       </div>

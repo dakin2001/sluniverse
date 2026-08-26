@@ -1,4 +1,4 @@
-// "zones" page: generated from editeur.html on 8/18/2026
+// "zones" page: generated from editeur.html on 8/23/2026
 // You can also edit this file by hand: each object is one entry.
 window.WIKI = window.WIKI || {};
 window.WIKI.zones = [
@@ -165,7 +165,8 @@ window.WIKI.zones = [
         "y": 2149.9414888276533,
         "icon": "📷",
         "name": "Snapshot",
-        "description": "Enchanted Secret Sect"
+        "description": "Enchanted Secret Sect",
+        "linkedItemId": ""
       },
       {
         "id": "m1786074643471493",
@@ -173,7 +174,8 @@ window.WIKI.zones = [
         "y": 2304.8154170359776,
         "icon": "📷",
         "name": "Snapshot",
-        "description": "Dragon Tomb Volcano"
+        "description": "Dragon Tomb Volcano",
+        "linkedItemId": ""
       },
       {
         "id": "m1786074702647806",
@@ -181,7 +183,8 @@ window.WIKI.zones = [
         "y": 1094.7399526874703,
         "icon": "📷",
         "name": "Snapshot",
-        "description": "Lake of Life"
+        "description": "Lake of Life",
+        "linkedItemId": ""
       },
       {
         "id": "m1786074752407121",
@@ -189,7 +192,8 @@ window.WIKI.zones = [
         "y": 774.9484791335055,
         "icon": "📷",
         "name": "Snapshot",
-        "description": "Rakshasa Valley"
+        "description": "Rakshasa Valley",
+        "linkedItemId": ""
       },
       {
         "id": "m1787010007546481",
@@ -197,7 +201,8 @@ window.WIKI.zones = [
         "y": 2580.1253529474056,
         "icon": "🎬",
         "name": "Story",
-        "description": "Hu Liena's Memoir"
+        "description": "Hu Liena's Memoir",
+        "linkedItemId": ""
       },
       {
         "id": "m178701005290670",
@@ -205,7 +210,8 @@ window.WIKI.zones = [
         "y": 2642.664167518723,
         "icon": "🎬",
         "name": "Story",
-        "description": "Hu Liena's Memoir"
+        "description": "Hu Liena's Memoir",
+        "linkedItemId": ""
       },
       {
         "id": "m1787010074314695",
@@ -213,7 +219,8 @@ window.WIKI.zones = [
         "y": 2276.7578040207595,
         "icon": "🎬",
         "name": "Story",
-        "description": "Xiao Wu's Memoir"
+        "description": "Xiao Wu's Memoir",
+        "linkedItemId": ""
       },
       {
         "id": "m1787010123805419",
@@ -221,7 +228,8 @@ window.WIKI.zones = [
         "y": 2366.70126767389,
         "icon": "🎬",
         "name": "Story",
-        "description": "Hu Liena's Memoir"
+        "description": "Hu Liena's Memoir",
+        "linkedItemId": ""
       },
       {
         "id": "m1787010136130794",
@@ -229,7 +237,8 @@ window.WIKI.zones = [
         "y": 2344.2154017606076,
         "icon": "🎬",
         "name": "Story",
-        "description": "Xiao Wu's Memoir"
+        "description": "Xiao Wu's Memoir",
+        "linkedItemId": ""
       },
       {
         "id": "m178701015277036",
@@ -237,7 +246,8 @@ window.WIKI.zones = [
         "y": 2642.664167518723,
         "icon": "🎬",
         "name": "Story",
-        "description": "Xiao Wu's Memoir"
+        "description": "Xiao Wu's Memoir",
+        "linkedItemId": ""
       },
       {
         "id": "m1787010158393874",
@@ -245,7 +255,8 @@ window.WIKI.zones = [
         "y": 2156.1517959404255,
         "icon": "🎬",
         "name": "Story",
-        "description": "Hu Liena's Memoir"
+        "description": "Hu Liena's Memoir",
+        "linkedItemId": ""
       },
       {
         "id": "m1787010178833549",
@@ -253,7 +264,8 @@ window.WIKI.zones = [
         "y": 1992.618225662006,
         "icon": "🎬",
         "name": "Story",
-        "description": "Xiao Wu's Memoir"
+        "description": "Xiao Wu's Memoir",
+        "linkedItemId": ""
       },
       {
         "id": "m1787010186497351",
@@ -261,7 +273,8 @@ window.WIKI.zones = [
         "y": 1600.1376569937995,
         "icon": "🎬",
         "name": "Story",
-        "description": "Hu Liena's Memoir"
+        "description": "Hu Liena's Memoir",
+        "linkedItemId": ""
       },
       {
         "id": "m1787010187897591",
@@ -269,7 +282,8 @@ window.WIKI.zones = [
         "y": 1461.134122257143,
         "icon": "🎬",
         "name": "Story",
-        "description": "Hu Liena's Memoir"
+        "description": "Hu Liena's Memoir",
+        "linkedItemId": ""
       },
       {
         "id": "m1787010241737632",
@@ -277,7 +291,8 @@ window.WIKI.zones = [
         "y": 1080.9185713598179,
         "icon": "🎬",
         "name": "Story",
-        "description": "Xiao Wu's Memoir"
+        "description": "Xiao Wu's Memoir",
+        "linkedItemId": ""
       },
       {
         "id": "m1787010261841364",
@@ -285,7 +300,8 @@ window.WIKI.zones = [
         "y": 314.35496067972724,
         "icon": "🎬",
         "name": "Story",
-        "description": "Xiao Wu's Memoir"
+        "description": "Xiao Wu's Memoir",
+        "linkedItemId": ""
       },
       {
         "id": "m1787010330793387",
@@ -293,7 +309,8 @@ window.WIKI.zones = [
         "y": 1375.2789978609728,
         "icon": "🔥",
         "name": "Hunt bounty",
-        "description": "One-Eyed Count"
+        "description": "One-Eyed Count",
+        "linkedItemId": ""
       },
       {
         "id": "m1787010425145843",
@@ -301,7 +318,8 @@ window.WIKI.zones = [
         "y": 1283.291364579362,
         "icon": "🔥",
         "name": "Hunt bounty",
-        "description": "Demon King"
+        "description": "Demon King",
+        "linkedItemId": ""
       },
       {
         "id": "m1787010452393741",
@@ -309,7 +327,8 @@ window.WIKI.zones = [
         "y": 2438.2472046706985,
         "icon": "🔥",
         "name": "Hunt bounty",
-        "description": "Titan Ape"
+        "description": "Titan Ape",
+        "linkedItemId": ""
       },
       {
         "id": "m1787010456417503",
@@ -317,7 +336,17 @@ window.WIKI.zones = [
         "y": 1512.238362969149,
         "icon": "🔥",
         "name": "Hunt bounty",
-        "description": "Phantom of Rakshasa"
+        "description": "Phantom of Rakshasa",
+        "linkedItemId": ""
+      },
+      {
+        "id": "m1787454397261451",
+        "x": 2468.2290656493824,
+        "y": 1808.5092590181025,
+        "icon": "📦",
+        "name": "Item",
+        "description": "Foxtail Dew",
+        "linkedItemId": "foxtaildew"
       }
     ],
     "docBlocks": []
@@ -341,7 +370,8 @@ window.WIKI.zones = [
         "y": 2118.0930869411413,
         "icon": "📷",
         "name": "Snapshot",
-        "description": "Heavenia"
+        "description": "Heavenia",
+        "linkedItemId": ""
       },
       {
         "id": "m1786075232612543",
@@ -349,7 +379,8 @@ window.WIKI.zones = [
         "y": 1742.1584778042209,
         "icon": "📷",
         "name": "Snapshot",
-        "description": "Thunder Cliff Cape"
+        "description": "Thunder Cliff Cape",
+        "linkedItemId": ""
       },
       {
         "id": "m1786075274645806",
@@ -357,7 +388,8 @@ window.WIKI.zones = [
         "y": 957.2969728766147,
         "icon": "📷",
         "name": "Snapshot",
-        "description": "Snow Reflection Village"
+        "description": "Snow Reflection Village",
+        "linkedItemId": ""
       },
       {
         "id": "m178607532232451",
@@ -365,7 +397,8 @@ window.WIKI.zones = [
         "y": 922.6320197238634,
         "icon": "📷",
         "name": "Snapshot",
-        "description": "Gobi Lakeside"
+        "description": "Gobi Lakeside",
+        "linkedItemId": ""
       },
       {
         "id": "m1787010546689116",
@@ -373,7 +406,8 @@ window.WIKI.zones = [
         "y": 2190.2033822799735,
         "icon": "🎬",
         "name": "Story",
-        "description": "Huo Wu's memoir"
+        "description": "Huo Wu's memoir",
+        "linkedItemId": ""
       },
       {
         "id": "m1787010585393613",
@@ -381,7 +415,8 @@ window.WIKI.zones = [
         "y": 2418.258725576482,
         "icon": "🎬",
         "name": "Story",
-        "description": "Feng Xiatian's Memoir"
+        "description": "Feng Xiatian's Memoir",
+        "linkedItemId": ""
       },
       {
         "id": "m1787010616657139",
@@ -389,7 +424,8 @@ window.WIKI.zones = [
         "y": 1934.8858090532244,
         "icon": "🎬",
         "name": "Story",
-        "description": "Huo Wu's memoir"
+        "description": "Huo Wu's memoir",
+        "linkedItemId": ""
       },
       {
         "id": "m1787010620297529",
@@ -397,7 +433,8 @@ window.WIKI.zones = [
         "y": 1355.8328997577737,
         "icon": "🎬",
         "name": "Story",
-        "description": "Huo Wu's memoir"
+        "description": "Huo Wu's memoir",
+        "linkedItemId": ""
       },
       {
         "id": "m1787010621848631",
@@ -405,7 +442,8 @@ window.WIKI.zones = [
         "y": 1527.3216459721955,
         "icon": "🎬",
         "name": "Story",
-        "description": "Feng Xiatian's Memoir"
+        "description": "Feng Xiatian's Memoir",
+        "linkedItemId": ""
       },
       {
         "id": "m178701067165757",
@@ -413,7 +451,8 @@ window.WIKI.zones = [
         "y": 1598.5896963470202,
         "icon": "🎬",
         "name": "Story",
-        "description": "Huo Wu's memoir"
+        "description": "Huo Wu's memoir",
+        "linkedItemId": ""
       },
       {
         "id": "m1787010672802949",
@@ -421,7 +460,8 @@ window.WIKI.zones = [
         "y": 1429.3280767068115,
         "icon": "🎬",
         "name": "Story",
-        "description": "Feng Xiatian's Memoir"
+        "description": "Feng Xiatian's Memoir",
+        "linkedItemId": ""
       },
       {
         "id": "m1787010677056106",
@@ -429,7 +469,8 @@ window.WIKI.zones = [
         "y": 963.8586226962377,
         "icon": "🎬",
         "name": "Story",
-        "description": "Feng Xiatian's Memoir"
+        "description": "Feng Xiatian's Memoir",
+        "linkedItemId": ""
       },
       {
         "id": "m1787010717296102",
@@ -437,7 +478,8 @@ window.WIKI.zones = [
         "y": 779.861127683146,
         "icon": "🎬",
         "name": "Story",
-        "description": "Huo Wu's memoir"
+        "description": "Huo Wu's memoir",
+        "linkedItemId": ""
       },
       {
         "id": "m1787010718256440",
@@ -445,7 +487,8 @@ window.WIKI.zones = [
         "y": 800.8662250920349,
         "icon": "🎬",
         "name": "Story",
-        "description": "Feng Xiatian's Memoir"
+        "description": "Feng Xiatian's Memoir",
+        "linkedItemId": ""
       },
       {
         "id": "m1787010751512862",
@@ -453,7 +496,8 @@ window.WIKI.zones = [
         "y": 1066.4306709044163,
         "icon": "🎬",
         "name": "Story",
-        "description": "Feng Xiatian's Memoir"
+        "description": "Feng Xiatian's Memoir",
+        "linkedItemId": ""
       },
       {
         "id": "m1787010756969890",
@@ -461,7 +505,8 @@ window.WIKI.zones = [
         "y": 910.3928044383842,
         "icon": "🎬",
         "name": "Story",
-        "description": "Huo Wu's memoir"
+        "description": "Huo Wu's memoir",
+        "linkedItemId": ""
       },
       {
         "id": "m1787010786832550",
@@ -469,7 +514,8 @@ window.WIKI.zones = [
         "y": 1055.9281221999718,
         "icon": "🔥",
         "name": "Hunt Bounty",
-        "description": "Divine Turtle"
+        "description": "Divine Turtle",
+        "linkedItemId": ""
       },
       {
         "id": "m1787010789640425",
@@ -477,7 +523,8 @@ window.WIKI.zones = [
         "y": 781.3614917837809,
         "icon": "🔥",
         "name": "Hunt Bounty",
-        "description": "Sacred Flare"
+        "description": "Sacred Flare",
+        "linkedItemId": ""
       },
       {
         "id": "m1787010847080119",
@@ -485,7 +532,8 @@ window.WIKI.zones = [
         "y": 1722.0897828818775,
         "icon": "🔥",
         "name": "Hunt Bounty",
-        "description": "Nightbane Deliverer"
+        "description": "Nightbane Deliverer",
+        "linkedItemId": ""
       },
       {
         "id": "m1787010852202610",
@@ -493,7 +541,17 @@ window.WIKI.zones = [
         "y": 502.2937690656853,
         "icon": "🔥",
         "name": "Hunt Bounty",
-        "description": "Tyrant Edge"
+        "description": "Tyrant Edge",
+        "linkedItemId": ""
+      },
+      {
+        "id": "m1787455825154955",
+        "x": 1347.8496445275114,
+        "y": 1292.9526937825542,
+        "icon": "📦",
+        "name": "Item",
+        "description": "Foxtail Dew",
+        "linkedItemId": "foxtaildew"
       }
     ],
     "docBlocks": []
@@ -517,7 +575,8 @@ window.WIKI.zones = [
         "y": 1712.9411459839373,
         "icon": "📷",
         "name": "Snapshot",
-        "description": "Sword Tomb Ruins"
+        "description": "Sword Tomb Ruins",
+        "linkedItemId": ""
       },
       {
         "id": "m1786076037944661",
@@ -525,7 +584,8 @@ window.WIKI.zones = [
         "y": 614.6445596380532,
         "icon": "📷",
         "name": "Snapshot",
-        "description": "Eye of Ice and Fire"
+        "description": "Eye of Ice and Fire",
+        "linkedItemId": ""
       },
       {
         "id": "m1786076089064461",
@@ -533,7 +593,8 @@ window.WIKI.zones = [
         "y": 2021.1561266307788,
         "icon": "📷",
         "name": "Snapshot",
-        "description": "Pagoda Sect"
+        "description": "Pagoda Sect",
+        "linkedItemId": ""
       },
       {
         "id": "m178607614554457",
@@ -541,7 +602,8 @@ window.WIKI.zones = [
         "y": 1432.472789782005,
         "icon": "📷",
         "name": "Snapshot",
-        "description": "Wind Sword Sect"
+        "description": "Wind Sword Sect",
+        "linkedItemId": ""
       },
       {
         "id": "m1787011068943763",
@@ -549,7 +611,8 @@ window.WIKI.zones = [
         "y": 1677.5525257917045,
         "icon": "🎬",
         "name": "Story",
-        "description": "Oscar's Memoir"
+        "description": "Oscar's Memoir",
+        "linkedItemId": ""
       },
       {
         "id": "m1787011085711981",
@@ -557,7 +620,8 @@ window.WIKI.zones = [
         "y": 1544.1205839397714,
         "icon": "🎬",
         "name": "Story",
-        "description": "Ning Rongrong's Memoir"
+        "description": "Ning Rongrong's Memoir",
+        "linkedItemId": ""
       },
       {
         "id": "m1787011086879921",
@@ -565,7 +629,8 @@ window.WIKI.zones = [
         "y": 1363.1649367707116,
         "icon": "🎬",
         "name": "Story",
-        "description": "Oscar's Memoir"
+        "description": "Oscar's Memoir",
+        "linkedItemId": ""
       },
       {
         "id": "m1787011118801520",
@@ -573,7 +638,8 @@ window.WIKI.zones = [
         "y": 1626.3731508347987,
         "icon": "🎬",
         "name": "Story",
-        "description": "Ning Rongrong's Memoir"
+        "description": "Ning Rongrong's Memoir",
+        "linkedItemId": ""
       },
       {
         "id": "m1787011123327351",
@@ -581,7 +647,8 @@ window.WIKI.zones = [
         "y": 1085.3340441475084,
         "icon": "🎬",
         "name": "Story",
-        "description": "Ning Rongrong's Memoir"
+        "description": "Ning Rongrong's Memoir",
+        "linkedItemId": ""
       },
       {
         "id": "m1787011135119925",
@@ -589,7 +656,8 @@ window.WIKI.zones = [
         "y": 1445.4175036657389,
         "icon": "🎬",
         "name": "Story",
-        "description": "Oscar's Memoir"
+        "description": "Oscar's Memoir",
+        "linkedItemId": ""
       },
       {
         "id": "m1787011155679767",
@@ -597,7 +665,8 @@ window.WIKI.zones = [
         "y": 2364.818418070154,
         "icon": "🎬",
         "name": "Story",
-        "description": "Ning Rongrong's Memoir"
+        "description": "Ning Rongrong's Memoir",
+        "linkedItemId": ""
       },
       {
         "id": "m1787011166471632",
@@ -605,7 +674,8 @@ window.WIKI.zones = [
         "y": 2028.4968112104873,
         "icon": "🎬",
         "name": "Story",
-        "description": "Ning Rongrong's Memoir"
+        "description": "Ning Rongrong's Memoir",
+        "linkedItemId": ""
       },
       {
         "id": "m1787011181143601",
@@ -613,7 +683,8 @@ window.WIKI.zones = [
         "y": 942.762928196128,
         "icon": "🎬",
         "name": "Story",
-        "description": "Oscar's Memoir"
+        "description": "Oscar's Memoir",
+        "linkedItemId": ""
       },
       {
         "id": "m1787011182433323",
@@ -621,7 +692,8 @@ window.WIKI.zones = [
         "y": 591.8186427773452,
         "icon": "🎬",
         "name": "Story",
-        "description": "Oscar's Memoir"
+        "description": "Oscar's Memoir",
+        "linkedItemId": ""
       },
       {
         "id": "m1787011184095189",
@@ -629,7 +701,8 @@ window.WIKI.zones = [
         "y": 533.3279285408813,
         "icon": "🎬",
         "name": "Story",
-        "description": "Oscar's Memoir"
+        "description": "Oscar's Memoir",
+        "linkedItemId": ""
       },
       {
         "id": "m1787011210239277",
@@ -637,7 +710,8 @@ window.WIKI.zones = [
         "y": 434.6248482668487,
         "icon": "🎬",
         "name": "Story",
-        "description": "Ning Rongrong's Memoir"
+        "description": "Ning Rongrong's Memoir",
+        "linkedItemId": ""
       },
       {
         "id": "m1787011438351640",
@@ -645,7 +719,8 @@ window.WIKI.zones = [
         "y": 1003.2974372212894,
         "icon": "🔥",
         "name": "Hunt Bounty",
-        "description": "Cavern Arachnid"
+        "description": "Cavern Arachnid",
+        "linkedItemId": ""
       },
       {
         "id": "m1787011443519492",
@@ -653,7 +728,8 @@ window.WIKI.zones = [
         "y": 927.3279184482698,
         "icon": "🔥",
         "name": "Hunt Bounty",
-        "description": "Glazed Spider"
+        "description": "Glazed Spider",
+        "linkedItemId": ""
       },
       {
         "id": "m1787011498279931",
@@ -661,7 +737,8 @@ window.WIKI.zones = [
         "y": 1358.7300696522077,
         "icon": "🔥",
         "name": "Hunt Bounty",
-        "description": "Sandstone Tiger"
+        "description": "Sandstone Tiger",
+        "linkedItemId": ""
       },
       {
         "id": "m1787011504759636",
@@ -669,7 +746,17 @@ window.WIKI.zones = [
         "y": 1301.752427040367,
         "icon": "🔥",
         "name": "Hunt Bounty",
-        "description": "Heavenly Thunder Hell Dragon"
+        "description": "Heavenly Thunder Hell Dragon",
+        "linkedItemId": ""
+      },
+      {
+        "id": "m1787455899770504",
+        "x": 609.7482557383559,
+        "y": 1081.5652847592207,
+        "icon": "📦",
+        "name": "Item",
+        "description": "Foxtail Dew",
+        "linkedItemId": "foxtaildew"
       }
     ],
     "docBlocks": []
@@ -693,7 +780,8 @@ window.WIKI.zones = [
         "y": 4581.975372812923,
         "icon": "📷",
         "name": "Snapshot",
-        "description": "Haotian Sect"
+        "description": "Haotian Sect",
+        "linkedItemId": ""
       },
       {
         "id": "m1786076395704245",
@@ -701,7 +789,8 @@ window.WIKI.zones = [
         "y": 1578.038852408726,
         "icon": "📷",
         "name": "Snapshot",
-        "description": "Cloudfall Village"
+        "description": "Cloudfall Village",
+        "linkedItemId": ""
       },
       {
         "id": "m1786076439943947",
@@ -709,7 +798,8 @@ window.WIKI.zones = [
         "y": 2819.1171087926896,
         "icon": "📷",
         "name": "Snapshot",
-        "description": "Cyclone Lake"
+        "description": "Cyclone Lake",
+        "linkedItemId": ""
       },
       {
         "id": "m1786076500734832",
@@ -717,7 +807,8 @@ window.WIKI.zones = [
         "y": 723.7615367148483,
         "icon": "📷",
         "name": "Snapshot",
-        "description": "Hanging Star Platform"
+        "description": "Hanging Star Platform",
+        "linkedItemId": ""
       },
       {
         "id": "m1787011615990147",
@@ -725,7 +816,8 @@ window.WIKI.zones = [
         "y": 4483.174664855535,
         "icon": "🎬",
         "name": "Story",
-        "description": "Zhu Zhuqing's Memories"
+        "description": "Zhu Zhuqing's Memories",
+        "linkedItemId": ""
       },
       {
         "id": "m1787011649647823",
@@ -733,7 +825,8 @@ window.WIKI.zones = [
         "y": 4254.340465922158,
         "icon": "🎬",
         "name": "Story",
-        "description": "Zhu Zhuqing's Memories"
+        "description": "Zhu Zhuqing's Memories",
+        "linkedItemId": ""
       },
       {
         "id": "m1787011650616438",
@@ -741,7 +834,8 @@ window.WIKI.zones = [
         "y": 4399.785931345915,
         "icon": "🎬",
         "name": "Story",
-        "description": "Dai Mubai's Memories"
+        "description": "Dai Mubai's Memories",
+        "linkedItemId": ""
       },
       {
         "id": "m178701166250238",
@@ -749,7 +843,8 @@ window.WIKI.zones = [
         "y": 4201.980098369605,
         "icon": "🎬",
         "name": "Story",
-        "description": "Dai Mubai's Memories"
+        "description": "Dai Mubai's Memories",
+        "linkedItemId": ""
       },
       {
         "id": "m1787011693710388",
@@ -757,7 +852,8 @@ window.WIKI.zones = [
         "y": 3693.890605822613,
         "icon": "🎬",
         "name": "Story",
-        "description": "Dai Mubai's Memories"
+        "description": "Dai Mubai's Memories",
+        "linkedItemId": ""
       },
       {
         "id": "m1787011740017255",
@@ -765,7 +861,8 @@ window.WIKI.zones = [
         "y": 2908.4850925343244,
         "icon": "🎬",
         "name": "Story",
-        "description": "Zhu Zhuqing's Memories"
+        "description": "Zhu Zhuqing's Memories",
+        "linkedItemId": ""
       },
       {
         "id": "m1787011742016822",
@@ -773,7 +870,8 @@ window.WIKI.zones = [
         "y": 2764.978899982884,
         "icon": "🎬",
         "name": "Story",
-        "description": "Dai Mubai's Memories"
+        "description": "Dai Mubai's Memories",
+        "linkedItemId": ""
       },
       {
         "id": "m1787011772422965",
@@ -781,7 +879,8 @@ window.WIKI.zones = [
         "y": 2194.832675521756,
         "icon": "🎬",
         "name": "Story",
-        "description": "Zhu Zhuqing's Memories"
+        "description": "Zhu Zhuqing's Memories",
+        "linkedItemId": ""
       },
       {
         "id": "m1787011780999281",
@@ -789,7 +888,8 @@ window.WIKI.zones = [
         "y": 955.6373101113446,
         "icon": "🎬",
         "name": "Story",
-        "description": "Dai Mubai's Memories"
+        "description": "Dai Mubai's Memories",
+        "linkedItemId": ""
       },
       {
         "id": "m1787011804190660",
@@ -797,7 +897,8 @@ window.WIKI.zones = [
         "y": 1661.532635634646,
         "icon": "🎬",
         "name": "Story",
-        "description": "Zhu Zhuqing's Memories"
+        "description": "Zhu Zhuqing's Memories",
+        "linkedItemId": ""
       },
       {
         "id": "m1787011808199655",
@@ -805,7 +906,8 @@ window.WIKI.zones = [
         "y": 2842.5498148755546,
         "icon": "🎬",
         "name": "Story",
-        "description": "Dai Mubai's Memories"
+        "description": "Dai Mubai's Memories",
+        "linkedItemId": ""
       },
       {
         "id": "m1787011833302637",
@@ -813,7 +915,8 @@ window.WIKI.zones = [
         "y": 3152.8334744462363,
         "icon": "🎬",
         "name": "Story",
-        "description": "Zhu Zhuqing's Memories"
+        "description": "Zhu Zhuqing's Memories",
+        "linkedItemId": ""
       },
       {
         "id": "m1787011872183112",
@@ -821,7 +924,8 @@ window.WIKI.zones = [
         "y": 3356.4571260394964,
         "icon": "🔥",
         "name": "Hunt Bounty",
-        "description": "Frostshadow Azure Pterodactyl"
+        "description": "Frostshadow Azure Pterodactyl",
+        "linkedItemId": ""
       },
       {
         "id": "m1787011907433315",
@@ -829,7 +933,8 @@ window.WIKI.zones = [
         "y": 1536.5633580376632,
         "icon": "🔥",
         "name": "Hunt Bounty",
-        "description": "Celestial Condor"
+        "description": "Celestial Condor",
+        "linkedItemId": ""
       },
       {
         "id": "m1787011930374698",
@@ -837,7 +942,8 @@ window.WIKI.zones = [
         "y": 2354.0967458865175,
         "icon": "🔥",
         "name": "Hunt Bounty",
-        "description": "inkbone Thorn Emperor"
+        "description": "inkbone Thorn Emperor",
+        "linkedItemId": ""
       },
       {
         "id": "m1787011956894488",
@@ -845,7 +951,17 @@ window.WIKI.zones = [
         "y": 4202.182784615266,
         "icon": "🔥",
         "name": "Hunt Bounty",
-        "description": "Inferno Red King"
+        "description": "Inferno Red King",
+        "linkedItemId": ""
+      },
+      {
+        "id": "m1787455960290313",
+        "x": 3909.7376735803095,
+        "y": 3988.048818414189,
+        "icon": "📦",
+        "name": "Item",
+        "description": "Foxtail Dew",
+        "linkedItemId": "foxtaildew"
       }
     ],
     "docBlocks": []
