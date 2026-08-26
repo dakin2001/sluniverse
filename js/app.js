@@ -433,9 +433,11 @@ async function renderGuideDetailView(id){
     }
     const g = doc.data();
     let authorAvatar = '';
+    let authorServer = '';
     try {
       const authorDoc = await db.collection('users').doc(g.authorId).get();
       if (authorDoc.exists) authorAvatar = authorDoc.data().avatarUrl || '';
+      if (authorDoc.exists) authorServer = authorDoc.data().server || '';
       publicGuideAuthorGlossary = (authorDoc.exists && authorDoc.data().glossary) || {};
     } catch (e){ /* profile fetch is best-effort, guide still renders without it */ }
 
@@ -462,7 +464,16 @@ async function renderGuideDetailView(id){
           <div class="guide-author-avatar" style="${authorAvatar ? `background-image:url('${authorAvatar}')` : ''}">${authorAvatar ? '' : escapeHtml((g.authorUsername||'?').charAt(0).toUpperCase())}</div>
           <div class="guide-author-eyebrow">Written by</div>
           <div class="guide-author-name">${escapeHtml(g.authorUsername || 'Unknown')}</div>
-          <span class="guide-lang-badge" style="margin-top:12px;">${escapeHtml(g.language || '')}</span>
+          <div class="guide-author-facts">
+            ${authorServer ? `<div class="guide-author-fact">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 3v4M8 3v4M2 11h20"/></svg>
+              <span>${escapeHtml(authorServer)}</span>
+            </div>` : ''}
+            ${g.language ? `<div class="guide-author-fact">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+              <span>${escapeHtml(g.language)}</span>
+            </div>` : ''}
+          </div>
           ${(g.tags || []).length ? `<div class="guide-side-tags">${(g.tags || []).map(t => `<span class="guide-tag-badge">${escapeHtml(t)}</span>`).join('')}</div>` : ''}
         </div>
       </div>

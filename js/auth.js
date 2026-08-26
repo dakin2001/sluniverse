@@ -291,5 +291,25 @@ async function uploadToCloudinary(file, publicId, folder){
  */
 async function uploadAvatar(file){
   const uid = auth.currentUser.uid;
-  return await uploadToCloudinary(file, 'profile', `avatars/${uid}`);
+  return await uploadToCloudinary(file, `profile-${Date.now()}`, `avatars/${uid}`);
+}
+
+/**
+ * Best-effort cleanup: deletes a previous avatar from Cloudinary via our
+ * Vercel serverless function, once the new one has been saved successfully.
+ * Never throws, since a failed cleanup should never block the actual save.
+ */
+async function deleteOldAvatar(oldAvatarUrl){
+  if (!oldAvatarUrl) return;
+  const match = oldAvatarUrl.match(/\/upload\/(?:v\d+\/)?(avatars\/[^.]+)/);
+  if (!match) return;
+  try {
+    await fetch('/api/delete-avatar', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ publicId: match[1] }),
+    });
+  } catch (e){
+    console.error('Could not clean up the old avatar (non-blocking):', e);
+  }
 }

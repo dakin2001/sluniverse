@@ -68,16 +68,12 @@ function timeAgo(date){
 /* ---------- Navigation ---------- */
 function showView(view){
   document.querySelectorAll('.dash-view').forEach(v => v.classList.remove('active'));
-  document.querySelectorAll('.dash-sidebar-item').forEach(i => i.classList.remove('active'));
-  if (view === 'queue'){ document.getElementById('viewQueue').classList.add('active'); document.querySelector('[data-view="queue"]').classList.add('active'); loadQueue(); }
-  if (view === 'all'){ document.getElementById('viewAll').classList.add('active'); document.querySelector('[data-view="all"]').classList.add('active'); loadAllGuides(); }
-  if (view === 'contributors'){ document.getElementById('viewContributors').classList.add('active'); document.querySelector('[data-view="contributors"]').classList.add('active'); loadContributors(); }
-  if (view === 'contribProfile'){ document.getElementById('viewContribProfile').classList.add('active'); }
+  document.querySelectorAll('.dash-sidebar-item, .tab-item[data-view]').forEach(i => i.classList.remove('active'));
+  if (view === 'queue'){ document.getElementById('viewQueue')?.classList.add('active'); document.querySelector('[data-view="queue"]')?.classList.add('active'); loadQueue(); }
+  if (view === 'all'){ document.getElementById('viewAll')?.classList.add('active'); document.querySelector('[data-view="all"]')?.classList.add('active'); loadAllGuides(); }
+  if (view === 'contributors'){ document.getElementById('viewContributors')?.classList.add('active'); document.querySelector('[data-view="contributors"]')?.classList.add('active'); loadContributors(); }
+  if (view === 'contribProfile'){ document.getElementById('viewContribProfile')?.classList.add('active'); }
 }
-document.querySelectorAll('.dash-sidebar-item').forEach(item => {
-  item.addEventListener('click', () => showView(item.dataset.view));
-});
-
 /* ---------- Stats ---------- */
 async function loadStats(){
   try {
@@ -143,8 +139,8 @@ async function loadQueue(){
     grid.innerHTML = `<div class="dash-empty">${t('gr_could_not_load_queue')}<br><span style="color:var(--red); font-size:12px; font-family:monospace;">${(e.message||e).toString().replace(/</g,'&lt;')}</span></div>`;
   }
 }
-document.getElementById('queueSearch').addEventListener('input', loadQueue);
-document.getElementById('queueLangFilter').addEventListener('change', loadQueue);
+document.getElementById('queueSearch')?.addEventListener('input', loadQueue);
+document.getElementById('queueLangFilter')?.addEventListener('change', loadQueue);
 
 /* ---------- All Guides ---------- */
 async function loadAllGuides(){
@@ -172,9 +168,9 @@ async function loadAllGuides(){
     grid.innerHTML = `<div class="dash-empty">${t('gr_could_not_load_guides')}<br><span style="color:var(--red); font-size:12px; font-family:monospace;">${(e.message||e).toString().replace(/</g,'&lt;')}</span></div>`;
   }
 }
-document.getElementById('allSearch').addEventListener('input', loadAllGuides);
-document.getElementById('allStatusFilter').addEventListener('change', loadAllGuides);
-document.getElementById('allLangFilter').addEventListener('change', loadAllGuides);
+document.getElementById('allSearch')?.addEventListener('input', loadAllGuides);
+document.getElementById('allStatusFilter')?.addEventListener('change', loadAllGuides);
+document.getElementById('allLangFilter')?.addEventListener('change', loadAllGuides);
 
 /* ---------- Contributors ---------- */
 async function loadContributors(){
@@ -204,7 +200,7 @@ async function loadContributors(){
     grid.innerHTML = `<div class="dash-empty">${t('gr_could_not_load_contrib')}</div>`;
   }
 }
-document.getElementById('contribSearch').addEventListener('input', loadContributors);
+document.getElementById('contribSearch')?.addEventListener('input', loadContributors);
 
 /* ---------- Shared: count a contributor's guides by status ---------- */
 async function getAuthorGuideStats(uid){
@@ -240,6 +236,7 @@ async function showContributorProfile(uid){
         <div class="author-mini-stat"><div class="author-mini-stat-num">${stats.approved}</div><div class="author-mini-stat-label">${t('gr_status_approved')}</div></div>
         <div class="author-mini-stat"><div class="author-mini-stat-num">${stats.rejected}</div><div class="author-mini-stat-label">${t('gr_status_rejected')}</div></div>
       </div>
+      ${uid !== auth.currentUser.uid ? `<div class="btn btn-reject" onclick="adminDeleteUser('${uid}', '${(u.username||'this user').replace(/'/g, "\\'")}')" style="margin-left:16px; flex-shrink:0;">🗑 Delete Account</div>` : ''}
     `;
     const guidesSnap = await db.collection('guides').where('authorId', '==', uid).orderBy('createdAt', 'desc').get();
     guidesGrid.innerHTML = guidesSnap.empty
@@ -308,6 +305,7 @@ async function openGuideModal(id){
     } else {
       actions.innerHTML = `<div class="btn" style="color:var(--text-dim);" disabled>${t('gr_no_action')} ("${statusLabel(g.status)}")</div>`;
     }
+    actions.innerHTML += `<div class="btn btn-reject" onclick="adminDeleteGuide('${id}', '${(g.title||'Untitled Guide').replace(/'/g, "\\'")}')">🗑 Delete Guide</div>`;
 
     const log = g.activityLog || [];
     if (log.length){
@@ -329,7 +327,7 @@ function closeGuideModal(){
   document.getElementById('guideModal').classList.remove('open');
   modalGuideId = null;
 }
-document.getElementById('guideModal').addEventListener('click', (e) => {
+document.getElementById('guideModal')?.addEventListener('click', (e) => {
   if (e.target.id === 'guideModal') closeGuideModal();
 });
 
@@ -396,11 +394,88 @@ async function rejectGuide(id){
   }
 }
 
-/* ---------- Init after admin check passes ---------- */
+async function adminDeleteGuide(id, title){
+  const reason = await customPrompt(`Permanently delete "${title}"? This cannot be undone.`, 'Reason for deleting this guide…');
+  if (!reason) return;
+  try {
+    const profile = await getCurrentUserProfile();
+    await db.collection('guides').doc(id).delete();
+    await db.collection('deletionLog').add({
+      type: 'guide',
+      targetId: id,
+      targetName: title,
+      reason: reason,
+      deletedBy: auth.currentUser.uid,
+      deletedByUsername: (profile && profile.username) || 'Admin',
+      createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+    });
+    closeGuideModal();
+    loadQueue();
+    loadStats();
+    await customAlert(`Guide deleted.\n\nDon't forget to manually clear its images from Cloudinary:\nguides/${id}/`);
+  } catch (e){
+    customAlert('Could not delete this guide: ' + (e.message || 'unknown error'));
+  }
+}
+
+async function adminDeleteUser(uid, username){
+  const reason = await customPrompt(
+    `Permanently delete the account "${username}"? This will also delete ALL of their guides and their glossary. This cannot be undone.`,
+    'Reason for deleting this account…'
+  );
+  if (!reason) return;
+  try {
+    const profile = await getCurrentUserProfile();
+    const userDoc = await db.collection('users').doc(uid).get();
+    const userData = userDoc.data() || {};
+
+    const guidesSnap = await db.collection('guides').where('authorId', '==', uid).get();
+    const guideIds = guidesSnap.docs.map(d => d.id);
+    for (const gDoc of guidesSnap.docs){
+      await gDoc.ref.delete();
+    }
+
+    if (userData.usernameLower){
+      try { await db.collection('usernames').doc(userData.usernameLower).delete(); } catch (e){ /* best effort */ }
+    }
+
+    await db.collection('users').doc(uid).delete();
+
+    await db.collection('deletionLog').add({
+      type: 'user',
+      targetId: uid,
+      targetName: username,
+      reason: reason,
+      guidesDeletedCount: guideIds.length,
+      deletedBy: auth.currentUser.uid,
+      deletedByUsername: (profile && profile.username) || 'Admin',
+      createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+    });
+
+    // Best-effort: let the user know why, by email. Never blocks the deletion itself.
+    try {
+      await fetch('/api/notify-deleted-user', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ uid, username, reason }),
+      });
+    } catch (e){ console.error('Could not send deletion notice email (non-blocking):', e); }
+
+    showView('contributors');
+    loadContributors();
+    loadStats();
+
+    const cloudinaryFolders = [`avatars/${uid}/`, ...guideIds.map(id => `guides/${id}/`)];
+    await customAlert(`Account "${username}" deleted, along with ${guideIds.length} guide(s).\n\nDon't forget to manually clear these folders from Cloudinary:\n${cloudinaryFolders.join('\n')}`);
+  } catch (e){
+    customAlert('Could not delete this account: ' + (e.message || 'unknown error'));
+  }
+}
+
+/* ---------- Init: called explicitly by whichever page needs the Review Queue ---------- */
 function renderDashNotifPanel(){ /* no longer used on this page, kept as a harmless no-op in case anything still calls it */ }
 
-auth.onAuthStateChanged(async (user) => {
-  if (!user) return;
+async function initReviewQueuePage(){
   const profile = await getCurrentUserProfile();
   if (!profile || !profile.isAdmin) return;
   applyLanguage(profile.language);
@@ -409,4 +484,38 @@ auth.onAuthStateChanged(async (user) => {
 
   const openGuideId = new URLSearchParams(location.search).get('openGuide');
   if (openGuideId) openGuideModal(openGuideId);
+}
+
+/* ---------- Deletion history (audit trail) ---------- */
+document.getElementById('showDeletionHistoryBtn')?.addEventListener('click', async () => {
+  const panel = document.getElementById('deletionHistoryPanel');
+  const btn = document.getElementById('showDeletionHistoryBtn');
+  const opening = panel.style.display === 'none';
+  panel.style.display = opening ? 'block' : 'none';
+  btn.textContent = opening ? '🗑 Hide Deletion History' : '🗑 View Deletion History';
+  if (!opening) return;
+
+  panel.innerHTML = `<div class="dash-empty">${t('gr_loading') || 'Loading…'}</div>`;
+  try {
+    const snap = await db.collection('deletionLog').orderBy('createdAt', 'desc').limit(50).get();
+    if (snap.empty){
+      panel.innerHTML = `<div class="dash-empty">No deletions logged yet.</div>`;
+      return;
+    }
+    panel.innerHTML = `<div class="activity-feed">` + snap.docs.map(d => {
+      const e = d.data();
+      const when = e.createdAt ? e.createdAt.toDate().toLocaleString() : '';
+      const icon = e.type === 'user' ? '👤' : '📄';
+      return `
+        <div class="activity-feed-row" style="flex-direction:column; align-items:flex-start; gap:4px;">
+          <div><b>${icon} ${escHtml(e.targetName || e.targetId)}</b> <span style="color:var(--text-dim); font-size:11.5px;">(${e.type})</span></div>
+          <div style="font-size:12.5px; color:var(--text-dim);">${escHtml(e.reason || 'No reason given')}</div>
+          <div style="font-size:11px; color:var(--text-dim);">By ${escHtml(e.deletedByUsername || 'Admin')} · ${when}</div>
+        </div>
+      `;
+    }).join('') + `</div>`;
+  } catch (e){
+    panel.innerHTML = `<div class="dash-empty">Could not load deletion history.</div>`;
+  }
 });
+

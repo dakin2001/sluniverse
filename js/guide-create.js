@@ -676,15 +676,16 @@ document.getElementById('confirmBlockCropBtn').addEventListener('click', async (
   isDirty = true;
   const stage = document.getElementById('blockCropStage');
   const stageW = stage.clientWidth, stageH = stage.clientHeight;
+  const EXPORT_SCALE = 3; // export at 3x the on-screen preview size, so covers stay sharp at any display size
   const canvas = document.createElement('canvas');
-  canvas.width = stageW;
-  canvas.height = stageH;
+  canvas.width = stageW * EXPORT_SCALE;
+  canvas.height = stageH * EXPORT_SCALE;
   const ctx = canvas.getContext('2d');
   const img = document.getElementById('blockCropImage');
-  const w = blockCropNaturalW * blockCropBaseScale * blockCropScale;
-  const h = blockCropNaturalH * blockCropBaseScale * blockCropScale;
-  const drawX = (stageW - w) / 2 + blockCropOffsetX;
-  const drawY = (stageH - h) / 2 + blockCropOffsetY;
+  const w = blockCropNaturalW * blockCropBaseScale * blockCropScale * EXPORT_SCALE;
+  const h = blockCropNaturalH * blockCropBaseScale * blockCropScale * EXPORT_SCALE;
+  const drawX = (canvas.width - w) / 2 + blockCropOffsetX * EXPORT_SCALE;
+  const drawY = (canvas.height - h) / 2 + blockCropOffsetY * EXPORT_SCALE;
   ctx.drawImage(img, drawX, drawY, w, h);
 
   const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/jpeg', 0.92));

@@ -1,5 +1,6 @@
 // Prevents the dashboard from flashing briefly during registration's transient sign-in
 let isRegistering = false;
+let avatarPendingUpload = false; // true from a successful crop-upload until Save Profile actually persists it
 
 // Generic helper: disables a button and shows a spinner+text while an async action runs
 async function withLoading(btn, loadingText, fn){
@@ -241,6 +242,7 @@ document.getElementById('confirmCropBtn').addEventListener('click', async () => 
 
       const url = await uploadAvatar(file);
       document.getElementById('editAvatarUrl').value = url;
+      avatarPendingUpload = true;
       status.textContent = `✅ Photo ready, click Save Profile to apply.`;
       document.getElementById('cropModal').classList.remove('open');
     } catch (err){
@@ -257,14 +259,23 @@ document.getElementById('saveProfileBtn').addEventListener('click', async () => 
       const finalServer = serverSelectVal === 'Other…'
         ? (document.getElementById('editCustomServer').value.trim() || 'Other')
         : serverSelectVal;
+      const newAvatarUrl = document.getElementById('editAvatarUrl').value.trim();
+      const oldProfile = await getCurrentUserProfile();
+      const oldAvatarUrl = oldProfile && oldProfile.avatarUrl;
+
       await updateProfileInfo({
         username: document.getElementById('editUsername').value,
-        avatarUrl: document.getElementById('editAvatarUrl').value.trim(),
+        avatarUrl: newAvatarUrl,
         server: finalServer,
         language: document.getElementById('editLanguage').value,
       });
       showProfileSuccess('Profile updated.');
+      avatarPendingUpload = false;
       renderDashboard();
+
+      if (oldAvatarUrl && oldAvatarUrl !== newAvatarUrl){
+        deleteOldAvatar(oldAvatarUrl); // best-effort cleanup, doesn't block anything
+      }
     } catch (e){
       showProfileError(e.message || 'Could not update profile.');
     }
@@ -426,6 +437,7 @@ async function renderMyGuides(){
             <div class="myguides-card-meta">${g.language ? g.language + ' · ' : ''}${dateStr ? 'Updated ' + dateStr : ''}</div>
             <div class="myguides-card-actions">
               ${status === 'published' ? `<a href="index#/guides/${doc.id}" class="myguides-action-btn" target="_blank">View</a>` : ''}
+              ${status === 'pending' ? `<a href="guide-create?id=${doc.id}" class="myguides-action-btn">View</a>` : ''}
               ${status === 'approved' ? `<div class="myguides-action-btn primary" onclick="openPublishDialog('${doc.id}')">Publish</div>` : ''}
               ${status !== 'pending' ? `<a href="guide-create?id=${doc.id}" class="myguides-action-btn">Edit</a>` : ''}
               <div class="myguides-action-btn danger" onclick="deleteMyGuide('${doc.id}', this)">Delete</div>
@@ -460,8 +472,8 @@ async function renderDashboard(){
   }
   document.getElementById('profileUsername').textContent = displayName;
   document.getElementById('profileMeta').textContent = profile ? `${profile.server} · ${profile.language}` : '';
-  document.getElementById('aboutServer').textContent = profile ? profile.server : '...';
-  document.getElementById('aboutLanguage').textContent = profile ? profile.language : '...';
+  document.getElementById('aboutServer').textContent = profile ? `Server: ${profile.server || ''}` : '...';
+  document.getElementById('aboutLanguage').textContent = profile ? `Language: ${profile.language || ''}` : '...';
   if (profile && profile.createdAt){
     document.getElementById('aboutJoined').textContent = 'Joined ' + profile.createdAt.toDate().toLocaleDateString();
   }
@@ -474,11 +486,13 @@ async function renderDashboard(){
   if (profile && profile.isAdmin){
     document.getElementById('adminReviewBtn').style.display = 'inline-flex';
     document.getElementById('adminReviewBtn').onclick = () => { location.href = 'guide-review'; };
+    document.getElementById('tabAllGuides').style.display = 'block';
+    document.getElementById('tabContributors').style.display = 'block';
   }
 
   if (profile){
     document.getElementById('editUsername').value = profile.username || '';
-    document.getElementById('editAvatarUrl').value = profile.avatarUrl || '';
+    if (!avatarPendingUpload) document.getElementById('editAvatarUrl').value = profile.avatarUrl || '';
     const serverSelect = document.getElementById('editServer');
     const knownServer = profile.server && Array.from(serverSelect.options).some(o => o.value === profile.server);
     if (knownServer){
@@ -515,7 +529,7 @@ auth.onAuthStateChanged((user) => {
   }
 });
 
-/* ---------- Tabs (My Guides / Glossary) ---------- */
+/* ---------- Tabs (My Guides / Glossary / All Guides / Contributors) ---------- */
 function escapeHtml(s){ return (s || '').toString().replace(/</g, '&lt;'); }
 document.querySelectorAll('.tab-item[data-view]').forEach(tab => {
   tab.addEventListener('click', () => {
@@ -524,7 +538,11 @@ document.querySelectorAll('.tab-item[data-view]').forEach(tab => {
     const view = tab.dataset.view;
     document.getElementById('guidesView').style.display = view === 'guides' ? 'grid' : 'none';
     document.getElementById('glossaryView').style.display = view === 'glossary' ? 'block' : 'none';
+    document.getElementById('allGuidesView').style.display = view === 'all' ? 'block' : 'none';
+    document.getElementById('contributorsView').style.display = view === 'contributors' ? 'block' : 'none';
     if (view === 'glossary') renderGlossary();
+    if (view === 'all'){ loadStats(); showView('all'); }
+    if (view === 'contributors') showView('contributors');
   });
 });
 

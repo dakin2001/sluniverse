@@ -1632,10 +1632,9 @@ textarea{ resize:vertical; min-height:80px; line-height:1.6; }
 }
 .guide-author-eyebrow{ font-size:10.5px; text-transform:uppercase; letter-spacing:.05em; color:var(--text-dim); margin-bottom:3px; }
 .guide-author-name{ font-weight:700; font-size:16px; font-family:var(--font-heading); }
-.guide-lang-badge{
-  display:inline-block; font-size:11.5px; font-weight:700; text-transform:uppercase; letter-spacing:.03em;
-  background:rgba(93,179,255,0.15); color:var(--jade); padding:5px 12px; border-radius:20px;
-}
+.guide-author-facts{ display:flex; flex-direction:column; gap:8px; margin-top:14px; align-items:center; }
+.guide-author-fact{ display:flex; align-items:center; gap:8px; font-size:12.5px; color:var(--text-dim); }
+.guide-author-fact svg{ width:15px; height:15px; flex-shrink:0; color:var(--jade); }
 .guide-side-tags{ display:flex; flex-wrap:wrap; gap:6px; justify-content:center; margin-top:14px; padding-top:14px; border-top:1px solid var(--line); }
 .guide-tag-badge{
   font-size:11.5px; font-weight:600; background:var(--panel-3); color:var(--text-dim);
