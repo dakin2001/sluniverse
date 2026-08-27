@@ -6,7 +6,7 @@
 <title>Editor: Soul Land Wiki (admin)</title>
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
-<link rel="stylesheet" href="css/style.css?v=1078">
+<link rel="stylesheet" href="css/style.css?v=1083">
 <meta name="robots" content="noindex, nofollow">
 </head>
 <body>
@@ -145,6 +145,11 @@
             <div class="field">
               <label>Subtitle / short role</label>
               <input type="text" id="fSubtitle" placeholder="e.g. Martial Spirit - Blue Silver Grass">
+            </div>
+
+            <div class="field" id="fDateField" style="display:none;">
+              <label>Date (used to show the latest update first on the homepage)</label>
+              <input type="date" id="fDate">
             </div>
 
             <div class="field" id="imageField">
@@ -791,7 +796,7 @@
 
 <div class="toast" id="toast"></div>
 
-<script src="js/categories.js?v=1"></script>
+<script src="js/categories.js?v=2"></script>
 <script>window.WIKI = window.WIKI || {};</script>
 <script src="content/personnages.js"></script>
 <script src="content/monstres.js"></script>
@@ -799,6 +804,7 @@
 <script src="content/guides.js"></script>
 <script src="content/zones.js"></script>
 <script src="content/trials.js"></script>
+<script src="content/updates.js"></script>
 <script src="content/subcategories.js"></script>
 <script src="content/tags.js"></script>
 <div id="containsPickerModal" style="display:none; position:fixed; inset:0; z-index:3000; background:rgba(5,10,25,0.85); align-items:center; justify-content:center; padding:20px;">

@@ -42,7 +42,7 @@ function buildNav(){
   const nav = document.getElementById('mainNav');
   const route = parseRoute();
   nav.innerHTML = `<a href="#/" class="${route.view==='home'?'active':''}">${LABELS.home}</a>` +
-    CATEGORIES.map(cat =>
+    CATEGORIES.filter(cat => !cat.hideFromNav).map(cat =>
       `<a href="#/${cat.id}" class="${route.cat===cat.id?'active':''}">${categoryLabel(cat)}</a>`
     ).join('');
   nav.classList.remove('open');
@@ -350,7 +350,12 @@ async function renderGuidesListView(){
         <option>Tiếng Việt</option>
       </select>
     </div>
-    <div id="guidesTagRow" style="margin-top:14px; display:flex; flex-wrap:wrap; gap:8px;"></div>
+    <div id="guidesTagPickerWrap" style="margin-top:14px; display:none;">
+      <div class="tag-picker-box" style="cursor:pointer;" id="guidesTagPickerBox">
+        <div id="guidesTagChips" style="display:flex; flex-wrap:wrap; gap:6px; color:var(--text-dim); font-size:13.5px;">Filter by tag…</div>
+      </div>
+      <div id="guidesTagRow" class="tag-dropdown-panel" style="display:none;"></div>
+    </div>
     <div id="guidesListGrid" class="guide-poster-grid" style="margin-top:20px;">
       <div class="empty-state"><div class="big">⏳</div>Loading guides…</div>
     </div>
@@ -365,22 +370,52 @@ async function renderGuidesListView(){
   await loadAndRenderGuidesList();
 }
 
-let guidesTagFilter = '';
+let guidesTagFilter = []; // array now, multi-select
+let guidesAvailableTags = [];
 async function loadGuidesTagFilterRow(){
   try {
-    const snap = await db.collection('guideTags').get();
-    const row = document.getElementById('guidesTagRow');
-    if (!snap.size){ row.style.display = 'none'; return; }
-    row.innerHTML = snap.docs.map(d => `
-      <div class="tag-filter-chip ${guidesTagFilter === d.id ? 'active' : ''}" onclick="setGuidesTagFilter('${d.id.replace(/'/g,"\\'")}')">${escapeHtml(d.id)}</div>
-    `).join('');
+    const snap = await db.collection('guides').where('status', '==', 'published').get();
+    const tagSet = new Set();
+    snap.docs.forEach(d => (d.data().tags || []).forEach(t => tagSet.add(t)));
+    guidesAvailableTags = Array.from(tagSet).sort((a, b) => a.localeCompare(b));
+    const wrap = document.getElementById('guidesTagPickerWrap');
+    if (!guidesAvailableTags.length){ wrap.style.display = 'none'; return; }
+    wrap.style.display = 'block';
+    renderGuidesTagDropdown();
+    renderGuidesTagChips();
   } catch (e){ /* filter row is a nice-to-have, fail silently */ }
 }
-function setGuidesTagFilter(tag){
-  guidesTagFilter = guidesTagFilter === tag ? '' : tag;
-  loadGuidesTagFilterRow();
+function renderGuidesTagDropdown(){
+  const row = document.getElementById('guidesTagRow');
+  row.innerHTML = guidesAvailableTags.map(t => `
+    <label class="tag-dropdown-option">
+      <input type="checkbox" ${guidesTagFilter.includes(t) ? 'checked' : ''} onchange="toggleGuidesTagFilter('${t.replace(/'/g,"\\'")}', this.checked)">
+      <span>${escapeHtml(t)}</span>
+    </label>
+  `).join('');
+}
+function renderGuidesTagChips(){
+  const chips = document.getElementById('guidesTagChips');
+  if (!guidesTagFilter.length){
+    chips.innerHTML = 'Filter by tag…';
+    chips.style.color = 'var(--text-dim)';
+    return;
+  }
+  chips.style.color = '';
+  chips.innerHTML = guidesTagFilter.map(t => `
+    <span class="tag-chip">${escapeHtml(t)} <span class="remove" onclick="event.stopPropagation(); toggleGuidesTagFilter('${t.replace(/'/g,"\\'")}', false)">✕</span></span>
+  `).join('');
+}
+function toggleGuidesTagFilter(tag, checked){
+  guidesTagFilter = checked ? [...guidesTagFilter, tag] : guidesTagFilter.filter(t => t !== tag);
+  renderGuidesTagDropdown();
+  renderGuidesTagChips();
   loadAndRenderGuidesList();
 }
+document.getElementById('guidesTagPickerBox')?.addEventListener('click', () => {
+  const panel = document.getElementById('guidesTagRow');
+  panel.style.display = panel.style.display === 'none' ? 'flex' : 'none';
+});
 
 async function loadAndRenderGuidesList(){
   const grid = document.getElementById('guidesListGrid');
@@ -393,7 +428,7 @@ async function loadAndRenderGuidesList(){
       const g = d.data();
       if (g.scheduledPublishAt && g.scheduledPublishAt.toDate() > now) return false; // not time yet
       if (guidesLanguageFilter && g.language !== guidesLanguageFilter) return false;
-      if (guidesTagFilter && !(g.tags || []).includes(guidesTagFilter)) return false;
+      if (guidesTagFilter.length && !guidesTagFilter.every(t => (g.tags || []).includes(t))) return false;
       return !search || (g.title || '').toLowerCase().includes(search);
     }).reverse(); // newest first, since the query itself runs oldest-first (reuses the existing index)
     if (!docs.length){
@@ -495,14 +530,48 @@ function renderHome(){
       <p>${LABELS.heroText}</p>
     </div>
     <div class="category-grid">
-      ${CATEGORIES.map(cat => `
+      ${CATEGORIES.filter(cat => !cat.hideFromNav).map(cat => `
         <div class="category-card" data-cat="${cat.id}">
           <div class="icon">${cat.icon}</div>
           <h3>${categoryLabel(cat)}</h3>
-          <div class="count">${getPages(cat.id).length} page${getPages(cat.id).length>1?'s':''}</div>
+          <div class="count" ${cat.id === 'guides' ? 'id="homeGuideCount"' : ''}>${cat.id === 'guides' ? '…' : `${getPages(cat.id).length} page${getPages(cat.id).length>1?'s':''}`}</div>
         </div>
       `).join('')}
     </div>
+    ${(() => {
+      const updates = [...getPages('updates')].sort((a, b) => (b.date || '').localeCompare(a.date || ''));
+      if (!updates.length) return '';
+      const [latest, ...older] = updates;
+      return `
+        <div class="home-updates-section">
+          <div class="panel-title" style="justify-content:center; display:flex;"><span class="dot"></span>Latest Updates</div>
+          <div class="home-update-featured" data-id="${latest.id}">
+            ${latest.image ? `<div class="home-update-featured-img" style="background-image:url('${encodeURI(latest.image)}')"></div>` : ''}
+            <div class="home-update-featured-body">
+              ${latest.date ? `<div class="home-update-date">${latest.date}</div>` : ''}
+              <div class="home-update-featured-title">${latest.title}</div>
+              ${latest.subtitle ? `<div class="home-update-subtitle">${latest.subtitle}</div>` : ''}
+            </div>
+          </div>
+          ${older.length ? `
+            <div class="home-update-grid">
+              ${older.map(u => `
+                <div class="home-update-card" data-id="${u.id}">
+                  <div class="home-update-card-img" style="${u.image ? `background-image:url('${encodeURI(u.image)}')` : ''}">
+                    <div class="home-update-card-banner">${u.title}</div>
+                  </div>
+                  <div class="home-update-card-body">
+                    ${u.date ? `<div class="home-update-card-date">${u.date}</div>` : ''}
+                    <div class="home-update-card-title">${u.title}</div>
+                    ${(u.tags || []).length ? `<div class="home-update-card-tags">${u.tags.map(t => `<span class="home-update-tag">${t}</span>`).join('')}</div>` : ''}
+                  </div>
+                </div>
+              `).join('')}
+            </div>
+          ` : ''}
+        </div>
+      `;
+    })()}
     ${activeEvents.length ? `
       <div class="home-events-section">
         <div class="panel-title" style="justify-content:center; display:flex;"><span class="dot"></span>Current Events</div>
@@ -522,6 +591,17 @@ function renderHome(){
   });
   app.querySelectorAll('.home-event-banner').forEach(el => {
     el.addEventListener('click', () => { location.hash = `#/events/${encodeURIComponent(el.dataset.id)}`; });
+  });
+  app.querySelectorAll('.home-update-featured, .home-update-card').forEach(el => {
+    el.addEventListener('click', () => { location.hash = `#/updates/${encodeURIComponent(el.dataset.id)}`; });
+  });
+
+  db.collection('guides').where('status', '==', 'published').get().then(snap => {
+    const el = document.getElementById('homeGuideCount');
+    if (el) el.textContent = `${snap.size} guide${snap.size !== 1 ? 's' : ''}`;
+  }).catch(() => {
+    const el = document.getElementById('homeGuideCount');
+    if (el) el.textContent = '0 guides';
   });
 }
 
@@ -1017,8 +1097,8 @@ function renderCategoryView(catId, focusId){
         <span>View More</span>
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
       </div>
-      ${sourceLinkHTML(p)}
       ${containsPanelHTML(p)}
+      ${sourceLinkHTML(p)}
     `;
     descCol.innerHTML = `<div class="spiribone-desc-inner">${html}</div>`;
     document.getElementById('spiriboneStarStatsToggle').addEventListener('click', () => {
@@ -1119,8 +1199,8 @@ function renderCategoryView(catId, focusId){
         <div class="description">${parseDesc(p.description)}</div>
       </div>`;
     }
-    html += sourceLinkHTML(p);
     html += containsPanelHTML(p);
+    html += sourceLinkHTML(p);
     descCol.innerHTML = `<div class="spiribone-desc-inner">${html}</div>`;
     document.getElementById('haloDescClose').addEventListener('click', closeHaloDesc);
     descCol.addEventListener('click', (e) => { if (e.target === descCol) closeHaloDesc(); });
@@ -1979,7 +2059,7 @@ function renderDetailView(catId, pageId){
     app.innerHTML = `<div class="empty-state"><div class="big">❓</div>${LABELS.noResults}</div>`;
     return;
   }
-  if (catId === 'zones' || catId === 'trials' || catId === 'events'){
+  if (catId === 'zones' || catId === 'trials' || catId === 'events' || catId === 'updates'){
     renderZoneDocPage(cat, page, catId);
     return;
   }
@@ -2041,8 +2121,8 @@ function renderDetailView(catId, pageId){
       </div>
     ` : ''}
     ${page.bagType === 'spiribone' ? spiribonePanelHTML(page) : ''}
-    ${sourceLinkHTML(page)}
     ${containsPanelHTML(page)}
+    ${sourceLinkHTML(page)}
   `;
   if (page.mapFile){
     document.getElementById('openMapBtn').addEventListener('click', () => openZoneMap(page));

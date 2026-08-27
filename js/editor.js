@@ -1738,6 +1738,8 @@ function clearForm(){
   document.getElementById('fTitle').value = '';
   document.getElementById('fId').value = '';
   document.getElementById('fSubtitle').value = '';
+  document.getElementById('fDate').value = '';
+  document.getElementById('fDateField').style.display = currentCat === 'updates' ? 'block' : 'none';
   document.getElementById('fImage').value = '';
   document.getElementById('fImagePathDisplay').textContent = 'No local file selected';
   document.getElementById('fImageUrl').value = '';
@@ -1840,6 +1842,8 @@ function fillForm(page){
   document.getElementById('fTitle').value = page.title || '';
   document.getElementById('fId').value = page.id || '';
   document.getElementById('fSubtitle').value = page.subtitle || '';
+  document.getElementById('fDate').value = page.date || '';
+  document.getElementById('fDateField').style.display = currentCat === 'updates' ? 'block' : 'none';
   document.getElementById('fImage').value = page.image || '';
   document.getElementById('fImagePathDisplay').textContent = page.image || 'No local file selected';
   document.getElementById('fImageUrl').value = page.imageUrl || '';
@@ -1959,6 +1963,7 @@ function saveEntry(){
     id,
     title,
     subtitle: document.getElementById('fSubtitle').value.trim(),
+    date: document.getElementById('fDate').value.trim(),
     image: document.getElementById('fImage').value.trim(),
     imageUrl: document.getElementById('fImageUrl').value.trim(),
     useLocalImage: document.getElementById('fUseLocalImage').checked,

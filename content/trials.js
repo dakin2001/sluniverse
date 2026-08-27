@@ -398,5 +398,64 @@ window.WIKI.trials = [
         ]
       }
     ]
+  },
+  {
+    "id": "celestialjudgment",
+    "title": "Celestial Judgment",
+    "subtitle": "Team Fight Rally",
+    "image": "images/trials/celestialjudgment/celestialjudgment-image.png",
+    "imageUrl": "",
+    "useLocalImage": true,
+    "tags": [],
+    "stats": [],
+    "description": "This is an 8-player boss encounter fought in phases, starting with smaller teams clearing outposts before uniting for a full team showdown against Qian Renxue, a multi-phase boss with escalating mechanics and attack patterns.",
+    "difficulty": "Purgatory",
+    "docBlocks": [],
+    "categoryBlocks": [
+      {
+        "image": "",
+        "title": "Rules",
+        "description": "",
+        "subtitles": []
+      },
+      {
+        "image": "images/teambattle/category-1787449511720.png",
+        "title": "Dungeon Guide",
+        "description": "",
+        "subtitles": [
+          {
+            "title": "Dungeon Progression",
+            "description": "* Players are divided into 2 groups: Judgment Route and Verdict Route.\n* Phase 1, Outpost Elite: teams of 2 players challenge their route. Support is allowed between teams on the same route.\n* Phase 2, Outpost Leader: teams of 4 players challenge their route. Support is allowed between both routes.\n* Phase 3, Team Showdown: all 8 players unite to defeat the boss, Qian Renxue."
+          }
+        ]
+      },
+      {
+        "image": "images/teambattle/category-1787449528656.png",
+        "title": "Boss Overview",
+        "description": "",
+        "subtitles": [
+          {
+            "title": "Phase 1 (100% to 70% HP)",
+            "description": "* The two teams unite to face Qian Renxue. When the boss's HP drops below 70%, Phase 2 begins."
+          },
+          {
+            "title": "Phase 2 (70% to 40% HP)",
+            "description": "* At 70% HP, the boss locks its HP and casts Judgment Verdict. Ground formations periodically deal full-screen damage, so dodge them carefully.\n* Destroy 3 Swords of Judgment to gain immunity against the boss's Execution Damage. Failing to do so deals heavy damage and applies 3 stacks of Vulnerability.\n* After Judgment Verdict, the boss activates Spirit Avatar. In angel form, its attacks become more aggressive and its skill patterns change.\n* When the boss's HP drops below 40%, Phase 3 begins."
+          },
+          {
+            "title": "Phase 3 (40% to 25% HP)",
+            "description": "* At 40% HP, the boss locks its HP and casts Holy Solar Sword. It continuously summons Holy Solar Light to bombard the battlefield.\n* Destroy 3 Swords of Judgment to inflict Weakness on the boss. Failure deals massive damage and applies 3 stacks of Vulnerability.\n* After the mechanic ends, the boss enters Execution Status. Its attacks gain Purge Blade, and its movement speed increases.\n* When the boss's HP drops below 25%, Phase 4 begins."
+          },
+          {
+            "title": "Phase 4 (25% HP)",
+            "description": "* At 25% HP, the boss locks its HP and casts Angelic Light Formation.\n* Step on the correct colored magic circles to complete the trial and inflict Weakness on the boss. Failure deals massive damage and applies 3 stacks of Vulnerability.\n* After this mechanic ends, the boss enters Phase 5."
+          },
+          {
+            "title": "Phase 5 (Final Phase)",
+            "description": "* The boss becomes Frenzied and unleashes its ultimate attack.\n* Holy Solar Sword remains on the battlefield throughout this phase, so stay alert and avoid its attacks while finishing the fight."
+          }
+        ]
+      }
+    ]
   }
 ];

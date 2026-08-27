@@ -1,4 +1,4 @@
-// "objets" page: generated from editeur.html on 8/26/2026
+// "objets" page: generated from editeur.html on 8/27/2026
 // You can also edit this file by hand: each object is one entry.
 window.WIKI = window.WIKI || {};
 window.WIKI.objets = [
@@ -7241,6 +7241,7 @@ window.WIKI.objets = [
     "category": "Material",
     "bagType": "material",
     "sources": [
+      "celestialjudgment",
       "teambattle"
     ],
     "contains": [
@@ -7264,7 +7265,11 @@ window.WIKI.objets = [
       "oracle-thunder-tribulation",
       "oracle-soul-shatter",
       "oracleblazing",
-      "oracle-chaotic-blade"
+      "oracle-chaotic-blade",
+      "divinitydestiny",
+      "blessing-ring-fortification",
+      "divinity-true-self",
+      "blessing-void-fracture"
     ],
     "textSources": [],
     "materialApplicableSpirits": [
@@ -7288,6 +7293,7 @@ window.WIKI.objets = [
     "category": "Material",
     "bagType": "material",
     "sources": [
+      "celestialjudgment",
       "teambattle"
     ],
     "contains": [
@@ -7297,7 +7303,8 @@ window.WIKI.objets = [
       "purple-heart-wrath",
       "purple-heart-conquest",
       "purple-heart-genesis",
-      "purple-heart-insight"
+      "purple-heart-insight",
+      "purpleheartsoulweaver"
     ],
     "textSources": [],
     "materialApplicableSpirits": [
@@ -7321,6 +7328,7 @@ window.WIKI.objets = [
     "category": "Material",
     "bagType": "material",
     "sources": [
+      "celestialjudgment",
       "teambattle"
     ],
     "contains": [
@@ -7330,7 +7338,8 @@ window.WIKI.objets = [
       "heart-insight",
       "heart-focus",
       "heart-fate",
-      "heart-protection"
+      "heart-protection",
+      "heartsoulweaver"
     ],
     "textSources": [],
     "materialApplicableSpirits": [
@@ -7394,6 +7403,7 @@ window.WIKI.objets = [
     "category": "Item",
     "bagType": "item",
     "sources": [
+      "celestialjudgment",
       "teambattle"
     ],
     "contains": [
@@ -9020,5 +9030,436 @@ window.WIKI.objets = [
       "Agility",
       "Support"
     ]
+  },
+  {
+    "id": "divinitydestiny",
+    "title": "Divinity Destiny",
+    "subtitle": "Spiribone Rune",
+    "image": "images/objets/divinitydestiny/divinitydestiny-image.png",
+    "imageUrl": "",
+    "useLocalImage": true,
+    "tags": [],
+    "stats": [
+      {
+        "label": "Initiative Dmg",
+        "value": "+28.8%"
+      },
+      {
+        "label": "Skill Dmg Bonus",
+        "value": "+3%"
+      },
+      {
+        "label": "Spiribone Skill Strength",
+        "value": "+5000 years"
+      },
+      {
+        "label": "Initiative Dmg Bonus",
+        "value": "+15%"
+      }
+    ],
+    "description": "* Healing Hymn is a Support Rune type, and can be embedded into the rune slots of the Arms and Legs.\n* When embedded into the Arm Bone (L), Control, DEF Spirit gains an effect bonus.\n* When embedded into the Arm Bone (R), Bruiser Spirit gains an effect bonus.\n* When embedded into the Leg Bone (L), Support Spirit gains an effect bonus.\n* When embedded into the Leg Bone (R), Agility Spirit gains an effect bonus.",
+    "category": "Material",
+    "bagType": "material",
+    "sources": [],
+    "contains": [],
+    "textSources": [],
+    "materialApplicableSpirits": [
+      "Bruiser",
+      "Control",
+      "Defense",
+      "Agility",
+      "Support"
+    ]
+  },
+  {
+    "id": "divinity-true-self",
+    "title": "Divinity True Self",
+    "subtitle": "Spiribone Rune",
+    "image": "images/objets/divinity-true-self/divinity-true-self-image.png",
+    "imageUrl": "",
+    "useLocalImage": true,
+    "tags": [],
+    "stats": [
+      {
+        "label": "Avatar Dmg Up",
+        "value": "+5.4%"
+      },
+      {
+        "label": "Purple",
+        "value": "ATK +300"
+      },
+      {
+        "label": "Gold",
+        "value": "Spiribone Skill Strength +5000 years"
+      },
+      {
+        "label": "Dark-Gold",
+        "value": "Avatar Dmg Bonus +3%"
+      }
+    ],
+    "description": "* Healing Hymn is a Support Rune type, and can be embedded into the rune slots of the Arms and Legs.\n* When embedded into the Arm Bone (L), Control, DEF Spirit gains an effect bonus.\n* When embedded into the Arm Bone (R), Bruiser Spirit gains an effect bonus.\n* When embedded into the Leg Bone (L), Support Spirit gains an effect bonus.\n* When embedded into the Leg Bone (R), Agility Spirit gains an effect bonus.",
+    "category": "Material",
+    "bagType": "material",
+    "sources": [],
+    "contains": [],
+    "textSources": [],
+    "materialApplicableSpirits": [
+      "Bruiser",
+      "Control",
+      "Defense",
+      "Agility",
+      "Support"
+    ]
+  },
+  {
+    "id": "blessing-ring-fortification",
+    "title": "Blessing Ring Fortification",
+    "subtitle": "Spiribone Rune",
+    "image": "images/objets/blessing-ring-fortification/blessing-ring-fortification-image.png",
+    "imageUrl": "",
+    "useLocalImage": true,
+    "tags": [],
+    "stats": [
+      {
+        "label": "Skill Strength",
+        "value": "2.8k Yr"
+      },
+      {
+        "label": "Purple",
+        "value": "ATK +300"
+      },
+      {
+        "label": "Gold",
+        "value": "Enfeeble Target Vulnerability +5%"
+      },
+      {
+        "label": "Dark-Gold",
+        "value": "Halo Skill Strength +2K Year"
+      }
+    ],
+    "description": "* Healing Hymn is a Support Rune type, and can be embedded into the rune slots of the Arms and Legs.\n* When embedded into the Arm Bone (L), Control, DEF Spirit gains an effect bonus.\n* When embedded into the Arm Bone (R), Bruiser Spirit gains an effect bonus.\n* When embedded into the Leg Bone (L), Support Spirit gains an effect bonus.\n* When embedded into the Leg Bone (R), Agility Spirit gains an effect bonus.",
+    "category": "Material",
+    "bagType": "material",
+    "sources": [],
+    "contains": [],
+    "textSources": [],
+    "materialApplicableSpirits": [
+      "Bruiser",
+      "Control",
+      "Defense",
+      "Agility",
+      "Support"
+    ]
+  },
+  {
+    "id": "blessing-void-fracture",
+    "title": "Blessing Void Fracture",
+    "subtitle": "Spiribone Rune",
+    "image": "images/objets/blessing-void-fracture/blessing-void-fracture-image.png",
+    "imageUrl": "",
+    "useLocalImage": true,
+    "tags": [],
+    "stats": [
+      {
+        "label": "Enfeeble Target Vulnerability",
+        "value": "7.2%"
+      },
+      {
+        "label": "Purple",
+        "value": "ATK +300"
+      },
+      {
+        "label": "Gold",
+        "value": "Willpower +6"
+      },
+      {
+        "label": "Dark-Gold",
+        "value": "Enfeeble Target Vulnerability +8%"
+      }
+    ],
+    "description": "* Healing Hymn is a Support Rune type, and can be embedded into the rune slots of the Arms and Legs.\n* When embedded into the Arm Bone (L), Control, DEF Spirit gains an effect bonus.\n* When embedded into the Arm Bone (R), Bruiser Spirit gains an effect bonus.\n* When embedded into the Leg Bone (L), Support Spirit gains an effect bonus.\n* When embedded into the Leg Bone (R), Agility Spirit gains an effect bonus.",
+    "category": "Material",
+    "bagType": "material",
+    "sources": [],
+    "contains": [],
+    "textSources": [],
+    "materialApplicableSpirits": [
+      "Bruiser",
+      "Control",
+      "Defense",
+      "Agility",
+      "Support"
+    ]
+  },
+  {
+    "id": "heartsoulweaver",
+    "title": "Heart Soul Weaver",
+    "subtitle": "Spiribone Rune",
+    "image": "images/objets/heartsoulweaver/heartsoulweaver-image.png",
+    "imageUrl": "",
+    "useLocalImage": true,
+    "tags": [],
+    "stats": [
+      {
+        "label": "Vulnerability Strike Dmg",
+        "value": "+1.8%"
+      },
+      {
+        "label": "Spiribone Skill Strength",
+        "value": "+3K Year"
+      },
+      {
+        "label": "Enfeeble Target Vulnerability",
+        "value": "+5%"
+      },
+      {
+        "label": "ATK Bonus",
+        "value": "+2%"
+      }
+    ],
+    "description": "The Genesis Sigil is a Heart Vein Rune type, which can be embedded into the rune slots of the Skull or Trunk.\nWhen embedded into the Skull, Control, DEF, and Support Spirits receive an effect bonus.\nWhen embedded into the Trunk, Bruiser and Agility Spirits receive an effect bonus.",
+    "category": "Material",
+    "bagType": "material",
+    "sources": [],
+    "contains": [],
+    "textSources": [],
+    "materialApplicableSpirits": [
+      "Bruiser",
+      "Control",
+      "Defense",
+      "Agility",
+      "Support"
+    ]
+  },
+  {
+    "id": "purpleheartsoulweaver",
+    "title": "Purple Heart Soul Weaver",
+    "subtitle": "Spiribone Rune",
+    "image": "images/objets/purpleheartsoulweaver/purpleheartsoulweaver-image.png",
+    "imageUrl": "",
+    "useLocalImage": true,
+    "tags": [],
+    "stats": [
+      {
+        "label": "Vulnerability Strike Dmg",
+        "value": "+3.4%"
+      },
+      {
+        "label": "Spiribone Skill Strength",
+        "value": "+3K Year"
+      },
+      {
+        "label": "Enfeeble Target Vulnerability",
+        "value": "+5%"
+      },
+      {
+        "label": "ATK Bonus",
+        "value": "+2%"
+      }
+    ],
+    "description": "The Genesis Sigil is a Heart Vein Rune type, which can be embedded into the rune slots of the Skull or Trunk.\nWhen embedded into the Skull, Control, DEF, and Support Spirits receive an effect bonus.\nWhen embedded into the Trunk, Bruiser and Agility Spirits receive an effect bonus.",
+    "category": "Material",
+    "bagType": "material",
+    "sources": [],
+    "contains": [],
+    "textSources": [],
+    "materialApplicableSpirits": [
+      "Bruiser",
+      "Control",
+      "Defense",
+      "Agility",
+      "Support"
+    ]
+  },
+  {
+    "id": "primordialelixir",
+    "title": "Primordial Elixir",
+    "subtitle": "",
+    "image": "images/objets/primordialelixir/primordialelixir-image.png",
+    "imageUrl": "",
+    "useLocalImage": true,
+    "tags": [],
+    "stats": [],
+    "description": "Converts between Bruiser and Agility Herbs.",
+    "category": "Item",
+    "bagType": "item",
+    "sources": [],
+    "contains": [],
+    "textSources": [
+      "Honor Shop",
+      "Mall"
+    ],
+    "materialApplicableSpirits": [
+      "Bruiser",
+      "Control",
+      "Defense",
+      "Agility",
+      "Support"
+    ]
+  },
+  {
+    "id": "glimmeringstarcore",
+    "title": "Glimmering Star Core",
+    "subtitle": "Avatar Star Pivot Advance",
+    "image": "images/objets/glimmeringstarcore/glimmeringstarcore-image.png",
+    "imageUrl": "",
+    "useLocalImage": true,
+    "tags": [],
+    "stats": [],
+    "description": "Avatar Star Pivot level advancement material. Used to advance Avatar Star Pivot levels 1–39.",
+    "category": "Material",
+    "bagType": "material",
+    "sources": [],
+    "contains": [],
+    "textSources": [
+      "Mall",
+      "Honor Shop"
+    ],
+    "materialApplicableSpirits": []
+  },
+  {
+    "id": "blazingstarcore",
+    "title": "Blazing Star Core",
+    "subtitle": "Avatar Star Pivot Advance",
+    "image": "images/objets/blazingstarcore/blazingstarcore-image.png",
+    "imageUrl": "",
+    "useLocalImage": true,
+    "tags": [],
+    "stats": [],
+    "description": "Avatar Star Pivot level advancement material. Used to advance Avatar Star Pivot levels 40–69.",
+    "category": "Material",
+    "bagType": "material",
+    "sources": [],
+    "contains": [],
+    "textSources": [
+      "Mall",
+      "Honor Shop"
+    ],
+    "materialApplicableSpirits": []
+  },
+  {
+    "id": "brightmoonstarcore",
+    "title": "Bright Moon Star Core",
+    "subtitle": "Avatar Star Pivot Advance",
+    "image": "images/objets/brightmoonstarcore/brightmoonstarcore-image.png",
+    "imageUrl": "",
+    "useLocalImage": true,
+    "tags": [],
+    "stats": [],
+    "description": "Avatar Star Pivot level advancement material. Used to advance Avatar Star Pivot levels 69–99.",
+    "category": "Material",
+    "bagType": "material",
+    "sources": [],
+    "contains": [],
+    "textSources": [
+      "Mall",
+      "Honor Shop"
+    ],
+    "materialApplicableSpirits": []
+  },
+  {
+    "id": "starbreathbox",
+    "title": "Starbreath Box",
+    "subtitle": "",
+    "image": "images/objets/starbreathbox/starbreathbox-image.png",
+    "imageUrl": "",
+    "useLocalImage": true,
+    "tags": [],
+    "stats": [],
+    "description": "Use to randomly obtain 1 reward.",
+    "category": "Item",
+    "bagType": "item",
+    "sources": [],
+    "contains": [
+      "starbreathcondensedcrystal",
+      "starbreathtruecrystal",
+      "starbreathfragmentedcrystal",
+      "starbreathessencecrystal"
+    ],
+    "textSources": [
+      "Honor Shop",
+      "Mall"
+    ],
+    "materialApplicableSpirits": []
+  },
+  {
+    "id": "starbreathtruecrystal",
+    "title": "Starbreath True Crystal",
+    "subtitle": "Avatar Star Pivot EXP",
+    "image": "images/objets/starbreathtruecrystal/starbreathtruecrystal-image.png",
+    "imageUrl": "",
+    "useLocalImage": true,
+    "tags": [],
+    "stats": [],
+    "description": "Absorb to gain 300 Avatar Star Pivot EXP.",
+    "category": "Material",
+    "bagType": "material",
+    "sources": [],
+    "contains": [],
+    "textSources": [
+      "Honor Shop",
+      "Mall"
+    ],
+    "materialApplicableSpirits": []
+  },
+  {
+    "id": "starbreathessencecrystal",
+    "title": "Starbreath Essence Crystal",
+    "subtitle": "Avatar Star Pivot EXP",
+    "image": "images/objets/starbreathessencecrystal/starbreathessencecrystal-image.png",
+    "imageUrl": "",
+    "useLocalImage": true,
+    "tags": [],
+    "stats": [],
+    "description": "Absorb to gain 120 Avatar Star Pivot EXP.",
+    "category": "Material",
+    "bagType": "material",
+    "sources": [],
+    "contains": [],
+    "textSources": [
+      "Honor Shop",
+      "Mall"
+    ],
+    "materialApplicableSpirits": []
+  },
+  {
+    "id": "starbreathcondensedcrystal",
+    "title": "Starbreath Condensed Crystal",
+    "subtitle": "Avatar Star Pivot EXP",
+    "image": "images/objets/starbreathcondensedcrystal/starbreathcondensedcrystal-image.png",
+    "imageUrl": "",
+    "useLocalImage": true,
+    "tags": [],
+    "stats": [],
+    "description": "Absorb to provide 50 Avatar Star Pivot Level EXP.",
+    "category": "Material",
+    "bagType": "material",
+    "sources": [],
+    "contains": [],
+    "textSources": [
+      "Honor Shop",
+      "Mall"
+    ],
+    "materialApplicableSpirits": []
+  },
+  {
+    "id": "starbreathfragmentedcrystal",
+    "title": "Starbreath Fragmented Crystal",
+    "subtitle": "Avatar Star Pivot EXP",
+    "image": "images/objets/starbreathfragmentedcrystal/starbreathfragmentedcrystal-image.png",
+    "imageUrl": "",
+    "useLocalImage": true,
+    "tags": [],
+    "stats": [],
+    "description": "Absorb to gain 10 Avatar Star Pivot EXP.",
+    "category": "Material",
+    "bagType": "material",
+    "sources": [],
+    "contains": [],
+    "textSources": [
+      "Honor Shop",
+      "Mall"
+    ],
+    "materialApplicableSpirits": []
   }
 ];

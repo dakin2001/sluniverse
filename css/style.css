@@ -2454,3 +2454,77 @@ textarea{ resize:vertical; min-height:80px; line-height:1.6; }
 }
 .ratingcard-linked-remove svg{ width:13px; height:13px; }
 .ratingcard-linked-remove:hover{ background:rgba(239,106,106,0.15); color:var(--red); }
+
+/* ---------- Tag picker: looks like a search bar, but its real job is showing chosen tags ---------- */
+.tag-picker-box{
+  display:flex; flex-wrap:wrap; align-items:center; gap:6px;
+  width:100%; background:var(--panel-2); border:1px solid var(--line); border-radius:9px; padding:8px 10px;
+}
+.tag-picker-box:focus-within{ border-color:var(--gold); }
+.tag-picker-box input[type="text"]{
+  flex:1; min-width:140px; border:none; background:transparent; padding:4px 2px; width:auto;
+}
+.tag-dropdown-panel{
+  display:flex; flex-wrap:wrap; gap:4px; background:var(--panel-2); border:1px solid var(--line);
+  border-radius:9px; padding:10px; margin-top:6px; max-height:180px; overflow-y:auto;
+}
+.tag-dropdown-option{
+  display:flex; align-items:center; gap:7px; font-size:13px; padding:6px 10px; border-radius:7px;
+  cursor:pointer; transition:.12s ease;
+}
+.tag-dropdown-option:hover{ background:var(--panel-3); }
+.tag-dropdown-option input[type="checkbox"]{ width:auto; margin:0; accent-color:var(--gold); }
+
+/* ---------- Home: Latest Updates panel ---------- */
+.home-updates-section{ margin-top:44px; }
+.home-update-featured{
+  position:relative; display:flex; align-items:flex-end; aspect-ratio:16/9; border-radius:16px;
+  overflow:hidden; cursor:pointer; border:1px solid var(--gold); background:var(--panel-2);
+  margin-top:18px; transition:transform .2s ease;
+}
+.home-update-featured:hover{ transform:translateY(-3px); }
+.home-update-featured-img{
+  position:absolute; inset:0; background-size:cover; background-position:center;
+}
+.home-update-featured-img::after{
+  content:''; position:absolute; inset:0; background:linear-gradient(to top, rgba(5,10,25,0.94), rgba(5,10,25,0.3) 60%, transparent);
+}
+.home-update-featured-body{ position:relative; z-index:1; padding:22px 26px; width:100%; }
+.home-update-date{ font-size:11.5px; font-weight:700; text-transform:uppercase; letter-spacing:.05em; color:var(--gold); margin-bottom:6px; }
+.home-update-featured-title{ font-family:var(--font-heading); font-weight:800; font-size:22px; color:#fff; }
+.home-update-subtitle{ font-size:13.5px; color:var(--text-dim); margin-top:4px; }
+.home-update-grid{
+  display:grid; grid-template-columns:repeat(auto-fill, minmax(280px,1fr)); gap:20px; margin-top:20px;
+}
+.home-update-card{
+  cursor:pointer; transition:transform .2s ease;
+}
+.home-update-card:hover{ transform:translateY(-3px); }
+.home-update-card-img{
+  position:relative; aspect-ratio:16/9; border-radius:14px; overflow:hidden;
+  background:var(--panel-2) center/cover no-repeat; border:1px solid var(--line);
+}
+.home-update-card-banner{
+  position:absolute; left:0; right:0; bottom:0; padding:10px 12px 8px;
+  background:linear-gradient(to top, rgba(5,10,25,0.9), transparent);
+  font-family:var(--font-heading); font-weight:700; font-size:13px; color:#fff;
+  display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;
+}
+.home-update-card-body{ padding:12px 2px 0; }
+.home-update-card-date{ font-size:11.5px; color:var(--text-dim); margin-bottom:4px; }
+.home-update-card-title{ font-family:var(--font-heading); font-weight:700; font-size:15px; color:var(--text); line-height:1.35; }
+.home-update-card-tags{ display:flex; flex-wrap:wrap; gap:6px; margin-top:8px; }
+.home-update-tag{
+  font-size:10.5px; font-weight:700; text-transform:uppercase; letter-spacing:.03em;
+  background:var(--panel-3); color:var(--text-dim); border:1px solid var(--line); padding:4px 9px; border-radius:20px;
+}
+@media (max-width:640px){
+  .home-update-grid{ grid-template-columns:1fr; }
+}
+
+/* ---------- Base panel-title style, for section headers not nested in .ability-panel (e.g. homepage) ---------- */
+.panel-title{
+  font-family:var(--font-heading); font-weight:800; font-size:24px; color:var(--text);
+  display:flex; align-items:center; gap:10px; margin:0 0 4px;
+}
+.panel-title .dot{ width:8px; height:8px; border-radius:50%; background:var(--gold); flex-shrink:0; }

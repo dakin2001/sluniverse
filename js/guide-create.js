@@ -65,26 +65,47 @@ function uid(){ return 'b' + (blockIdCounter++); }
 // ---------- Tags ----------
 async function loadExistingTagSuggestions(){
   try {
-    const snap = await db.collection('guideTags').get();
+    const snap = await db.collection('guides').where('status', '==', 'published').get();
+    const tagSet = new Set();
+    snap.docs.forEach(d => (d.data().tags || []).forEach(t => tagSet.add(t)));
+    const tags = Array.from(tagSet).sort((a, b) => a.localeCompare(b));
     const wrap = document.getElementById('existingTagsWrap');
-    const row = document.getElementById('existingTagsRow');
-    if (!snap.size){ wrap.style.display = 'none'; return; }
+    if (!tags.length){ wrap.style.display = 'none'; return; }
     wrap.style.display = 'block';
-    row.innerHTML = snap.docs.map(d => `
-      <div class="tag-filter-chip" onclick="pickExistingTag('${d.id.replace(/'/g,"\\'")}')">${escHtml(d.id)}</div>
-    `).join('');
+    window.__availableTags = tags;
+    renderTagDropdownOptions();
   } catch (e){ /* suggestions are a nice-to-have, fail silently */ }
 }
-function pickExistingTag(tag){
-  if (guideTags.includes(tag)) return;
+function renderTagDropdownOptions(){
+  const row = document.getElementById('existingTagsRow');
+  const tags = window.__availableTags || [];
+  row.innerHTML = tags.map(t => `
+    <label class="tag-dropdown-option">
+      <input type="checkbox" ${guideTags.includes(t) ? 'checked' : ''} onchange="toggleExistingTag('${t.replace(/'/g,"\\'")}', this.checked)">
+      <span>${escHtml(t)}</span>
+    </label>
+  `).join('');
+}
+function toggleExistingTag(tag, checked){
   isDirty = true;
-  guideTags.push(tag);
+  if (checked){
+    if (!guideTags.includes(tag)) guideTags.push(tag);
+  } else {
+    guideTags = guideTags.filter(t => t !== tag);
+  }
   renderTagChips();
 }
+document.getElementById('tagDropdownToggle')?.addEventListener('click', () => {
+  const panel = document.getElementById('existingTagsRow');
+  const opening = panel.style.display === 'none';
+  panel.style.display = opening ? 'flex' : 'none';
+  if (opening) renderTagDropdownOptions();
+});
 function renderTagChips(){
   document.getElementById('tagChips').innerHTML = guideTags.map(t => `
     <span class="tag-chip">${escHtml(t)} <span class="remove" onclick="removeTag('${t.replace(/'/g,"\\'")}')">✕</span></span>
   `).join('');
+  if (document.getElementById('existingTagsRow')?.style.display !== 'none') renderTagDropdownOptions();
 }
 function addTag(){
   isDirty = true;
@@ -121,11 +142,9 @@ function removeTag(tag){
   renderTagChips();
 }
 async function persistNewTags(){
-  const batch = db.batch();
-  guideTags.forEach(t => {
-    batch.set(db.collection('guideTags').doc(t), { createdAt: firebase.firestore.FieldValue.serverTimestamp() }, { merge: true });
-  });
-  if (guideTags.length) await batch.commit();
+  // No-op: tags are now computed dynamically from published guides' own
+  // tags arrays (see loadExistingTagSuggestions), so there's no separate
+  // registry to keep in sync anymore, and no risk of orphaned/unused tags.
 }
 
 function initEditor(){
@@ -152,7 +171,6 @@ function initEditor(){
   });
   document.getElementById('saveDraftBtn').addEventListener('click', saveDraft);
   document.getElementById('submitBtn').addEventListener('click', submitForReview);
-  document.getElementById('addTagBtn').addEventListener('click', addTag);
   document.getElementById('tagInput').addEventListener('keydown', (e) => {
     if (e.key === 'Enter'){ e.preventDefault(); addTag(); }
   });

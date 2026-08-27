@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Create a Guide, Soul Land Universe</title>
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
-<link rel="stylesheet" href="css/style.css?v=1078">
+<link rel="stylesheet" href="css/style.css?v=1083">
 </head>
 <body class="cosmic-bg has-fixed-footer">
 
@@ -100,14 +100,15 @@
 
   <div class="field">
     <label data-i18n="gc_tags_label">Tags</label>
-    <div style="display:flex; gap:8px;">
-      <input type="text" id="tagInput" placeholder="Type a new tag and press Enter…" style="margin-bottom:0;" data-i18n-placeholder="gc_tag_placeholder">
-      <div class="btn" id="addTagBtn" data-i18n="gc_add_tag">Add</div>
+    <div class="tag-picker-box" id="tagPickerBox">
+      <div id="tagChips" style="display:flex; flex-wrap:wrap; gap:6px;"></div>
+      <input type="text" id="tagInput" placeholder="Type a new tag and press Enter…" data-i18n-placeholder="gc_tag_placeholder">
     </div>
-    <div id="tagChips" style="display:flex; flex-wrap:wrap; gap:6px; margin-top:10px;"></div>
-    <div id="existingTagsWrap" style="margin-top:14px; display:none;">
-      <div style="font-size:12px; color:var(--text-dim); margin-bottom:8px;" data-i18n="gc_pick_existing">Or pick from existing tags:</div>
-      <div id="existingTagsRow" style="display:flex; flex-wrap:wrap; gap:6px;"></div>
+    <div id="existingTagsWrap" style="margin-top:8px; display:none;">
+      <div class="btn" id="tagDropdownToggle" style="font-size:12.5px;">
+        <span data-i18n="gc_pick_existing">Pick from existing tags</span> ▾
+      </div>
+      <div id="existingTagsRow" class="tag-dropdown-panel" style="display:none;"></div>
     </div>
   </div>
 
@@ -234,12 +235,13 @@
     </div>
   </div>
 
-<script src="js/categories.js?v=1"></script>
+<script src="js/categories.js?v=2"></script>
 <script src="content/personnages.js"></script>
 <script src="content/monstres.js"></script>
 <script src="content/objets.js"></script>
 <script src="content/zones.js"></script>
 <script src="content/trials.js"></script>
+<script src="content/updates.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore-compat.js"></script>
