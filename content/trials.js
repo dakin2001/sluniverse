@@ -1,4 +1,4 @@
-// "trials" page: generated from editeur.html on 8/26/2026
+// "trials" page: generated from editeur.html on 8/31/2026
 // You can also edit this file by hand: each object is one entry.
 window.WIKI = window.WIKI || {};
 window.WIKI.trials = [
@@ -453,6 +453,41 @@ window.WIKI.trials = [
           {
             "title": "Phase 5 (Final Phase)",
             "description": "* The boss becomes Frenzied and unleashes its ultimate attack.\n* Holy Solar Sword remains on the battlefield throughout this phase, so stay alert and avoid its attacks while finishing the fight."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "competitiveshowdown",
+    "title": "Competitive Showdown",
+    "subtitle": "",
+    "date": "",
+    "image": "images/trials/competitiveshowdown/competitiveshowdown-image.png",
+    "imageUrl": "",
+    "useLocalImage": true,
+    "tags": [],
+    "stats": [],
+    "description": "Race Showdown is a limited time competitive mode where Spirimasters battle for Race Points by winning Duel Battles. Climb through point milestones to unlock exclusive rewards, including a special Namecard with unique effects.\n\nRace Showdown is a limited time Duel Battle mode. You need to reach a certain rank to participate.\nThis week, each victory in Duel Battle competitions grants Race Points. These points build up to hit various milestones, and Race Points will never drop below a milestone you've already reached.",
+    "difficulty": "Epic",
+    "docBlocks": [],
+    "categoryBlocks": [
+      {
+        "image": "",
+        "title": "Gameplay Rules",
+        "description": "",
+        "subtitles": [
+          {
+            "title": "Reward Rules",
+            "description": "* Taking part in Race Showdown gives you a chance to unlock new limited time skin rewards, including a Namecard.\n* Some reward milestones require reaching specific ranks to unlock. Progress still increases even before you unlock them.\n* Once your Race Progress Bar is full, you can claim the highest tier of Namecard rewards, unlocking the most dazzling effects, which will be shown next to your name for other Spirimasters to see."
+          },
+          {
+            "title": "Points",
+            "description": "* Race Points are calculated based on the match outcome. Winning always grants a fixed 200 Race Points.\n* Losing deducts points based on your score: 50 points if your score is below 3600, 100 points if it's between 3600 and 5200, and 200 points if it's above 5200.\n* Race Points will never drop below the highest milestone you've already reached.\n* The rewards for the 4th, 5th, 6th, and 7th milestones only unlock once you reach the Gold, Purple Gold, Sapphire, or Ruby rank respectively. If you haven't reached the required rank, your Race Points can still increase, but you won't be able to claim those rewards until you do."
+          },
+          {
+            "title": "Reward",
+            "description": "* The Namecard reward will be displayed for a limited time, until the next season's race begins."
           }
         ]
       }

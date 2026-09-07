@@ -1030,8 +1030,8 @@ function renderCategoryView(catId, focusId){
     'Arm Bone (L)': ['Control', 'Defense'],
     'Leg Bone (R)': ['Agility'],
     'Leg Bone (L)': ['Support'],
-    'Skull': ['Bruiser', 'Control', 'Defense', 'Agility', 'Support'],
-    'Trunk': ['Bruiser', 'Control', 'Defense', 'Agility', 'Support'],
+    'Skull': ['Support', 'Control', 'Defense'],
+    'Trunk': ['Bruiser', 'Agility'],
   };
   function favoredSpiritsRow(genre){
     const types = SPIRIBONE_FAVORED_SPIRITS[genre];
