@@ -1,4 +1,4 @@
-// "personnages" page: generated from editeur.html on 8/26/2026
+// "personnages" page: generated from editeur.html on 9/8/2026
 // You can also edit this file by hand: each object is one entry.
 window.WIKI = window.WIKI || {};
 window.WIKI.personnages = [
@@ -10964,5 +10964,290 @@ window.WIKI.personnages = [
         "description": "Nine Treasures' Radiance summons tidal sounds, splendid shells overlap stars on tidal reefs."
       }
     ]
+  },
+  {
+    "id": "lyricharp",
+    "title": "Lyric Harp",
+    "subtitle": "Rebel Echo - Moonlit Chant - Cauldron Hymn",
+    "date": "",
+    "image": "images/personnages/lyricharp/lyricharp-image.jpg",
+    "imageUrl": "",
+    "useLocalImage": true,
+    "tags": [
+      "Support",
+      "Control Dmg Up"
+    ],
+    "stats": [
+      {
+        "label": "Name",
+        "value": "Tang Yuehua"
+      },
+      {
+        "label": "Gender",
+        "value": "Female"
+      },
+      {
+        "label": "Archetype",
+        "value": "Support"
+      },
+      {
+        "label": "Role",
+        "value": "Support"
+      },
+      {
+        "label": "Mechanic",
+        "value": "Note-sequencing"
+      },
+      {
+        "label": "Acquisition",
+        "value": "Elegant Melody Summon"
+      }
+    ],
+    "description": "Lyric Harp fights by literally composing music mid-battle, her whole kit revolves around collecting [Notes] through Normal Attacks, then playing them in the correct sequence during her Ultimate to unlock a [Symphony]. Get the melody right, and she grants powerful team buffs, healing over time, Super Armor, Final Damage Down, whatever the specific Symphony calls for.\n\nHer passives deploy a lingering [Noble Ring] that keeps releasing [Sound Wave] bursts periodically, randomly triggering Symphonies on its own and stacking [Lingering Echo] for bonus [Support Dmg Bonus]. So even when she's not actively playing, her domain keeps composing music (and buffs) in the background.\n\nHer whole identity is built around [Movement] effects too, different melodies tied to nature themes (Wind, Snow, Sun, Moon, etc.), each granting a unique bonus like crowd control immunity, HP regen, or bonus Max HP, stacking up toward bigger payoffs like [Quartet] when enough are active at once.",
+    "rarity": "SSR",
+    "backgroundImage": "images/personnages/lyricharp/background/lyricharp-background.png",
+    "mechanics": [],
+    "normalAttack": {
+      "title": "Lute Play",
+      "key": "Healing, Note",
+      "icon": "◆",
+      "description": "Each Normal stage grants [Note: Mi]. Restore 5+9.7% of max HP in total. Charged Normal: Restore 1+1.7% of max HP and consume all [Notes]."
+    },
+    "initiative": {
+      "title": "Beautiful Melody",
+      "key": "Healing",
+      "icon": "◆",
+      "description": "Deploy the domain [Noble Ring] and restore 4+7.0% of max HP to yourself. If [Noble Ring] already exists on the field, relocate it beneath you. [Noble Ring] Duration: Permanent. Removed upon leaving combat."
+    },
+    "ultimate": {
+      "skill1": {
+        "title": "Aurora Sonata",
+        "key": "Note, Movement, SP Regen",
+        "icon": "◆",
+        "description": "Each stage grants [Note: Do] and restores HP equal to [Lute Play] recovery amount. Unlock Enhanced Ultimate when holding 3 types of [Notes]. Enhanced Ultimate: Play the recorded [Notes] in sequence, clear all [Notes], and obtain the corresponding [Symphony] if the sequence is correct. Restore 300 Soul Power after playing. Gain one stack of [Consonance] for each active Symphony. [Consonance]: Gain 3.0% [Support Dmg Bonus]. Each play grants [Echo] lasting 20s. Normal Attack Ultimate counts as Normal Attack.",
+        "cost": 0,
+        "cd": 30,
+        "haloTitle": "",
+        "haloDescription": "",
+        "tiers": [
+          {
+            "threshold": "1k Yr",
+            "description": "Gain Strong Super Armor when playing notes.",
+            "condition": ""
+          },
+          {
+            "threshold": "10k Yr",
+            "description": "[Echo] Duration extended to 30s.",
+            "condition": "🟡 4★ activated"
+          },
+          {
+            "threshold": "25k Yr",
+            "description": "Add Movement [Moon]. [Moon] Melody: Do-Mi-Re; Effect: Stamina consumption reduced by 30%, lasts 10s.",
+            "condition": "🟡 5★ activated"
+          },
+          {
+            "threshold": "50k Yr",
+            "description": "For each active [Movement], restore 2 Soul Power per second.",
+            "condition": "🔴 2★ activated"
+          },
+          {
+            "threshold": "100k Yr",
+            "description": "When 4 Movements are active simultaneously, gain [Quartet].",
+            "condition": "🔴 4★ activated"
+          }
+        ]
+      },
+      "skill4": {
+        "title": "Moonlit Lake Nocturne",
+        "key": "Note, Movement, SP Regen",
+        "icon": "◆",
+        "description": "Each stage grants [Note: Do] and restores your HP by the same amount as [Lute Play]. When holding 3 types of [Notes], unlock Enhanced Ultimate. Enhanced Ultimate: Play the recorded [Notes] in sequence, clear all [Notes], and obtain the corresponding [Symphony] if the sequence is correct. After playing, gain [Hymn of Praise] and restore 100 Soul Power. [Hymn of Praise]: Grants all allies 9.0% [Support Dmg Bonus]. When allies switch Spirits with a switch skill, gain 100 Soul Power, Duration 30s. Normal Attack Ultimate counts as Normal Attack. Spirimaster can hold max 1 [Symphony].",
+        "cost": 0,
+        "cd": 30,
+        "haloTitle": "",
+        "haloDescription": "",
+        "tiers": [
+          {
+            "threshold": "1k Yr",
+            "description": "After the first Ultimate release, Normal attacks, Skills, and Ultimates each represent a Movement: Normal: [Wind] or [Sun]; Skill: [Flower] or [Star]; Ultimate: [Snow] or [Celestial].",
+            "condition": ""
+          },
+          {
+            "threshold": "10k Yr",
+            "description": "Restore Soul Power to 150 upon each Initiative release.",
+            "condition": "🟡 4★ activated"
+          },
+          {
+            "threshold": "25k Yr",
+            "description": "After Lyric Harp releases Initiative, apply [Variation] to self. [Variation]: Grants 5.0% Support Dmg Bonus, Duration 30s.",
+            "condition": "🟡 5★ activated"
+          },
+          {
+            "threshold": "50k Yr",
+            "description": "Restore Soul Power to 200 upon each Initiative release.",
+            "condition": "🔴 2★ activated"
+          },
+          {
+            "threshold": "100k Yr",
+            "description": "[Hymn of Praise]'s [Support Dmg Bonus] increases to 17.0%.",
+            "condition": "🔴 4★ activated"
+          }
+        ]
+      }
+    },
+    "skill": {
+      "skill2": {
+        "title": "Windborne Hymn",
+        "key": "Healing, Note, Movement",
+        "icon": "◆",
+        "description": "Each stage grants [Note: Re] and restores own HP equal to [Lute Play]. Enter Fight carrying the following [Symphony]: [Symphony - Wind] Melody: Mi-Re-Do; Effect: Gain Medium Super Armor, Duration 10s. [Symphony - Blossom] Melody: Do-Re-Mi; Effect: Final Dmg Down by 20%, Duration 10s. [Symphony - Snow] Melody: Mi-Do-Re; Effect: Continuous Restore. Recover 3+5.2% of Max HP per second, Duration 10s. Obtaining the same Symphony refreshes Duration. Skill release counts as Normal ATK.",
+        "cost": 0,
+        "cd": 0,
+        "haloTitle": "",
+        "haloDescription": "",
+        "tiers": [
+          {
+            "threshold": "1k Yr",
+            "description": "[Wind] activation grants 5s crowd control immunity (3s in PVP).",
+            "condition": ""
+          },
+          {
+            "threshold": "10k Yr",
+            "description": "All basic note plays' Restore effect +100%.",
+            "condition": "🟡 4★ activated"
+          },
+          {
+            "threshold": "25k Yr",
+            "description": "[Snow] per-second Restore effect increased to 4+6.3%.",
+            "condition": "🟡 5★ activated"
+          },
+          {
+            "threshold": "50k Yr",
+            "description": "In [Snow], taking Dmg restores 2+2.9% of max HP, triggers once per 5s.",
+            "condition": "🔴 2★ activated"
+          },
+          {
+            "threshold": "100k Yr",
+            "description": "[Flower] activation grants additional 60% final Dmg Down, Duration 3s.",
+            "condition": "🔴 4★ activated"
+          }
+        ]
+      },
+      "skill6": {
+        "title": "Hymn of Light",
+        "key": "Healing, Note, Movement",
+        "icon": "◆",
+        "description": "Each stage grants [Note: Re] and restores your HP by the same amount as [Lute Play]. Enter Fight with the following [Symphony]: [Symphony - Sun] Melody: Mi-Re-Do; Effect: Increase movement speed for 10s. [Symphony - Star] Melody: Do-Re-Mi; Effect: Increase Max HP by 10% for 10s. [Symphony - Aster] Melody: Mi-Do-Re; Effect: Continuous Restore. Recover 3+4.3% of Max HP per second for 10s. Obtaining the same Symphony refreshes Duration. Skill release counts as Normal ATK.",
+        "cost": 0,
+        "cd": 0,
+        "haloTitle": "",
+        "haloDescription": "",
+        "tiers": [
+          {
+            "threshold": "1k Yr",
+            "description": "[Sun] activation grants 5s CC Immunity (3s in PVP).",
+            "condition": ""
+          },
+          {
+            "threshold": "10k Yr",
+            "description": "All basic note plays' Restore effect +100%.",
+            "condition": "🟡 4★ activated"
+          },
+          {
+            "threshold": "25k Yr",
+            "description": "[Celestial] activation immediately Restores 16+28.0% of max HP.",
+            "condition": "🟡 5★ activated"
+          },
+          {
+            "threshold": "50k Yr",
+            "description": "When [Celestial] is activated, dispel all debuffs on self.",
+            "condition": "🔴 2★ activated"
+          },
+          {
+            "threshold": "100k Yr",
+            "description": "Increase [Star] effect to 20% and restore 20+35.0% of max HP.",
+            "condition": "🔴 4★ activated"
+          }
+        ]
+      }
+    },
+    "passive": {
+      "skill3": {
+        "title": "Lingering Resonance",
+        "key": "Movement, Dmg Up",
+        "icon": "◆",
+        "description": "The [Noble Ring] created by Initiative is enhanced to [Noble Ring·Lingering]. [Noble Ring·Lingering]: Releases [Sound Wave] once every 30s after creation. Each Sound Wave release randomly plays a symphony and grants Shield to self. Provides Support Dmg Bonus based on the number of symphonies played. Gain one stack of [Lingering Echo] per symphony played. Each stack grants 2.0% [Support Dmg Bonus], max 20 stacks. When holding [Aurora Sonata], Sound Wave also grants self [Echo]. All symphonies' base effects have Duration extended to 30s.",
+        "cost": 0,
+        "cd": 0,
+        "haloTitle": "God of Stars Lyric Harp Talent",
+        "haloDescription": "Divine Hymn cascades through the heavens; the three realms resonate in harmony. Each echo grants Final Dmg Up by 2%, stacking up to 20%.",
+        "tiers": [
+          {
+            "threshold": "1k Yr",
+            "description": "[Sound Wave] trigger grants all carried Movement effects at once; each stack of [Lingering Sound] additionally provides 1.2% Skill Dmg Up, Passive Dmg Up and Ultimate Dmg Up.",
+            "condition": ""
+          },
+          {
+            "threshold": "10k Yr",
+            "description": "Upon entering the Fight, gain 3 stacks of [Lingering Sound] immediately; each stack of [Support Dmg Bonus] increases to 3.0%.",
+            "condition": "🟡 4★ activated"
+          },
+          {
+            "threshold": "25k Yr",
+            "description": "Gain 3% final Dmg Up for each active Movement, up to 12%.",
+            "condition": "🔴 1★ activated"
+          },
+          {
+            "threshold": "50k Yr",
+            "description": "When [Lingering Sound] reaches 8+ stacks, gain 2.5% [Support Dmg Bonus] for every 6% Strike Rate, capped at 15%.",
+            "condition": "🔴 3★ activated"
+          },
+          {
+            "threshold": "100k Yr",
+            "description": "[Lingering Sound] stack limit increased to 24. Each stack of [Lingering Sound] provides Skill Dmg Up, Passive Dmg Up, and Ultimate Dmg Up increased to 2.5%.",
+            "condition": "🔴 4★ activated"
+          }
+        ]
+      },
+      "skill5": {
+        "title": "Nightingale's Harmony",
+        "key": "Movement, Dmg Up",
+        "icon": "◆",
+        "description": "The [Noble Ring] created by Initiative is enhanced to [Noble Ring·Harmony]. [Noble Ring·Harmony]: Upon creation, each time a Switch Skill is cast, release [Sound Wave], granting the current Character [Harmony]. [Harmony]: Gain 30.0% [Support Dmg Bonus], Duration 5s. When Sound Wave plays symphonies, cycle through [Wind - Blossom - Snow - Moon] or [Sun - Moon - Star - Aster] in sequence; if no previous symphony was played, begin with [Wind] or [Sun].",
+        "cost": 0,
+        "cd": 0,
+        "haloTitle": "God of Stars Lyric Harp Talent",
+        "haloDescription": "Sacred Chant shakes the firmament, unlocking infinite potential; all things harmonize as the cosmos bows. After each Character switches, gain Final Dmg Up by 18% for 5s.",
+        "tiers": [
+          {
+            "threshold": "1k Yr",
+            "description": "Each sound wave also deals Synergy Dmg to targets in range.",
+            "condition": ""
+          },
+          {
+            "threshold": "10k Yr",
+            "description": "[Harmony]'s [Support Dmg Bonus] increased to 54.6%. When sound wave triggers, the next Initiative doesn't consume Initiative energy. After this Initiative is released, add [Concerto] to self. This effect triggers once every 30s.",
+            "condition": "🟡 4★ activated"
+          },
+          {
+            "threshold": "25k Yr",
+            "description": "After each Sound Wave release, the entire team gains 12.0% Final Dmg Up for 5s.",
+            "condition": "🔴 1★ activated"
+          },
+          {
+            "threshold": "50k Yr",
+            "description": "Passive's Support Dmg Bonus increased. For every 6% Strike Rate owned, gain 3% [Support Dmg Bonus], up to a maximum of 18%.",
+            "condition": "🔴 3★ activated"
+          },
+          {
+            "threshold": "100k Yr",
+            "description": "[Harmony]'s [Support Dmg Bonus] increased to 55.2%, Duration extended to 8s. [Concerto]'s Skill Dmg Bonus, Passive Dmg Bonus and Ultimate Dmg Bonus increased to 50% (20% in PVP).",
+            "condition": "🔴 4★ activated"
+          }
+        ]
+      }
+    },
+    "fusion": null,
+    "skins": []
   }
 ];

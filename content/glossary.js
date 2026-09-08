@@ -1,4 +1,4 @@
-// Glossary: generated from editeur.html on 8/12/2026
+// Glossary: generated from editeur.html on 9/8/2026
 window.GLOSSARY = window.GLOSSARY || {};
 Object.assign(window.GLOSSARY, {
   "Laceration": "Stackable, triggers at 20 stacks to deal 6.5% ATK as Dmg per stack and remove, Duration is infinite.",
@@ -365,5 +365,35 @@ Object.assign(window.GLOSSARY, {
   "Omniscient Status": "Obtained through the Halo 5 effect. When in [Omniscient Status], all acquired [Ennea Pagoda Sigil] automatically Upgrade to Lv.2.",
   "Omniscient State": "Obtained through the Halo 5 effect. When in [Omniscient Status], all acquired [Ennea Pagoda Sigil] automatically Upgrade to Lv.2.",
   "Control Immunity": "A general defensive buff that makes the character immune to crowd control effects like Stun, Imprison, Freeze, or Knockback for its duration.",
-  "Strong Super Armor": "A general defensive buff granting a high tier of poise/hyper armor, preventing the character from being interrupted or staggered by enemy attacks while active, often also reducing incoming damage. It's a stronger version of standard Super Armor, harder for enemies to break through."
+  "Strong Super Armor": "A general defensive buff granting a high tier of poise/hyper armor, preventing the character from being interrupted or staggered by enemy attacks while active, often also reducing incoming damage. It's a stronger version of standard Super Armor, harder for enemies to break through.",
+  "Note": "Lyric Harp releases Normal, Skill, and Ultimate to generate different Notes. Notes can be used to perform [Movement], max 3 held simultaneously.",
+  "Movement": "Lyric Harp Skill unlocked. Play the correct melodies to gain corresponding Buffs.",
+  "Echo": "Gain 20 Soul Power restore per second, for 20s.",
+  "Quartet": "Gain 8% Support Dmg Bonus.",
+  "Harmony": "Gain 20% Skill Dmg Up, Passive Dmg Up, and Ultimate Dmg Up (reduced to 10% in PVP), for 10s.",
+  "Noble Ring": "A permanent domain deployed by her Initiative, healing her on cast and relocating beneath her if it already exists. Enhanced further by her passives.",
+  "Symphony": "The reward granted by correctly sequencing collected Notes during her Enhanced Ultimate. Each Symphony type grants a unique buff (Super Armor, Final Dmg Down, HP regen, etc.).",
+  "Consonance": "A stacking buff gained per active Symphony, each stack granting bonus [Support Dmg Bonus].",
+  "Hymn of Praise": "A team-wide buff granted after her Skill 4 Ultimate, boosting [Support Dmg Bonus] for allies and restoring Soul Power when allies switch Spirits.",
+  "Variation": "A buff applied to self after releasing her Initiative, granting bonus [Support Dmg Bonus].",
+  "Sound Wave": "A periodic effect released by her enhanced [Noble Ring], randomly playing a Symphony and granting a Shield, tied to [Lingering Echo] stack generation.",
+  "Lingering Echo": "A stacking buff gained per Symphony played via [Sound Wave], each stack granting bonus [Support Dmg Bonus] (and later, bonus Skill/Passive/Ultimate Dmg Up at higher Spirit levels).",
+  "Lingering Sound": "A stacking buff gained per Symphony played via [Sound Wave], each stack granting bonus [Support Dmg Bonus] (and later, bonus Skill/Passive/Ultimate Dmg Up at higher Spirit levels).",
+  "Concerto": "A buff gained periodically after Sound Wave triggers (Skill 5, higher Spirit level), boosting Skill, Passive, and Ultimate Damage Bonus.",
+  "Notes": "Lyric Harp releases Normal, Skill, and Ultimate to generate different Notes. Notes can be used to perform [Movement], max 3 held simultaneously.",
+  "Symphony - Wind": "One of the Symphony types (Skill 2), melody Mi-Re-Do. Grants Medium Super Armor for its duration.",
+  "Symphony - Blossom": "Another Symphony type (Skill 2), melody Do-Re-Mi. Grants Final Dmg Down by 20% for its duration.",
+  "Symphony - Snow": "A Symphony type (Skill 2), melody Mi-Do-Re. Provides continuous HP restoration over its duration.",
+  "Symphony - Sun": "One of the Symphony types (Skill 6), melody Mi-Re-Do. Increases movement speed for its duration.",
+  "Symphony - Star": "Another Symphony type (Skill 6), melody Do-Re-Mi. Increases Max HP for its duration.",
+  "Symphony - Aster": "A Symphony type (Skill 6), melody Mi-Do-Re. Provides continuous HP restoration over its duration.",
+  "Moon": "Unlocked at higher Spirit level (Skill 1), melody Do-Mi-Re. Reduces Stamina consumption for its duration.",
+  "Celestial": "Referenced as one of the Ultimate-tied Movements (Skill 4, at 1k Yr), tied to the Ultimate attack type, later triggering an immediate HP restoration effect at higher Spirit levels.",
+  "Wind": "Tied to Normal Attacks in the Movement system (Skill 4), one of two possible Movement types unlocked via Normal Attack usage.",
+  "Flower": "Tied to Skills in the Movement system (Skill 4), one of two possible Movement types unlocked via Skill usage. At higher Spirit levels (Skill 2, 100k Yr), activation grants bonus Final Dmg Down.",
+  "Snow": "Tied to Ultimates in the Movement system (Skill 4), one of two possible Movement types unlocked via Ultimate usage. Different from [Symphony - Snow], this is the Movement version tied to the Ultimate category.",
+  "Noble Ring·Lingering": "The enhanced version of [Noble Ring] created via Skill 3's passive, releasing [Sound Wave] periodically and granting Shield/bonus effects.",
+  "Noble Ring·Harmony": "The alternate enhanced version of [Noble Ring] via Skill 5's passive, releasing [Sound Wave] specifically when a Switch Skill is cast, granting [Harmony] to the current character.",
+  "Aurora Sonata": "Referenced in Skill 3's passive as a condition, \"When holding [Aurora Sonata]\", implying that having this specific Skill/Ultimate equipped or active changes how [Sound Wave] behaves (also granting [Echo] on trigger).",
+  "Lute Play": "The Innate Skill itself. Each Normal Attack stage grants [Note: Mi], healing over the combo. The Charged Normal Attack restores a smaller amount but consumes all currently held Notes."
 });
