@@ -1,4 +1,4 @@
-// "personnages" page: generated from editeur.html on 9/8/2026
+// "personnages" page: generated from editeur.html on 9/12/2026
 // You can also edit this file by hand: each object is one entry.
 window.WIKI = window.WIKI || {};
 window.WIKI.personnages = [
@@ -578,6 +578,7 @@ window.WIKI.personnages = [
     "id": "celestimums",
     "title": "Celestimums",
     "subtitle": "Phantom Chrysanthemum Frost - Herd's Temptation - Withering Throne",
+    "date": "",
     "image": "images/personnages/celestimums/celestimums-image.jpg",
     "imageUrl": "",
     "useLocalImage": true,
@@ -637,8 +638,8 @@ window.WIKI.personnages = [
         "description": "Celestimums ascend slowly, bursting into radiant gold for 7s, golden beams descend on random targets, dealing 8+54.9% ATK Dmg. Maximum Dmg: 168+1153.3% ATK.",
         "cost": 3,
         "cd": 30,
-        "haloTitle": "",
-        "haloDescription": "",
+        "haloTitle": "Asura Chrysanthemum",
+        "haloDescription": "Asura's Skyward, myriad blossoms return to origin. Celestial light descends, deciding life and death.\nEvery light pillar attack of the Ultimate adds 1 stack of [Falling Blossom]: Each stack increases the target's final Spirit Dmg taken by 0.2%, up to 24%, Duration 60s.",
         "tiers": [
           {
             "threshold": "1k Yr",
@@ -674,8 +675,8 @@ window.WIKI.personnages = [
         "description": "Celestimums release a flurry of petals, transforming into sharp blades, creating a Windstorm of countless petal blades. The Windstorm lasts 10s, continuously pulling targets within range towards the center and dealing Dmg, up to 180+1170.0% ATK Dmg.",
         "cost": 3,
         "cd": 30,
-        "haloTitle": "",
-        "haloDescription": "",
+        "haloTitle": "Asura Chrysanthemum",
+        "haloDescription": "Dance with this Frost Blossom. When the music ends, myriad foes perish.\nEvery attack of the Ultimate adds 1 stack of [Falling Blossom] to all hit targets: Each stack increases the target's final Spirit Dmg taken by 6%, up to 18%, Duration 20s.",
         "tiers": [
           {
             "threshold": "1k Yr",
@@ -7247,6 +7248,7 @@ window.WIKI.personnages = [
     "id": "bonedragon",
     "title": "Bonedragon",
     "subtitle": "Sword Bone PAct - Defiant Tiger Spirit - Eternal Support",
+    "date": "",
     "image": "images/personnages/bonedragon/bonedragon-image.jpg",
     "imageUrl": "",
     "useLocalImage": true,
@@ -7277,12 +7279,13 @@ window.WIKI.personnages = [
       },
       {
         "label": "Acquisition",
-        "value": ""
+        "value": "Bonedragon Dawn Summon"
       }
     ],
     "description": "Bonedragon is a shield-stacking, damage-tanking fortress on legs, built around [Bone Armor] and its upgraded forms, [Dragonbone Sturdy Armor] and [Void Phantom Armor]. Every version grants Super Armor to the whole team while active, meaning his shields aren't just protecting him, they're protecting everyone.\n\nHis core damage debuff is [Bone Erosion], applied through nearly every Skill and Ultimate, stacking up [DEF Vulnerability] on enemies to make them take more damage overall. Meanwhile his shields aren't just passive either, they actively get consumed to summon Bonedragon for bonus attacks, whether that's through [Dragon Transformation]'s multi-phase strikes or Void Phantom Armor's overflow-absorbing burst.\n\nHis utility toolkit is stacked too, [Space Gate] portals let him (and his team) reposition and dash through for bonus Final Dmg Reduction, while his Invincibility windows (like Bonedragon Guardian) let him tank hits that would otherwise wreck the team.",
     "rarity": "SSR",
     "backgroundImage": "images/personnages/bonedragon/background/bonedragon-background.png",
+    "mechanics": [],
     "normalAttack": {
       "title": "Dragonbone",
       "key": "Dmg",
@@ -7303,8 +7306,8 @@ window.WIKI.personnages = [
         "description": "The Bonedragon tears through the void, unleashing a breath attack that deals 232+1603.5% ATK Ultimate Dmg to enemies within range, applying 1 stack of [Bone Erosion]. After casting the Ultimate, gain [Dragon Transformation]. During this time, every 3 Normal Attacks or Skill releases of any Spirit will consume [Bone Armor] Shield Value equal to 15% of the Bonedragon's max HP, then summon the Bonedragon to attack the target, triggering a 3-second cooldown, up to 3 times. [Dragon Transformation]: On the first summon, the Bonedragon sweeps at the target enemy, dealing 15+100.2% ATK Ultimate Dmg. On the second summon, the Bonedragon slams the ground, summoning bone spikes that deal 15+100.2% ATK Ultimate Dmg to enemies within range. On the third summon, the Bonedragon breathes fire, dealing 4+25.0% ATK Ultimate Dmg to enemies within range, applying 1 stack of [Bone Erosion]. [Dragon Transformation] lasts up to 10 seconds and ends immediately if [Bone Armor] is not held. If the current [Bone Armor] remaining Shield Value does not meet the conditions, the [Dragon Transformation] effect will not trigger. (In PVP, this ultimate's cooldown is increased by 30 seconds.)",
         "cost": 2,
         "cd": 30,
-        "haloTitle": "",
-        "haloDescription": "",
+        "haloTitle": "God of The Sea Bonedragon",
+        "haloDescription": "The Bonedragon appears, commanding the reverence of all beasts. Its dragon breath annihilates worlds, scorching the soul. The ground swept by the Bonedragon's breath undergoes a secondary explosion, dealing additional 29+200.4% ATK as ultimate Dmg and adding 1 stack of [Bone Erosion]. All Spirits gain [Final Dmg Up] 15.0% when attacking targets with [Bone Erosion].",
         "tiers": [
           {
             "threshold": "1k Yr",
@@ -7340,8 +7343,8 @@ window.WIKI.personnages = [
         "description": "Summon Bonedragon for protection, gaining Invincibility and Control Immunity, but unable to perform other actions, lasting up to 10s (5s in PVP) After Duration ends or upon reactivation, Bonedragon ends protection and charges forward, colliding with enemies in its path, dealing 93+638.8% ATK as ultimate Dmg, and applies 1 stack of [Bone Erosion].",
         "cost": 2,
         "cd": 60,
-        "haloTitle": "",
-        "haloDescription": "",
+        "haloTitle": "God of The Sea Bonedragon",
+        "haloDescription": "True dragon descends, divine guard protects. Flesh may perish, golden body endures. The second stage of Bonedragon's ultimate causes bone spikes to emerge from the ground, dealing additional 46+319.4% ATK ultimate Dmg and applying 1 stack of [Bone Erosion]. All Spirits gain [Final Dmg Up] 15.0% when attacking targets with [Bone Erosion].",
         "tiers": [
           {
             "threshold": "1k Yr",
@@ -10386,6 +10389,7 @@ window.WIKI.personnages = [
     "id": "haotianhammerdeathgod",
     "title": "Haotian Hammer Deathgod",
     "subtitle": "Haotian Legacy - Supreme Artifact Soul - Eternal True Love",
+    "date": "",
     "image": "images/personnages/haotianhammerdeathgod/haotianhammerdeathgod-image.jpg",
     "imageUrl": "",
     "useLocalImage": true,
@@ -10416,7 +10420,7 @@ window.WIKI.personnages = [
       },
       {
         "label": "Acquisition",
-        "value": "Event Reward"
+        "value": "Sumeru Haotian Summon"
       }
     ],
     "description": "Deathgod Haotian Hammer is Haotian Hammer's heavier-hitting cousin, still built around [Shock] and [Vibration], but with an entirely new layer stacked on top depending on which Core Passive you pick. [Sky Shatter Pressure] builds [Sky Shatter] stacks that eventually unlock a devastating airborne finisher, [Haotian Suppression], while [Earth Shake Fury] instead builds [Earthquake] stacks toward its own airborne nuke, [Earth Shake: Great Sumeru Hammer].\n\nBoth passives reward the whole team for triggering Vibration, not just this Spirit, meaning every Spirit's Vibration hits feed the resource generation. The bigger the stacks, the bigger the eventual payoff, and at max investment, both paths unlock rare, hard-hitting finishers like [Extreme·Great Sumeru Hammer] that can only be used once every 360 seconds.\n\nTheir Ultimates hit similarly hard on their own too, Haotian Nine Extremes spins through enemies before hurling the hammer for a second big hit, while Great Sumeru Hammer channels everything into one devastating strike, both scaling harder against Vibration targets.",
@@ -10521,8 +10525,8 @@ window.WIKI.personnages = [
         "description": "Haotian Secret Technique sweeps everything. Throw the Deathgod Haotian Hammer to create a hammer wind tornado, then collide with targets in range to deal up to 126+865.1% ATK as Skill Dmg, and apply 10 stacks of [Shock] to enemies in [Vibration].",
         "cost": 0,
         "cd": 25,
-        "haloTitle": "",
-        "haloDescription": "",
+        "haloTitle": "Asura Deathgod Haotian",
+        "haloDescription": "Divine Asura grants the Hammer Seal, Haotian bears malice over the mortal realm. One swing that trembles beasts across the sky, the hammer protects the world in peace with its final note.\nAfter using Skill, Deathgod Haotian Hammer gains [Sumeru's Truth] and the Spirit gains 12.0% Final Dmg Bonus, Duration 30s",
         "tiers": [
           {
             "threshold": "1k Yr",
@@ -10558,8 +10562,8 @@ window.WIKI.personnages = [
         "description": "Raise the hammer to the sky, unleashing a fierce aura that attacks surrounding enemies, dealing 20+138.1% ATK as Skill Dmg and gaining [Haotian Will]. [Haotian Will]: Duration 10s. Every 2s a Haotian Hammer descends from the sky, striking the ground and dealing 15+103.6% ATK as Skill Dmg, applying 1 layer of [Shock] to targets not in [Vibration].",
         "cost": 0,
         "cd": 30,
-        "haloTitle": "",
-        "haloDescription": "",
+        "haloTitle": "Asura Deathgod Haotian",
+        "haloDescription": "Divine Asura grants the Hammer Seal, Haotian bears malice over the mortal realm. One swing that trembles beasts across the sky, the hammer protects the world in peace with its final note.\nAfter using Skill, Deathgod Haotian Hammer gains [Godslayer's Might] and the Spirit gains 12.0% Final Dmg Bonus, Duration 30s.",
         "tiers": [
           {
             "threshold": "1k Yr",

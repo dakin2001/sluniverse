@@ -1,4 +1,4 @@
-// "zones" page: generated from editeur.html on 8/23/2026
+// "zones" page: generated from editeur.html on 9/12/2026
 // You can also edit this file by hand: each object is one entry.
 window.WIKI = window.WIKI || {};
 window.WIKI.zones = [
@@ -964,6 +964,22 @@ window.WIKI.zones = [
         "linkedItemId": "foxtaildew"
       }
     ],
+    "docBlocks": []
+  },
+  {
+    "id": "slaughtercity",
+    "title": "Slaughter City",
+    "subtitle": "Blood Sky",
+    "date": "",
+    "image": "",
+    "imageUrl": "",
+    "useLocalImage": true,
+    "tags": [],
+    "stats": [],
+    "description": "Slaughter City is a dark, oppressive metropolis trapped in a perpetual atmosphere of danger and dread. Ruled with absolute authority by a ruthless monarch, the city is built on a foundation of conflict where strength dictates survival and the weak rarely endure.\n\nGloomy architecture, blood stained paths, and constant mist set a grim tone throughout its districts. It is a place designed to test visitors to their absolute limits, where energy and resources are hard to come by, and every corner presents a deadly challenge. Bound by dark magic and guarded by formidable forces, the city stands as a legendary proving ground for those seeking power or a final graveyard for those who fail.",
+    "mapFile": "images/maps/slaughtercity-map.png",
+    "coverImage": "images/zone-covers/slaughtercity-cover.jpg",
+    "markers": [],
     "docBlocks": []
   }
 ];
