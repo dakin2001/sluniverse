@@ -1,4 +1,4 @@
-// "zones" page: generated from editeur.html on 9/12/2026
+// "zones" page: generated from editeur.html on 9/21/2026
 // You can also edit this file by hand: each object is one entry.
 window.WIKI = window.WIKI || {};
 window.WIKI.zones = [
@@ -765,6 +765,7 @@ window.WIKI.zones = [
     "id": "haotian-ridge",
     "title": "Haotian Ridge",
     "subtitle": "Haotian Sect - Cloudfall Village - Cyclone Lake - Hanging Star Platform",
+    "date": "",
     "image": "",
     "imageUrl": "",
     "useLocalImage": true,
@@ -942,7 +943,7 @@ window.WIKI.zones = [
         "y": 2354.0967458865175,
         "icon": "🔥",
         "name": "Hunt Bounty",
-        "description": "inkbone Thorn Emperor",
+        "description": "Inkbone Thorn Emperor",
         "linkedItemId": ""
       },
       {

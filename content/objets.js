@@ -1,4 +1,4 @@
-// "objets" page: generated from editeur.html on 8/27/2026
+// "objets" page: generated from editeur.html on 9/26/2026
 // You can also edit this file by hand: each object is one entry.
 window.WIKI = window.WIKI || {};
 window.WIKI.objets = [
@@ -264,50 +264,6 @@ window.WIKI.objets = [
     ]
   },
   {
-    "id": "celestialcondor",
-    "title": "Celestial Condor",
-    "subtitle": "",
-    "image": "images/objets/celestialcondor/celestialcondor-image.png",
-    "imageUrl": "",
-    "useLocalImage": true,
-    "tags": [],
-    "stats": [],
-    "description": "",
-    "category": "Soulcores",
-    "bagType": "soulcore",
-    "rarity": "SSR",
-    "soulcoreTypes": [
-      "Control",
-      "Defense",
-      "Support"
-    ],
-    "descriptionImage": "images/objets/celestialcondor/celestialcondor-description.png",
-    "namedSet": false,
-    "setName": "",
-    "setIcon": "",
-    "tier12Description": "",
-    "tier12Bonus": "",
-    "tier2Description": "Willpower+16.0",
-    "tier4Description": "When this Spirit uses an Ultimate, all Spirits gain Final Dmg Bonus for 10s, cooldown 30s.",
-    "tier24Bonus": "Duration extends to 15s.",
-    "tier12Values": [
-      "",
-      "",
-      "",
-      "",
-      "",
-      ""
-    ],
-    "tier4Values": [
-      "7.5",
-      "9.0",
-      "10.5",
-      "12.0",
-      "13.5",
-      "15.0"
-    ]
-  },
-  {
     "id": "divineturtle",
     "title": "Divine Turtle",
     "subtitle": "",
@@ -442,6 +398,7 @@ window.WIKI.objets = [
     "id": "glazedspider",
     "title": "Glazed Spider",
     "subtitle": "",
+    "date": "",
     "image": "images/objets/glazedspider/glazedspider-image.png",
     "imageUrl": "",
     "useLocalImage": true,
@@ -450,6 +407,9 @@ window.WIKI.objets = [
     "description": "",
     "category": "Soulcores",
     "bagType": "soulcore",
+    "sources": [],
+    "contains": [],
+    "textSources": [],
     "rarity": "SSR",
     "soulcoreTypes": [
       "Control",
@@ -461,7 +421,7 @@ window.WIKI.objets = [
     "setName": "",
     "setIcon": "",
     "tier12Description": "After this Spirit uses a Soul Power Restore Skill, all Spirits gain a Final Dmg Bonus and an advanced Dmg Down of 2.5%, Duration 15s, cooldown 30s.",
-    "tier12Bonus": "uration extends to 20s",
+    "tier12Bonus": "Duration extends to 20s",
     "tier2Description": "",
     "tier4Description": "",
     "tier24Bonus": "",
@@ -566,50 +526,6 @@ window.WIKI.objets = [
       "1.4",
       "1.6",
       "1.8"
-    ]
-  },
-  {
-    "id": "inkbonethornemperor",
-    "title": "Inkbone Thorn Emperor",
-    "subtitle": "",
-    "image": "images/objets/inkbonethornemperor/inkbonethornemperor-image.png",
-    "imageUrl": "",
-    "useLocalImage": true,
-    "tags": [],
-    "stats": [],
-    "description": "",
-    "category": "Soulcores",
-    "bagType": "soulcore",
-    "rarity": "SSR",
-    "soulcoreTypes": [
-      "Control",
-      "Defense",
-      "Support"
-    ],
-    "descriptionImage": "images/objets/inkbonethornemperor/inkbonethornemperor-description.png",
-    "namedSet": false,
-    "setName": "",
-    "setIcon": "",
-    "tier12Description": "",
-    "tier12Bonus": "",
-    "tier2Description": "Willpower+16.0",
-    "tier4Description": "When this Spirit gains a Shield, all Spirits receive Final Dmg Bonus for 10s, cooldown 30s.",
-    "tier24Bonus": "Duration extends to 15s.",
-    "tier12Values": [
-      "",
-      "",
-      "",
-      "",
-      "",
-      ""
-    ],
-    "tier4Values": [
-      "7.5",
-      "9.0",
-      "10.5",
-      "12.0",
-      "13.5",
-      "15.0"
     ]
   },
   {
@@ -6965,9 +6881,10 @@ window.WIKI.objets = [
     ]
   },
   {
-    "id": "exoticwoodspiritcore",
+    "id": "exoticwoodspiritcore-material",
     "title": "Exotic Wood Spirit Core",
-    "subtitle": "",
+    "subtitle": "Halo Advance Item",
+    "date": "",
     "image": "images/objets/exoticwoodspiritcore/exoticwoodspiritcore-image.png",
     "imageUrl": "",
     "useLocalImage": true,
@@ -9461,5 +9378,395 @@ window.WIKI.objets = [
       "Mall"
     ],
     "materialApplicableSpirits": []
+  },
+  {
+    "id": "avatarstarsource",
+    "title": "Avatar Star Source",
+    "subtitle": "Spirit Avatar Universal Star Upgrade Item",
+    "date": "",
+    "image": "images/objets/avatarstarsource/avatarstarsource-image.png",
+    "imageUrl": "",
+    "useLocalImage": true,
+    "tags": [],
+    "stats": [],
+    "description": "Used for Spirit Avatar Star Upgrade\nSpirit avatar descends to forge stellar essence; primordial light sustains all existence.",
+    "category": "Material",
+    "bagType": "material",
+    "sources": [],
+    "contains": [],
+    "textSources": [
+      "Event Reward"
+    ],
+    "materialApplicableSpirits": []
+  },
+  {
+    "id": "radiantspiritcrystal",
+    "title": "Radiant Spirit Crystal",
+    "subtitle": "Little Guru Exclusive",
+    "date": "",
+    "image": "images/objets/radiantspiritcrystal/radiantspiritcrystal-image.png",
+    "imageUrl": "",
+    "useLocalImage": true,
+    "tags": [],
+    "stats": [],
+    "description": "Upgrade Mini Guru's Quality to Prismatic\nA five-colored glow swirls within the crystal, effective for soul condensation.",
+    "category": "Material",
+    "bagType": "material",
+    "sources": [],
+    "contains": [],
+    "textSources": [
+      "Event Reward"
+    ],
+    "materialApplicableSpirits": []
+  },
+  {
+    "id": "celestialcondorspiribone",
+    "title": "Celestial Condor",
+    "subtitle": "",
+    "date": "",
+    "image": "images/objets/celestialcondorspiribone/celestialcondorspiribone-image.png",
+    "imageUrl": "",
+    "useLocalImage": true,
+    "tags": [],
+    "stats": [],
+    "description": "",
+    "category": "Spiribones",
+    "bagType": "spiribone",
+    "sources": [],
+    "contains": [],
+    "textSources": [],
+    "spiriboneGenre": "Trunk",
+    "spiriboneType": "",
+    "spiriboneRating": "5000",
+    "spiriboneSkill": {
+      "title": "Condor Raster",
+      "key": "Dmg Up",
+      "description": "Gain [Raster] equal to the number of [Photon] layers obtained. 25 layers of Raster convert into one layer of [Condor Raster], each layer of [Condor Raster] provides a final Dmg Up of 1.7% to all Spirits, up to 8 layers"
+    },
+    "spiriboneTiers": [
+      {
+        "threshold": "10k Yr",
+        "description": "Max stacks of [Condor Raster] increased by 2",
+        "condition": "Spiribone 2⭐ Effective"
+      },
+      {
+        "threshold": "25k Yr",
+        "description": "Gain an additional 5% final Dmg increase when [Condor Raster] stacks are greater than or equal to 8",
+        "condition": "Spiribone 3⭐ Effective"
+      },
+      {
+        "threshold": "50k Yr",
+        "description": "Each stack of [Condor Raster] grants an additional 0.4% final Dmg increase",
+        "condition": "Spiribone 4⭐ Effective"
+      },
+      {
+        "threshold": "80k Yr",
+        "description": "Max stacks of [Condor Raster] increased by 2",
+        "condition": "Spiribone 5⭐ Effective"
+      },
+      {
+        "threshold": "100k Yr",
+        "description": "Each stack of [Condor Raster] grants an additional 0.6% final Dmg increase",
+        "condition": "Spiribone 6⭐ Effective"
+      }
+    ],
+    "spiriboneStarStats": [
+      {
+        "label": "Beast Halo Basic Stats",
+        "value": ""
+      },
+      {
+        "label": "Volant Halo Basic Stats",
+        "value": ""
+      },
+      {
+        "label": "Scorpion Halo Basic Stats",
+        "value": ""
+      },
+      {
+        "label": "Insect Halo Basic Stats",
+        "value": ""
+      },
+      {
+        "label": "Direbear Halo Basic Stats",
+        "value": ""
+      },
+      {
+        "label": "Wyvern Halo Basic Stats",
+        "value": ""
+      }
+    ],
+    "mechanics": []
+  },
+  {
+    "id": "celestialcondorsoulcores",
+    "title": "Celestial Condor",
+    "subtitle": "",
+    "date": "",
+    "image": "images/objets/celestialcondorsoulcores/celestialcondorsoulcores-image.png",
+    "imageUrl": "",
+    "useLocalImage": true,
+    "tags": [],
+    "stats": [],
+    "description": "",
+    "category": "Soulcores",
+    "bagType": "soulcore",
+    "sources": [],
+    "contains": [],
+    "textSources": [],
+    "rarity": "SSR",
+    "soulcoreTypes": [
+      "Control",
+      "Defense",
+      "Support"
+    ],
+    "descriptionImage": "images/objets/celestialcondorsoulcores/celestialcondorsoulcores-description.png",
+    "namedSet": false,
+    "setName": "",
+    "setIcon": "",
+    "tier12Description": "",
+    "tier12Bonus": "",
+    "tier2Description": "Willpower+16.0",
+    "tier4Description": "When this Spirit uses an Ultimate, all Spirits gain Final Dmg Bonus for 10s, cooldown 30s.",
+    "tier24Bonus": "Duration extends to 15s.",
+    "tier12Values": [
+      "",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "tier4Values": [
+      "7.5",
+      "9.0",
+      "10.5",
+      "12.0",
+      "13.5",
+      "15.0"
+    ]
+  },
+  {
+    "id": "infernoredkingspiribone",
+    "title": "Inferno Red King",
+    "subtitle": "",
+    "date": "",
+    "image": "images/objets/infernoredkingspiribone/infernoredkingspiribone-image.png",
+    "imageUrl": "",
+    "useLocalImage": true,
+    "tags": [],
+    "stats": [],
+    "description": "",
+    "category": "Spiribones",
+    "bagType": "spiribone",
+    "sources": [],
+    "contains": [],
+    "textSources": [],
+    "spiriboneGenre": "Trunk",
+    "spiriboneType": "",
+    "spiriboneRating": "5000",
+    "spiriboneSkill": {
+      "title": "Geomancy Fen Yan",
+      "key": "Dmg Up",
+      "description": "When a Spirit in the team activates an Initiative Skill, it gains [Fen Yan], which grants a Final Dmg Bonus of 11.5% for this Spirit. Duration 3s. Switching to another Spirit removes the [Fen Yan] effect"
+    },
+    "spiriboneTiers": [
+      {
+        "threshold": "10k Yr",
+        "description": "[Fen Yan] Duration extended by 2s",
+        "condition": "Spiribone 2⭐ Effective"
+      },
+      {
+        "threshold": "25k Yr",
+        "description": "After accumulating [Fen Yan] 4 times in Fight, all Spirits gain 7% Final Dmg Up, removed after leaving combat",
+        "condition": "Spiribone 3⭐ Effective"
+      },
+      {
+        "threshold": "50k Yr",
+        "description": "Final Dmg Up from [Fen Yan] increased by 3%",
+        "condition": "Spiribone 4⭐ Effective"
+      },
+      {
+        "threshold": "80k Yr",
+        "description": "[Fen Yan] Duration extended by 2s",
+        "condition": "Spiribone 5⭐ Effective"
+      },
+      {
+        "threshold": "100k Yr",
+        "description": "Final Dmg Up from [Fen Yan] by 5%",
+        "condition": "Spiribone 6⭐ Effective"
+      }
+    ],
+    "spiriboneStarStats": [
+      {
+        "label": "Beast Halo Basic Stats",
+        "value": ""
+      },
+      {
+        "label": "Volant Halo Basic Stats",
+        "value": ""
+      },
+      {
+        "label": "Scorpion Halo Basic Stats",
+        "value": ""
+      },
+      {
+        "label": "Insect Halo Basic Stats",
+        "value": ""
+      },
+      {
+        "label": "Direbear Halo Basic Stats",
+        "value": ""
+      },
+      {
+        "label": "Wyvern Halo Basic Stats",
+        "value": ""
+      }
+    ],
+    "mechanics": []
+  },
+  {
+    "id": "inkbonethornemperorsoulcores-soulcore",
+    "title": "Inkbone Thorn Emperor",
+    "subtitle": "",
+    "date": "",
+    "image": "images/objets/inkbonethornemperor/inkbonethornemperor-image.png",
+    "imageUrl": "",
+    "useLocalImage": true,
+    "tags": [],
+    "stats": [],
+    "description": "",
+    "category": "Soulcores",
+    "bagType": "soulcore",
+    "sources": [],
+    "contains": [],
+    "textSources": [],
+    "rarity": "SSR",
+    "soulcoreTypes": [
+      "Control",
+      "Defense",
+      "Support"
+    ],
+    "descriptionImage": "images/objets/inkbonethornemperorsoulcores/inkbonethornemperorsoulcores-description.png",
+    "namedSet": false,
+    "setName": "",
+    "setIcon": "",
+    "tier12Description": "",
+    "tier12Bonus": "",
+    "tier2Description": "Willpower+16.0",
+    "tier4Description": "When this Spirit gains a Shield, all Spirits receive Final Dmg Bonus for 10s, cooldown 30s.",
+    "tier24Bonus": "Duration extends to 15s.",
+    "tier12Values": [
+      "",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "tier4Values": [
+      "7.5",
+      "9.0",
+      "10.5",
+      "12.0",
+      "13.5",
+      "15.0"
+    ]
+  },
+  {
+    "id": "gurussacredorder-material",
+    "title": "Guru's Sacred Order",
+    "subtitle": "",
+    "date": "",
+    "image": "images/objets/gurussacredorder/gurussacredorder-image.png",
+    "imageUrl": "",
+    "useLocalImage": true,
+    "tags": [],
+    "stats": [],
+    "description": "Usable for Guardian Title promotion. In Sect gameplay, Dmg Dealt Up by 20% against players with lower titles.\nThis order is the core of the Sect, aligning its fortune with the land, only appearing for significant matters.",
+    "category": "Material",
+    "bagType": "material",
+    "sources": [],
+    "contains": [],
+    "textSources": [
+      "Sect Auction"
+    ],
+    "materialApplicableSpirits": []
+  },
+  {
+    "id": "etherealnectar-item",
+    "title": "Ethereal Nectar",
+    "subtitle": "Battle Meds",
+    "date": "",
+    "image": "images/objets/etherealnectar/etherealnectar-image.png",
+    "imageUrl": "",
+    "useLocalImage": true,
+    "tags": [],
+    "stats": [],
+    "description": "Restores 25% HP to the protagonist instantly upon use.\nCrafted from various precious spiritual herbs over several days, it swiftly restores a Spirimaster's fighting power.",
+    "category": "Item",
+    "bagType": "item",
+    "sources": [],
+    "contains": [],
+    "textSources": [
+      "Fuse"
+    ],
+    "materialApplicableSpirits": []
+  },
+  {
+    "id": "seabreathspiritcore-material",
+    "title": "Sea Breath Spirit Core",
+    "subtitle": "Halo Advance Item",
+    "date": "",
+    "image": "images/objets/seabreathspiritcore/seabreathspiritcore-image.png",
+    "imageUrl": "",
+    "useLocalImage": true,
+    "tags": [],
+    "stats": [],
+    "description": "Used for advancing a 60,000-year Halo to a 70,000-year Halo, increases Halo Advance success rate\nCore infused with ocean power, grants Halo immense Soul Power.",
+    "category": "Material",
+    "bagType": "material",
+    "sources": [
+      "asterhunt"
+    ],
+    "contains": [],
+    "textSources": [
+      "Beastlord"
+    ],
+    "materialApplicableSpirits": [
+      "Bruiser",
+      "Control",
+      "Defense",
+      "Agility",
+      "Support"
+    ]
+  },
+  {
+    "id": "eclipseawakeningcore-material",
+    "title": "Eclipse Awakening Core",
+    "subtitle": "Halo Advance Item",
+    "date": "",
+    "image": "images/objets/eclipseawakeningcore/eclipseawakeningcore-image.png",
+    "imageUrl": "",
+    "useLocalImage": true,
+    "tags": [],
+    "stats": [],
+    "description": "Used for advancing a 70,000-year Halo to an 80,000-year Halo, increases Halo Advance success rate\nCore storing moonlight essence, bestows Halo with the essence of spiritual condensation.",
+    "category": "Material",
+    "bagType": "material",
+    "sources": [
+      "asterhunt"
+    ],
+    "contains": [],
+    "textSources": [
+      "Beastlord"
+    ],
+    "materialApplicableSpirits": [
+      "Bruiser",
+      "Control",
+      "Defense",
+      "Agility",
+      "Support"
+    ]
   }
 ];

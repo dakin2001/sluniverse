@@ -488,6 +488,7 @@ async function renderDashboard(){
     document.getElementById('adminReviewBtn').onclick = () => { location.href = 'guide-review'; };
     document.getElementById('tabAllGuides').style.display = 'block';
     document.getElementById('tabContributors').style.display = 'block';
+    document.getElementById('tabCodes').style.display = 'block';
   }
 
   if (profile){
@@ -540,9 +541,11 @@ document.querySelectorAll('.tab-item[data-view]').forEach(tab => {
     document.getElementById('glossaryView').style.display = view === 'glossary' ? 'block' : 'none';
     document.getElementById('allGuidesView').style.display = view === 'all' ? 'block' : 'none';
     document.getElementById('contributorsView').style.display = view === 'contributors' ? 'block' : 'none';
+    document.getElementById('codesView').style.display = view === 'codes' ? 'block' : 'none';
     if (view === 'glossary') renderGlossary();
     if (view === 'all'){ loadStats(); showView('all'); }
     if (view === 'contributors') showView('contributors');
+    if (view === 'codes') loadCodesAdmin();
   });
 });
 
@@ -601,3 +604,164 @@ async function deleteGlossaryTerm(term){
     customAlert('Could not delete this term: ' + (e.message || 'unknown error'));
   }
 }
+
+/* ---------- Codes admin ---------- */
+function effectiveImage(p){
+  if (p.useLocalImage === false && p.imageUrl) return p.imageUrl;
+  return p.coverImage || p.image || p.imageUrl || p.mapFile || '';
+}
+let selectedCodeRewards = [];
+let editingCodeId = null;
+
+function loadCodesAdmin(){
+  clearCodeForm();
+  db.collection('codes').orderBy('publishedAt', 'desc').get().then(snap => {
+    renderCodesAdminList(snap.docs.map(d => ({ id: d.id, ...d.data() })));
+  }).catch(err => {
+    document.getElementById('codesAdminList').innerHTML = `<div class="empty-state">Could not load codes: ${escapeHtml(err.message)}</div>`;
+  });
+}
+function renderCodesAdminList(codes){
+  const wrap = document.getElementById('codesAdminList');
+  if (!codes.length){ wrap.innerHTML = '<div class="empty-state">No codes yet.</div>'; return; }
+  wrap.innerHTML = codes.map(c => `
+    <div class="code-admin-card${c.active ? '' : ' code-admin-expired'}">
+      <div class="code-admin-top">
+        <div>
+          <div class="code-admin-value">${escapeHtml(c.code)}</div>
+          <div class="code-admin-meta">
+            Published ${escapeHtml(c.publishedAt || '')} &middot;
+            <span class="code-admin-status${c.active ? '' : ' expired'}">${c.active ? 'Active' : 'Expired'}</span>
+          </div>
+        </div>
+        <div class="code-admin-actions">
+          <div class="btn-icon" title="Edit" onclick="editCode('${c.id}')">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 3a2.85 2.85 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3Z"/></svg>
+          </div>
+          <div class="btn-icon btn-icon-danger" title="Delete" onclick="deleteCode('${c.id}')">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2m3 0-1 14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2L4 6"/></svg>
+          </div>
+        </div>
+      </div>
+      ${(c.rewards || []).length ? `
+        <div class="code-admin-rewards">
+          ${c.rewards.map(r => {
+            const item = ((window.WIKI && window.WIKI.objets) || []).find(o => o.id === r.itemId);
+            if (!item) return '';
+            return `
+              <div class="code-reward-chip">
+                <div class="code-reward-img" style="${effectiveImage(item) ? `background-image:url('${effectiveImage(item)}')` : ''}"></div>
+                <span>${escapeHtml(item.title)}</span>
+                <span class="code-reward-qty">x${r.quantity || 1}</span>
+              </div>
+            `;
+          }).join('')}
+        </div>
+      ` : `<div class="code-admin-no-rewards">No rewards attached</div>`}
+    </div>
+  `).join('');
+}
+function renderCodeRewardsList(){
+  const wrap = document.getElementById('codeRewardsList');
+  wrap.innerHTML = selectedCodeRewards.map((r, i) => `
+    <div style="display:flex; align-items:center; gap:10px; background:var(--panel-2); border:1px solid var(--line); border-radius:8px; padding:6px 10px;">
+      <div style="width:32px; height:32px; border-radius:6px; flex-shrink:0; background:var(--panel-3) center/cover no-repeat; ${r.image ? `background-image:url('${r.image}')` : ''}"></div>
+      <span style="flex:1; font-size:13px;">${escapeHtml(r.title)}</span>
+      <input type="number" min="1" value="${r.quantity}" style="width:64px;" onchange="updateCodeRewardQty(${i}, this.value)">
+      <div class="btn-ghost btn-danger" style="padding:4px 9px;" onclick="removeCodeReward(${i})">✕</div>
+    </div>
+  `).join('');
+}
+function updateCodeRewardQty(idx, val){
+  selectedCodeRewards[idx].quantity = Math.max(1, parseInt(val, 10) || 1);
+}
+function removeCodeReward(idx){
+  selectedCodeRewards.splice(idx, 1);
+  renderCodeRewardsList();
+}
+function openCodeRewardPicker(){
+  document.getElementById('codeRewardPickerModal').style.display = 'flex';
+  document.getElementById('codeRewardPickerSearch').value = '';
+  renderCodeRewardPickerList('');
+}
+function closeCodeRewardPicker(){
+  document.getElementById('codeRewardPickerModal').style.display = 'none';
+}
+function renderCodeRewardPickerList(filter){
+  const f = (filter || '').toLowerCase();
+  const items = ((window.WIKI && window.WIKI.objets) || [])
+    .filter(o => o.title.toLowerCase().includes(f)).slice(0, 40);
+  document.getElementById('codeRewardPickerList').innerHTML = items.length ? items.map(o => `
+    <div class="checkbox-row" style="cursor:pointer; display:flex; align-items:center; gap:10px;" onclick="addCodeReward('${o.id}')">
+      <div style="width:28px; height:28px; border-radius:6px; flex-shrink:0; background:var(--panel-3) center/cover no-repeat; ${effectiveImage(o) ? `background-image:url('${effectiveImage(o)}')` : ''}"></div>
+      <span>${escapeHtml(o.title)}</span>
+    </div>
+  `).join('') : `<div class="empty-state" style="padding:14px;">No matching Bag items.</div>`;
+}
+function addCodeReward(itemId){
+  const item = ((window.WIKI && window.WIKI.objets) || []).find(o => o.id === itemId);
+  if (!item) return;
+  if (selectedCodeRewards.some(r => r.itemId === itemId)){ closeCodeRewardPicker(); return; }
+  selectedCodeRewards.push({ itemId, title: item.title, image: effectiveImage(item), quantity: 1 });
+  renderCodeRewardsList();
+  closeCodeRewardPicker();
+}
+function clearCodeForm(){
+  editingCodeId = null;
+  document.getElementById('codeInputValue').value = '';
+  document.getElementById('codeInputDate').value = new Date().toISOString().slice(0, 10);
+  document.getElementById('codeInputActive').checked = true;
+  selectedCodeRewards = [];
+  renderCodeRewardsList();
+  document.getElementById('saveCodeBtn').textContent = 'Save Code';
+}
+function saveCode(){
+  const code = document.getElementById('codeInputValue').value.trim();
+  if (!code){ customAlert('Enter a code first.'); return; }
+  const data = {
+    code,
+    publishedAt: document.getElementById('codeInputDate').value || new Date().toISOString().slice(0, 10),
+    active: document.getElementById('codeInputActive').checked,
+    rewards: selectedCodeRewards.map(r => ({ itemId: r.itemId, quantity: r.quantity })),
+  };
+  const promise = editingCodeId
+    ? db.collection('codes').doc(editingCodeId).update(data)
+    : db.collection('codes').add(data);
+  promise.then(() => {
+    loadCodesAdmin();
+  }).catch(err => customAlert('Could not save this code: ' + err.message));
+}
+function editCode(id){
+  db.collection('codes').doc(id).get().then(doc => {
+    if (!doc.exists) return;
+    const c = doc.data();
+    editingCodeId = id;
+    document.getElementById('codeInputValue').value = c.code || '';
+    document.getElementById('codeInputDate').value = c.publishedAt || '';
+    document.getElementById('codeInputActive').checked = !!c.active;
+    selectedCodeRewards = (c.rewards || []).map(r => {
+      const item = ((window.WIKI && window.WIKI.objets) || []).find(o => o.id === r.itemId);
+      return { itemId: r.itemId, title: item ? item.title : r.itemId, image: item ? effectiveImage(item) : '', quantity: r.quantity || 1 };
+    });
+    renderCodeRewardsList();
+    document.getElementById('saveCodeBtn').textContent = 'Update Code';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+}
+async function deleteCode(id){
+  const ok = await customConfirm('Delete this code? This cannot be undone.');
+  if (!ok) return;
+  try {
+    await db.collection('codes').doc(id).delete();
+    loadCodesAdmin();
+  } catch (err){
+    customAlert('Could not delete this code: ' + err.message);
+  }
+}
+document.getElementById('addCodeRewardBtn')?.addEventListener('click', openCodeRewardPicker);
+document.getElementById('closeCodeRewardPickerBtn')?.addEventListener('click', closeCodeRewardPicker);
+document.getElementById('codeRewardPickerSearch')?.addEventListener('input', (e) => renderCodeRewardPickerList(e.target.value));
+document.getElementById('codeRewardPickerModal')?.addEventListener('click', (e) => {
+  if (e.target.id === 'codeRewardPickerModal') closeCodeRewardPicker();
+});
+document.getElementById('saveCodeBtn')?.addEventListener('click', saveCode);

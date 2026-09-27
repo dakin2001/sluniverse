@@ -543,7 +543,14 @@ function populateBeastZoneSelect(selected){
 }
 function updateBeastZoneFieldVisibility(){
   const mode = document.getElementById('fBeastMode').value;
-  document.getElementById('beastZoneField').style.display = mode === 'beastlord' ? 'block' : 'none';
+  document.getElementById('beastZoneField').style.display = (mode === 'beastlord' || mode === 'huntbounty') ? 'block' : 'none';
+  const hideForHuntBounty = mode !== 'huntbounty';
+  document.getElementById('monsterTypeField').style.display = hideForHuntBounty ? 'grid' : 'none';
+  document.getElementById('spiriboneDropsField').style.display = hideForHuntBounty ? 'grid' : 'none';
+  document.getElementById('beastSpiritTypeField').style.display = hideForHuntBounty ? 'none' : 'block';
+  if (currentCat === 'monstres'){
+    document.getElementById('subcatField').style.display = hideForHuntBounty ? 'none' : 'block';
+  }
 }
 document.getElementById('fBeastMode').addEventListener('change', updateBeastZoneFieldVisibility);
 
@@ -1058,10 +1065,24 @@ function updateSoulcoreFieldsVisibility(){
   el.style.display = document.getElementById('fBagType').value === 'soulcore' ? 'block' : 'none';
 }
 document.getElementById('fBagType').addEventListener('change', updateSoulcoreFieldsVisibility);
+const BAG_TYPE_TO_CATEGORY = { soulcore:'Soulcores', spiribone:'Spiribones', halo:'Halo', material:'Material', item:'Item' };
+document.getElementById('fBagType').addEventListener('change', () => {
+  const bagType = document.getElementById('fBagType').value;
+  const mappedCategory = BAG_TYPE_TO_CATEGORY[bagType];
+  const subcatSelect = document.getElementById('fSubcat');
+  if (mappedCategory && subcatSelect && !subcatSelect.value){
+    window.SUBCATS.objets = window.SUBCATS.objets || [];
+    if (!window.SUBCATS.objets.includes(mappedCategory)) window.SUBCATS.objets.push(mappedCategory);
+    populateSubcatSelect(mappedCategory);
+  }
+});
 document.querySelectorAll('#soulcoreTypeCheckboxes .tag-toggle').forEach(el => {
   el.addEventListener('click', () => el.classList.toggle('active'));
 });
 document.querySelectorAll('#haloSpiritTypeCheckboxes .tag-toggle').forEach(el => {
+  el.addEventListener('click', () => el.classList.toggle('active'));
+});
+document.querySelectorAll('#beastSpiritTypeCheckboxes .tag-toggle').forEach(el => {
   el.addEventListener('click', () => el.classList.toggle('active'));
 });
 document.querySelectorAll('#spiritMechanicCheckboxes .tag-toggle').forEach(el => {
@@ -1812,6 +1833,7 @@ function clearForm(){
     updateSoulcoreNamedSetVisibility();
     document.getElementById('fHaloType').value = 'Beast';
     document.querySelectorAll('#haloSpiritTypeCheckboxes .tag-toggle').forEach(el => el.classList.remove('active'));
+    document.querySelectorAll('#beastSpiritTypeCheckboxes .tag-toggle').forEach(el => el.classList.remove('active'));
     document.getElementById('fHaloATK').value = '';
     document.getElementById('fHaloHP').value = '';
     document.getElementById('fHaloDEF').value = '';
@@ -1868,6 +1890,10 @@ function fillForm(page){
     beastContainsSelectedIds = (page.contains || []).slice();
     renderBeastContainsChips();
     populateBeastSpiriboneSelects((page.spiribones && page.spiribones[0]) || '', (page.spiribones && page.spiribones[1]) || '');
+    const savedBeastSpiritTypes = page.spiritTypes || [];
+    document.querySelectorAll('#beastSpiritTypeCheckboxes .tag-toggle').forEach(el => {
+      el.classList.toggle('active', savedBeastSpiritTypes.includes(el.dataset.beastSpiritType));
+    });
   }
   if (currentCat === 'objets'){
     document.getElementById('fBagType').value = page.bagType || '';
@@ -1957,7 +1983,12 @@ function saveEntry(){
   const list = getList(currentCat);
 
   let id = document.getElementById('fId').value.trim() || slugify(title);
-  id = uniqueId(slugify(id), list, editingId);
+  id = slugify(id);
+  if (currentCat === 'objets'){
+    const bagType = document.getElementById('fBagType').value;
+    if (bagType && !id.endsWith(`-${bagType}`)) id = `${id}-${bagType}`;
+  }
+  id = uniqueId(id, list, editingId);
 
   const entry = {
     id,
@@ -1992,14 +2023,23 @@ function saveEntry(){
   }
   if (currentCat === 'monstres'){
     entry.beastMode = document.getElementById('fBeastMode').value;
-    entry.zone = entry.beastMode === 'beastlord' ? document.getElementById('fBeastZone').value : '';
-    entry.monsterType = document.getElementById('fMonsterType').value;
+    if (entry.beastMode !== 'huntbounty') entry.category = '';
+    entry.zone = (entry.beastMode === 'beastlord' || entry.beastMode === 'huntbounty') ? document.getElementById('fBeastZone').value : '';
+    entry.monsterType = entry.beastMode !== 'huntbounty' ? document.getElementById('fMonsterType').value : '';
     entry.panelColor = document.getElementById('fBeastPanelColor').value;
     entry.contains = beastContainsSelectedIds.slice();
-    entry.spiribones = [document.getElementById('fSpiribone1').value, document.getElementById('fSpiribone2').value];
+    entry.spiribones = entry.beastMode !== 'huntbounty'
+      ? [document.getElementById('fSpiribone1').value, document.getElementById('fSpiribone2').value]
+      : [];
+    entry.spiritTypes = entry.beastMode === 'huntbounty'
+      ? Array.from(document.querySelectorAll('#beastSpiritTypeCheckboxes .tag-toggle.active')).map(el => el.dataset.beastSpiritType)
+      : [];
   }
   if (currentCat === 'objets'){
     entry.bagType = document.getElementById('fBagType').value;
+    if (!entry.category && BAG_TYPE_TO_CATEGORY[entry.bagType]){
+      entry.category = BAG_TYPE_TO_CATEGORY[entry.bagType];
+    }
     entry.sources = Array.from(document.querySelectorAll('#bagSourceCheckboxes .checkbox-row'))
       .filter(row => row.querySelector('input').checked)
       .map(row => row.dataset.sourceId);

@@ -33,8 +33,8 @@ const LABELS = {
   slotSkill4: 'Skill 4',
   slotSkill5: 'Skill 5',
   slotSkill6: 'Skill 6',
-  heroTitle: 'Carve Your Legend',
-  heroText: 'A community-built archive of the Soul Land universe: every Spirit, every Spirimon, every corner of the world, gathered by Spirimasters for Spirimasters on the road to Douluo.',
+  heroTitle: 'Your Path to Douluo',
+  heroText: 'A community-built archive of the Soul Land universe: every Spirit, every Beast, every corner of the world, gathered by Spirimasters for Spirimasters.',
 };
 
 /* ---------- Nav ---------- */
@@ -44,7 +44,8 @@ function buildNav(){
   nav.innerHTML = `<a href="#/" class="${route.view==='home'?'active':''}">${LABELS.home}</a>` +
     CATEGORIES.filter(cat => !cat.hideFromNav).map(cat =>
       `<a href="#/${cat.id}" class="${route.cat===cat.id?'active':''}">${categoryLabel(cat)}</a>`
-    ).join('');
+    ).join('') +
+    `<a href="#/favorites" class="${route.view==='favorites'?'active':''}">Favorites</a>`;
   nav.classList.remove('open');
   document.getElementById('hamburgerBtn')?.classList.remove('open');
 }
@@ -59,6 +60,7 @@ function parseRoute(){
   const hash = location.hash.replace(/^#\/?/, '');
   if (!hash) return { view:'home' };
   const parts = hash.split('/').filter(Boolean);
+  if (parts[0] === 'favorites') return { view:'favorites' };
   const cat = CATEGORIES.find(c => c.id === parts[0]);
   if (!cat) return { view:'home' };
   if (parts[1]){
@@ -93,6 +95,154 @@ function statRowHTML(s){
 
 function escapeHtml(str){
   return (str || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+/* ---------- Download page as .txt: every narrative text field, plus referenced glossary terms ---------- */
+const TXT_SKIP_KEYS = new Set(['id','image','icon','link','url','bagType','spiriboneType','spiriboneGenre','category','mapFile','__cat','tags','date','linkedItemId','normalAttack','initiative','ultimate','skill','passive','key','cost','cd','haloTitle','backgroundImage','descriptionImage','spiriboneSkill','spiriboneTiers']);
+function toReadableLabel(key){
+  return key.replace(/([a-z0-9])([A-Z])/g, '$1 $2').replace(/^./, c => c.toUpperCase());
+}
+function starEmojiToText(str){
+  return (str || '').replace(/🟡/g, 'Yellow ').replace(/🔴/g, 'Red ');
+}
+function buildSpiriboneSkillBlocks(page){
+  const skill = page.spiriboneSkill || {};
+  const tiers = page.spiriboneTiers || [];
+  if (!skill.title && !skill.description && !tiers.length) return [];
+  const ages = tiers.filter(t => t.description).map(t => ({
+    label: `Age ${t.threshold || '?'}${t.condition ? ` (${starEmojiToText(t.condition)})` : ''}`,
+    text: t.description,
+  }));
+  return [{ heading: `[Skill] ${skill.title || ''}`.trim(), text: (skill.description || '').trim(), ages }];
+}
+function buildSpiritSkillBlocks(page){
+  const blocks = [];
+  const addAbility = (slotLabel, ability) => {
+    if (!ability || (!ability.title && !ability.description)) return;
+    const costCd = (ability.cost || ability.cd) ? ` (Cost: ${ability.cost || 0} · Cooldown: ${ability.cd || 0}s)` : '';
+    let text = ability.description || '';
+    if (ability.haloTitle || ability.haloDescription){
+      text += `\n\nHalo Bonus${ability.haloTitle ? ' - ' + ability.haloTitle : ''}: ${ability.haloDescription || ''}`;
+    }
+    const ages = (ability.tiers || []).filter(t => t.description).map(t => ({
+      label: `Age ${t.threshold || '?'}${t.condition ? ` (${starEmojiToText(t.condition)})` : ''}`,
+      text: t.description,
+    }));
+    blocks.push({ heading: `[${slotLabel}] ${ability.title || ''}${costCd}`.trim(), text: text.trim(), ages });
+  };
+  addAbility('Normal Attack', page.normalAttack);
+  addAbility('Initiative', page.initiative);
+  addAbility('Ultimate - Skill 1', page.ultimate && page.ultimate.skill1);
+  addAbility('Ultimate - Skill 4', page.ultimate && page.ultimate.skill4);
+  addAbility('Skill - Skill 2', page.skill && page.skill.skill2);
+  addAbility('Skill - Skill 6', page.skill && page.skill.skill6);
+  addAbility('Passive - Skill 3', page.passive && page.passive.skill3);
+  addAbility('Passive - Skill 5', page.passive && page.passive.skill5);
+  return blocks;
+}
+function collectPageText(obj, sections, pathLabel, isRoot){
+  if (obj == null) return;
+  if (typeof obj === 'string'){
+    const trimmed = obj.trim();
+    if (trimmed) sections.push({ label: pathLabel || 'Text', text: trimmed });
+    return;
+  }
+  if (Array.isArray(obj)){
+    if (obj.length && obj.every(item => typeof item === 'string')){
+      const joined = obj.map(s => s.trim()).filter(Boolean).join(', ');
+      if (joined) sections.push({ label: pathLabel || 'Text', text: joined });
+      return;
+    }
+    obj.forEach((item, i) => collectPageText(item, sections, pathLabel, false));
+    return;
+  }
+  if (typeof obj === 'object'){
+    // Clean special case: a simple {label, value} stat pair becomes "Label: Value"
+    const keys = Object.keys(obj).filter(k => !TXT_SKIP_KEYS.has(k));
+    if (obj.label !== undefined && obj.value !== undefined && keys.length === 2){
+      sections.push({ label: obj.label, text: String(obj.value) });
+      return;
+    }
+    // Prefer a natural label from title/threshold/label fields on this node, but never
+    // the root page object's own title (that's already the file's own heading, not
+    // meaningful context for every single field inside it).
+    const nodeLabel = isRoot ? null : (obj.title || obj.threshold || obj.label || pathLabel);
+    Object.keys(obj).forEach(key => {
+      if (TXT_SKIP_KEYS.has(key)) return;
+      if (key === 'title' || key === 'threshold' || key === 'label') return; // used as label, not a body section
+      collectPageText(obj[key], sections, nodeLabel ? `${toReadableLabel(key)} (${nodeLabel})` : toReadableLabel(key), false);
+    });
+  }
+}
+function extractGlossaryTermsFromText(allText){
+  const found = new Map();
+  const re = /\[([^\[\]]+)\]/g;
+  let m;
+  while ((m = re.exec(allText))){
+    const term = m[1].trim();
+    if (found.has(term)) continue;
+    const def = glossaryLookup(term);
+    if (def) found.set(term, def);
+  }
+  return found;
+}
+function downloadPageAsTxt(page, catLabel){
+  const isSpirit = !!(page.normalAttack || page.ultimate || page.skill || page.passive);
+  const skillBlocks = isSpirit ? buildSpiritSkillBlocks(page) : buildSpiriboneSkillBlocks(page);
+  let out = `${(page.title || 'Untitled').toUpperCase()}\n`;
+  out += `${catLabel || ''}${page.subtitle ? ' - ' + page.subtitle : ''}\n`;
+  out += '='.repeat(60) + '\n\n';
+  if ((page.tags || []).length) out += `Tags: ${page.tags.join(', ')}\n\n`;
+
+  // Overview: simple stats fields (Name, Role, Rarity, etc.), collected first and grouped
+  const overview = [];
+  collectPageText(page, overview, null, true);
+  const statLines = overview.filter(s => s.text.length < 80 && !s.label.includes('(') && s.label !== 'Description');
+  const mainDescription = overview.find(s => s.label === 'Description');
+  const otherSections = overview.filter(s => !statLines.includes(s) && s !== mainDescription);
+
+  if (statLines.length){
+    out += 'OVERVIEW\n' + '-'.repeat(60) + '\n';
+    statLines.forEach(s => { out += `${s.label}: ${s.text}\n`; });
+    out += '\n';
+  }
+  if (mainDescription){
+    out += 'DESCRIPTION\n' + '-'.repeat(60) + '\n';
+    out += `${mainDescription.text}\n\n`;
+  }
+
+  if (skillBlocks.length){
+    out += 'SKILLS\n' + '-'.repeat(60) + '\n\n';
+    skillBlocks.forEach(b => {
+      out += `${b.heading}\n${b.text}\n`;
+      b.ages.forEach(a => { out += `\n  → ${a.label}: ${a.text}`; });
+      out += '\n\n';
+    });
+  }
+
+  otherSections.forEach(s => {
+    out += `--- ${s.label} ---\n${s.text}\n\n`;
+  });
+
+  const glossaryTerms = extractGlossaryTermsFromText(out);
+  if (glossaryTerms.size){
+    out += '='.repeat(60) + '\n';
+    out += 'GLOSSARY TERMS REFERENCED\n';
+    out += '='.repeat(60) + '\n\n';
+    glossaryTerms.forEach((def, term) => {
+      out += `[${term}]: ${def}\n\n`;
+    });
+  }
+
+  const blob = new Blob([out], { type: 'text/plain;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `${(page.title || 'page').replace(/[^a-z0-9]+/gi, '-').toLowerCase()}.txt`;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  URL.revokeObjectURL(url);
 }
 function guideStarsHTML(stars, plus){
   let out = '';
@@ -197,14 +347,17 @@ document.addEventListener('click', (e) => {
 const app = document.getElementById('appMain');
 
 function render(){
+  document.querySelectorAll('body > .trial-toc').forEach(el => el.remove());
+  window.scrollTo({ top:0, behavior:'instant' in window ? 'instant' : 'auto' });
   const route = parseRoute();
   buildNav();
   if (route.view === 'home') renderHome();
+  else if (route.view === 'favorites') renderFavoritesView();
   else if (route.view === 'category' && route.cat === 'guides') renderGuidesListView();
+  else if (route.view === 'category' && route.cat === 'codes') renderCodesView();
   else if (route.view === 'detail' && route.cat === 'guides') renderGuideDetailView(route.id);
   else if (route.view === 'category') renderCategoryView(route.cat, route.focusId);
   else if (route.view === 'detail') renderDetailView(route.cat, route.id);
-  window.scrollTo({ top:0, behavior:'instant' in window ? 'instant' : 'auto' });
   app.classList.remove('fade-in');
   // Force a reflow so the animation restarts even if the class never left the DOM.
   void app.offsetWidth;
@@ -326,6 +479,87 @@ function guideRenderBlock(b){
   return '';
 }
 
+function relativeTimeSince(dateStr){
+  if (!dateStr) return '';
+  const then = new Date(dateStr + 'T00:00:00');
+  if (isNaN(then.getTime())) return '';
+  const days = Math.floor((Date.now() - then.getTime()) / 86400000);
+  if (days <= 0) return 'today';
+  if (days === 1) return '1 day ago';
+  if (days < 30) return `${days} days ago`;
+  const months = Math.floor(days / 30);
+  if (months === 1) return '1 month ago';
+  if (months < 12) return `${months} months ago`;
+  const years = Math.floor(months / 12);
+  return years === 1 ? '1 year ago' : `${years} years ago`;
+}
+function codeRewardRowHTML(reward){
+  const item = getPages('objets').find(o => o.id === reward.itemId);
+  if (!item) return '';
+  return `
+    <div class="code-reward-chip">
+      <div class="code-reward-img" style="${effectiveImage(item) ? `background-image:url('${encodeURI(effectiveImage(item))}')` : ''}"></div>
+      <span>${escapeHtml(item.title)}</span>
+      <span class="code-reward-qty">x${reward.quantity || 1}</span>
+    </div>
+  `;
+}
+function codeCardHTML(c){
+  return `
+    <div class="code-card${c.active ? '' : ' code-expired'}">
+      <div class="code-card-top">
+        <div class="code-value">${escapeHtml(c.code)}</div>
+        <div class="code-status-pill${c.active ? '' : ' expired'}">${c.active ? 'Active' : 'Expired'}</div>
+      </div>
+      ${(c.rewards || []).length ? `<div class="code-rewards-row">${(c.rewards || []).map(codeRewardRowHTML).join('')}</div>` : `
+        <div class="code-rewards-mystery">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          Mystery Reward
+        </div>
+      `}
+      <div class="code-card-bottom">
+        <span class="code-posted">Posted ${relativeTimeSince(c.publishedAt)}</span>
+        <div class="btn-ghost code-copy-btn" onclick="copyCodeToClipboard(this, '${(c.code || '').replace(/'/g, "\\'")}')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
+        </div>
+      </div>
+    </div>
+  `;
+}
+function copyCodeToClipboard(btn, code){
+  navigator.clipboard.writeText(code).then(() => {
+    const original = btn.innerHTML;
+    btn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>`;
+    btn.classList.add('copied');
+    setTimeout(() => { btn.innerHTML = original; btn.classList.remove('copied'); }, 1500);
+  }).catch(() => {});
+}
+function renderCodesView(){
+  setCharBackground(null);
+  setCharBackgroundLeft(null);
+  const cat = CATEGORIES.find(c => c.id === 'codes');
+  app.innerHTML = `
+    <div class="breadcrumbs">
+      <a href="#/">${LABELS.home}</a><span class="sep">/</span>
+      <span>${categoryLabel(cat)}</span>
+    </div>
+    <h1 style="margin-bottom:6px;">Gift Codes</h1>
+    <p class="subtitle" style="margin-bottom:24px;">Redeem these in-game for free rewards. Active codes are shown first.</p>
+    <div id="codesListWrap"><div class="empty-state">Loading codes...</div></div>
+  `;
+  db.collection('codes').orderBy('publishedAt', 'desc').get().then(snap => {
+    const codes = snap.docs.map(d => d.data());
+    codes.sort((a, b) => (b.active === a.active) ? 0 : (b.active ? 1 : -1));
+    const wrap = document.getElementById('codesListWrap');
+    if (!codes.length){
+      wrap.innerHTML = `<div class="empty-state"><div class="big">🎁</div>No codes have been posted yet.</div>`;
+      return;
+    }
+    wrap.innerHTML = `<div class="codes-grid">${codes.map(codeCardHTML).join('')}</div>`;
+  }).catch(err => {
+    document.getElementById('codesListWrap').innerHTML = `<div class="empty-state">Could not load codes: ${escapeHtml(err.message)}</div>`;
+  });
+}
 async function renderGuidesListView(){
   setCharBackground(null);
   setCharBackgroundLeft(null);
@@ -469,10 +703,12 @@ async function renderGuideDetailView(id){
     const g = doc.data();
     let authorAvatar = '';
     let authorServer = '';
+    let authorUsername = g.authorUsername;
     try {
       const authorDoc = await db.collection('users').doc(g.authorId).get();
       if (authorDoc.exists) authorAvatar = authorDoc.data().avatarUrl || '';
       if (authorDoc.exists) authorServer = authorDoc.data().server || '';
+      if (authorDoc.exists && authorDoc.data().username) authorUsername = authorDoc.data().username;
       publicGuideAuthorGlossary = (authorDoc.exists && authorDoc.data().glossary) || {};
     } catch (e){ /* profile fetch is best-effort, guide still renders without it */ }
 
@@ -496,9 +732,9 @@ async function renderGuideDetailView(id){
           ${bodyHTML}
         </div>
         <div class="guide-side-panel">
-          <div class="guide-author-avatar" style="${authorAvatar ? `background-image:url('${authorAvatar}')` : ''}">${authorAvatar ? '' : escapeHtml((g.authorUsername||'?').charAt(0).toUpperCase())}</div>
+          <div class="guide-author-avatar" style="${authorAvatar ? `background-image:url('${authorAvatar}')` : ''}">${authorAvatar ? '' : escapeHtml((authorUsername||'?').charAt(0).toUpperCase())}</div>
           <div class="guide-author-eyebrow">Written by</div>
-          <div class="guide-author-name">${escapeHtml(g.authorUsername || 'Unknown')}</div>
+          <div class="guide-author-name">${escapeHtml(authorUsername || 'Unknown')}</div>
           <div class="guide-author-facts">
             ${authorServer ? `<div class="guide-author-fact">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 3v4M8 3v4M2 11h20"/></svg>
@@ -528,13 +764,17 @@ function renderHome(){
       <div class="eyebrow">Soul Land · Awakening World</div>
       <h2>${LABELS.heroTitle}</h2>
       <p>${LABELS.heroText}</p>
+      <div class="global-search-wrap">
+        <input type="text" id="globalSearchInput" class="global-search-input" placeholder="Search Spirits, Bag, Zones, Guides..." autocomplete="off">
+        <div id="globalSearchResults" class="global-search-results"></div>
+      </div>
     </div>
     <div class="category-grid">
       ${CATEGORIES.filter(cat => !cat.hideFromNav).map(cat => `
         <div class="category-card" data-cat="${cat.id}">
           <div class="icon">${cat.icon}</div>
           <h3>${categoryLabel(cat)}</h3>
-          <div class="count" ${cat.id === 'guides' ? 'id="homeGuideCount"' : ''}>${cat.id === 'guides' ? '…' : `${getPages(cat.id).length} page${getPages(cat.id).length>1?'s':''}`}</div>
+          <div class="count" ${(cat.id === 'guides' || cat.id === 'codes') ? `id="home${cat.id === 'guides' ? 'Guide' : 'Codes'}Count"` : ''}>${(cat.id === 'guides' || cat.id === 'codes') ? '…' : `${getPages(cat.id).length} page${getPages(cat.id).length>1?'s':''}`}</div>
         </div>
       `).join('')}
     </div>
@@ -603,6 +843,83 @@ function renderHome(){
     const el = document.getElementById('homeGuideCount');
     if (el) el.textContent = '0 guides';
   });
+
+  db.collection('codes').get().then(snap => {
+    const el = document.getElementById('homeCodesCount');
+    if (el) el.textContent = `${snap.size} code${snap.size !== 1 ? 's' : ''}`;
+  }).catch(() => {
+    const el = document.getElementById('homeCodesCount');
+    if (el) el.textContent = '0 codes';
+  });
+
+  const gsInput = document.getElementById('globalSearchInput');
+  const gsResults = document.getElementById('globalSearchResults');
+  gsInput.addEventListener('input', () => {
+    const q = gsInput.value.trim();
+    if (!q){ gsResults.classList.remove('open'); gsResults.innerHTML = ''; return; }
+    renderGlobalSearchResults(q, gsResults);
+  });
+  document.addEventListener('click', (e) => {
+    if (!gsResults.contains(e.target) && e.target !== gsInput) gsResults.classList.remove('open');
+  });
+}
+
+/* ---------- Global search (homepage) ---------- */
+function levenshteinWithin(a, b, maxDist){
+  if (Math.abs(a.length - b.length) > maxDist) return false;
+  const dp = Array.from({length:a.length+1}, (_, i) => [i, ...Array(b.length).fill(0)]);
+  for (let j=0; j<=b.length; j++) dp[0][j] = j;
+  for (let i=1; i<=a.length; i++){
+    for (let j=1; j<=b.length; j++){
+      dp[i][j] = a[i-1] === b[j-1] ? dp[i-1][j-1]
+        : 1 + Math.min(dp[i-1][j], dp[i][j-1], dp[i-1][j-1]);
+    }
+  }
+  return dp[a.length][b.length] <= maxDist;
+}
+function normalizeSearch(str){
+  return (str || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+}
+function fuzzyMatches(query, text){
+  const nq = normalizeSearch(query);
+  const nt = normalizeSearch(text);
+  if (!nq) return false;
+  if (nt.includes(nq)) return true;
+  // Typo tolerance: check if any word in the text is within edit-distance of the query
+  const maxDist = nq.length <= 4 ? 1 : 2;
+  return nt.split(/\s+/).some(word => word.length >= 3 && levenshteinWithin(nq, word, maxDist));
+}
+function renderGlobalSearchResults(query, container){
+  const sections = [
+    { cat:'personnages', label:'Spirits' },
+    { cat:'monstres', label:'Beast' },
+    { cat:'objets', label:'Bag' },
+    { cat:'zones', label:'Zones' },
+    { cat:'trials', label:'Trial' },
+    { cat:'updates', label:'Updates' },
+  ];
+  let html = '';
+  let totalResults = 0;
+  sections.forEach(sec => {
+    const matches = getPages(sec.cat).filter(p =>
+      fuzzyMatches(query, p.title) || fuzzyMatches(query, p.description || '')
+    ).slice(0, 5);
+    if (!matches.length) return;
+    totalResults += matches.length;
+    html += `<div class="gs-group-label">${sec.label}</div>`;
+    html += matches.map(p => `
+      <a href="#/${sec.cat}/${encodeURIComponent(p.id)}" class="gs-result-row">
+        <div class="gs-result-img" style="${effectiveImage(p) ? `background-image:url('${encodeURI(effectiveImage(p))}')` : ''}"></div>
+        <span class="gs-result-name">${escapeHtml(p.title)}</span>
+      </a>
+    `).join('');
+  });
+  if (!totalResults){
+    container.innerHTML = `<div class="gs-empty">No results for "${escapeHtml(query)}"</div>`;
+  } else {
+    container.innerHTML = html;
+  }
+  container.classList.add('open');
 }
 
 const GROUPED_CATEGORIES = ['objets', 'monstres'];
@@ -613,6 +930,151 @@ const GROUPED_CATEGORIES = ['objets', 'monstres'];
 const SOULCORE_TYPES = ['Bruiser', 'Control', 'Defense', 'Agility', 'Support'];
 const MECHANICS = ['Vibration', 'Electrified', 'Flash', 'Poison', 'Scorch', 'Laceration', 'Severe Wound'];
 function typeIconPath(type){ return `images/spirit-types/${type.toLowerCase()}.png`; }
+
+/* ---------- Favorites (browser-only, no account) ---------- */
+function getFavorites(){
+  try { return JSON.parse(localStorage.getItem('slu_favorites') || '[]'); } catch(e){ return []; }
+}
+function isFavorited(catId, id){
+  return getFavorites().some(f => f.cat === catId && f.id === id);
+}
+function toggleFavorite(catId, id, title, image){
+  let favs = getFavorites();
+  const idx = favs.findIndex(f => f.cat === catId && f.id === id);
+  let added;
+  if (idx > -1){ favs.splice(idx, 1); added = false; }
+  else { favs.unshift({ cat: catId, id, title: title || '', image: image || '', addedAt: Date.now() }); added = true; }
+  try { localStorage.setItem('slu_favorites', JSON.stringify(favs)); } catch(e){ /* storage full or unavailable */ }
+  return added;
+}
+function favoriteStarHTML(catId, id, title, image){
+  const active = isFavorited(catId, id);
+  const safeTitle = (title || '').replace(/'/g, "\\'");
+  const safeImage = (image || '').replace(/'/g, "\\'");
+  return `<button class="fav-star-btn${active ? ' active' : ''}" title="${active ? 'Remove from Favorites' : 'Add to Favorites'}"
+    onclick="event.preventDefault(); event.stopPropagation(); handleFavoriteToggle(this,'${catId}','${id}','${safeTitle}','${safeImage}')">
+    <svg viewBox="0 0 24 24" fill="${active ? '#f0c14b' : 'none'}" stroke="#f0c14b" stroke-width="2"><polygon points="12 2 15 9 22 9.5 17 14.5 18.5 22 12 18 5.5 22 7 14.5 2 9.5 9 9 12 2"/></svg>
+  </button>`;
+}
+function handleFavoriteToggle(btn, catId, id, title, image){
+  const added = toggleFavorite(catId, id, title, image);
+  btn.classList.toggle('active', added);
+  btn.title = added ? 'Remove from Favorites' : 'Add to Favorites';
+  const svg = btn.querySelector('svg');
+  svg.setAttribute('fill', added ? '#f0c14b' : 'none');
+  if (!added && location.hash.replace(/^#\/?/, '') === 'favorites') renderFavoritesView();
+}
+
+function removeFavoriteCard(el, catId, id){
+  toggleFavorite(catId, id); // known to already be favorited here, so this un-favorites it
+  el.closest('.favorites-card').remove();
+  if (!getFavorites().length) renderFavoritesView(); // show the empty state once the list is truly empty
+}
+function nativeFavoriteCardHTML(fav){
+  const live = getPages(fav.cat).find(p => p.id === fav.id);
+  if (!live){
+    // Item no longer exists; show a simple removed placeholder using the stored snapshot.
+    return `
+      <div class="favorites-card" style="opacity:0.6;">
+        <div class="favorites-card-img" style="${fav.image ? `background-image:url('${encodeURI(fav.image)}')` : ''}"></div>
+        <div class="favorites-card-name">${escapeHtml(fav.title || fav.id)} (removed)</div>
+        <div class="btn-ghost btn-danger favorites-remove-btn" onclick="event.preventDefault(); event.stopPropagation(); removeFavoriteCard(this,'${fav.cat}','${fav.id}')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </div>
+      </div>
+    `;
+  }
+  const inner = fav.cat === 'monstres' ? beastCardHTML(live, false)
+    : fav.cat === 'objets' ? bagCardHTML(live)
+    : pageCardHTML(live);
+  // objets: bagCardHTML already returns a complete, self-linking <a> with its own favorite star.
+  // Wrapping it in another <a> would be invalid HTML (nested anchors), so return it as-is.
+  if (fav.cat === 'objets') return inner;
+  const removeOverlay = `
+    <div class="btn-ghost btn-danger favorites-remove-btn" onclick="event.preventDefault(); event.stopPropagation(); removeFavoriteCard(this,'${fav.cat}','${fav.id}')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </div>
+  `;
+  return `
+    <a href="#/${fav.cat}/${encodeURIComponent(fav.id)}" style="text-decoration:none; position:relative; display:block;">
+      ${inner}
+      ${removeOverlay}
+    </a>
+  `;
+}
+function renderFavoritesView(){
+  const favs = getFavorites();
+  const sections = [
+    { cat:'personnages', label:'Spirits', gridClass:'page-grid' },
+    { cat:'monstres', label:'Beast', gridClass:'beast-card-row' },
+    { cat:'objets', label:'Bag', gridClass:'fav-bag-grid' },
+    { cat:'zones', label:'Zones', gridClass:'page-grid' },
+    { cat:'trials', label:'Trial', gridClass:'page-grid' },
+    { cat:'updates', label:'Updates', gridClass:'page-grid' },
+  ];
+  app.innerHTML = `
+    <div class="breadcrumbs">
+      <a href="#/">${LABELS.home}</a><span class="sep">/</span>
+      <span>Favorites</span>
+    </div>
+    <div class="favorites-header">
+      <h1>Favorites</h1>
+      <p class="favorites-warning">
+        Save the Spirits, Bag items, or Zones you want to easily find again. Your list is sorted by the date each item was added.
+        <strong>This list is saved only in the browser you're currently using.</strong> Clearing your browser data, switching devices, or using a different browser will make it disappear. Use Export to back it up, or Import to restore a saved list.
+      </p>
+      <div style="display:flex; gap:10px; flex-wrap:wrap;">
+        <div class="btn" id="exportFavBtn">⬇ Export</div>
+        <label class="btn" style="cursor:pointer;">⬆ Import<input type="file" id="importFavInput" accept="application/json" style="display:none;"></label>
+      </div>
+    </div>
+    ${favs.length ? sections.map(sec => {
+      const items = favs.filter(f => f.cat === sec.cat);
+      if (!items.length) return '';
+      return `
+        <div class="favorites-section">
+          <div class="panel-title"><span class="dot"></span>${sec.label}</div>
+          <div class="${sec.gridClass}">
+            ${items.map(nativeFavoriteCardHTML).join('')}
+          </div>
+        </div>
+      `;
+    }).join('') : `
+      <div class="empty-state"><div class="big">☆</div>You have no favorites yet. Browse any page and click the ★ icon to add it here.</div>
+    `}
+  `;
+
+  document.getElementById('exportFavBtn').addEventListener('click', () => {
+    const blob = new Blob([JSON.stringify(favs, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url; a.download = 'soulland-favorites.json';
+    document.body.appendChild(a); a.click(); a.remove();
+    URL.revokeObjectURL(url);
+  });
+  document.getElementById('importFavInput').addEventListener('change', (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (ev) => {
+      try {
+        const imported = JSON.parse(ev.target.result);
+        if (!Array.isArray(imported)) throw new Error('Invalid file');
+        localStorage.setItem('slu_favorites', JSON.stringify(imported));
+        renderFavoritesView();
+      } catch (err){
+        alert('Could not read this file. Make sure it\'s a Favorites export from this site.');
+      }
+    };
+    reader.readAsText(file);
+  });
+}
+function starBadgeSvg(){
+  return `<svg viewBox="0 0 24 24" fill="#f0c14b" stroke="#0c1428" stroke-width="1"><polygon points="12 2 15 9 22 9.5 17 14.5 18.5 22 12 18 5.5 22 7 14.5 2 9.5 9 9 12 2"/></svg>`;
+}
+function soulcoreArrowSvg(){
+  return `<svg viewBox="0 0 24 24" fill="#f0c14b" stroke="#0c1428" stroke-width="1"><polygon points="4 12 15 4 15 20 4 12"/></svg>`;
+}
 function matchKnownType(name){
   return SOULCORE_TYPES.find(t => t.toLowerCase() === (name || '').toLowerCase());
 }
@@ -657,9 +1119,12 @@ function monsterTypeIconPath(type, folder){ return `images/${folder}/${(type||'b
 
 function bagCardHTML(p){
   return `
-    <a href="#/objets/${encodeURIComponent(p.id)}" class="spiribone-card" style="text-decoration:none;">
-      <div class="spiribone-card-thumb">
+    <a href="#/objets/${encodeURIComponent(p.id)}" class="spiribone-card${p.bagType === 'spiribone' ? ' card-spiribone' : ''}${p.bagType === 'soulcore' ? ' card-soulcore' : ''}" style="text-decoration:none; position:relative;">
+      <div style="position:absolute; top:6px; right:6px; z-index:3;">${favoriteStarHTML('objets', p.id, p.title, effectiveImage(p))}</div>
+      <div class="spiribone-card-thumb${p.bagType === 'spiribone' ? ' thumb-spiribone' : ''}${p.bagType === 'soulcore' ? ' thumb-soulcore' : ''}">
+        ${p.bagType === 'soulcore' ? `<span class="soulcore-arrow-badge">${soulcoreArrowSvg()}</span>` : ''}
         ${effectiveImage(p) ? `<img src="${encodeURI(effectiveImage(p))}" alt="" loading="lazy">` : ''}
+        ${p.bagType === 'spiribone' ? `<span class="spiribone-star-badge">${starBadgeSvg()}</span>` : ''}
       </div>
       <div class="spiribone-card-name">${p.title}</div>
     </a>
@@ -682,6 +1147,54 @@ function pageCardHTML(p){
   `;
 }
 
+function huntBountyLordCardHTML(p, isActive){
+  const spiritTypes = p.spiritTypes || [];
+  const img = effectiveImage(p);
+  return `
+    <div class="hb-lord-card ${isActive ? 'hb-active' : 'hb-inactive'}" data-id="${p.id}">
+      ${img ? `<div class="hb-card-bg" style="background-image:url('${encodeURI(img)}')"></div>` : ''}
+      ${img ? `<img class="hb-card-img" src="${encodeURI(img)}" alt="" loading="lazy">` : ''}
+      <div class="hb-boss-text">BOSS</div>
+      <div class="hb-card-name" title="${p.title}">${p.title}</div>
+      ${spiritTypes.length ? `
+        <div class="hb-corner-frame hb-corner-lg">
+          ${spiritTypes.map(t => `<img src="${typeIconPath(t)}" alt="" title="${t}">`).join('')}
+        </div>
+      ` : ''}
+    </div>
+  `;
+}
+function huntBountyEliteCardHTML(p, isSelected){
+  const spiritTypes = p.spiritTypes || [];
+  const img = effectiveImage(p);
+  return `
+    <div class="hb-elite-card${isSelected ? ' selected' : ''}" data-id="${p.id}">
+      ${img ? `<div class="hb-card-bg" style="background-image:url('${encodeURI(img)}')"></div>` : ''}
+      ${img ? `<img class="hb-card-img" src="${encodeURI(img)}" alt="" loading="lazy">` : ''}
+      <div class="hb-card-name" title="${p.title}">${p.title}</div>
+      ${spiritTypes.length ? `
+        <div class="hb-corner-frame hb-corner-sm">
+          ${spiritTypes.map(t => `<img src="${typeIconPath(t)}" alt="" title="${t}">`).join('')}
+        </div>
+      ` : ''}
+    </div>
+  `;
+}
+function huntBountyGridHTML(monsters, selectedId){
+  const lords = monsters.filter(m => m.category === 'Lord').slice(0, 2);
+  const elites = monsters.filter(m => m.category === 'Elite').slice(0, 2);
+  if (!lords.length && !elites.length) return '';
+  // "Active" Lord = the selected one; if nothing selected yet, the first Lord defaults active.
+  const activeLordId = lords.some(l => l.id === selectedId) ? selectedId : (lords[0] && lords[0].id);
+  return `
+    <div class="hb-grid">
+      ${lords.map(p => huntBountyLordCardHTML(p, p.id === activeLordId)).join('')}
+      <div class="hb-elite-col">
+        ${elites.map(p => huntBountyEliteCardHTML(p, p.id === selectedId)).join('')}
+      </div>
+    </div>
+  `;
+}
 function beastCardHTML(p, isSelected){
   const levelStat = (p.stats || []).find(s => /^lv\.?|level/i.test(s.label || ''));
   return `
@@ -883,7 +1396,7 @@ function renderCategoryView(catId, focusId){
   let selectedMonsterId = null;
   let beastFocusHandled = false;
   const allZones = getPages('zones');
-  let selectedZone = allZones.length ? allZones[0].id : '';
+  let selectedZone = resolveZoneForMode('beastlord', '');
   let selectedSoulcoreRarities = [];
   let selectedSpiriboneGenre = '';
   let selectedSpiriboneType = '';
@@ -915,7 +1428,7 @@ function renderCategoryView(catId, focusId){
       const matchesBagType = !selectedBagType || p.bagType === selectedBagType;
       const matchesBeastMode = catId !== 'monstres' ||
         (p.beastMode || 'beastlord') === selectedBeastMode;
-      const matchesZone = catId !== 'monstres' || selectedBeastMode !== 'beastlord' ||
+      const matchesZone = catId !== 'monstres' || (selectedBeastMode !== 'beastlord' && selectedBeastMode !== 'huntbounty') ||
         !selectedZone || p.zone === selectedZone;
       const matchesMonsterType = catId !== 'monstres' || !selectedMonsterType ||
         p.monsterType === selectedMonsterType;
@@ -933,12 +1446,27 @@ function renderCategoryView(catId, focusId){
       return;
     }
 
+    if (catId === 'monstres' && selectedBeastMode === 'huntbounty'){
+      const hbHtml = huntBountyGridHTML(filtered, selectedMonsterId);
+      grid.innerHTML = hbHtml || `<div class="empty-state"><div class="big">🗺️</div>${LABELS.noResults}</div>`;
+      grid.querySelectorAll('.hb-lord-card, .hb-elite-card').forEach(el => {
+        el.addEventListener('click', () => {
+          const id = el.dataset.id;
+          selectedMonsterId = selectedMonsterId === id ? null : id;
+          renderBeastDescPanel(filtered);
+          draw(document.getElementById('searchInput').value);
+        });
+      });
+      pager.innerHTML = '';
+      return;
+    }
+
     const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
     if (currentPage > totalPages) currentPage = totalPages;
     const pageStart = (currentPage - 1) * PAGE_SIZE;
     const pageItems = Number.isFinite(PAGE_SIZE) ? filtered.slice(pageStart, pageStart + PAGE_SIZE) : filtered;
 
-    if (GROUPED_CATEGORIES.includes(catId)){
+    if (GROUPED_CATEGORIES.includes(catId) && !(catId === 'monstres' && selectedBeastMode !== 'huntbounty')){
       const cardFn = catId === 'monstres' ? (p) => beastCardHTML(p, p.id === selectedMonsterId)
         : catId === 'objets' ? bagCardHTML
         : pageCardHTML;
@@ -963,12 +1491,14 @@ function renderCategoryView(catId, focusId){
       if (noGroup.length){
         html += `
           <div class="ability-panel">
-            <div class="panel-title"><span class="dot"></span>Uncategorized</div>
+            <div class="panel-title"><span class="dot"></span>${(catId === 'monstres' && selectedBeastMode === 'beastlord') ? 'Beastlord' : 'Uncategorized'}</div>
             <div class="${gridClass}">${noGroup.map(cardFn).join('')}</div>
           </div>
         `;
       }
       grid.innerHTML = html;
+    } else if (catId === 'monstres' && selectedBeastMode !== 'huntbounty'){
+      grid.innerHTML = `<div class="beast-card-row">${filtered.map(p => beastCardHTML(p, p.id === selectedMonsterId)).join('')}</div>`;
     } else {
       grid.innerHTML = `<div class="page-grid">${pageItems.map(pageCardHTML).join('')}</div>`;
     }
@@ -988,9 +1518,11 @@ function renderCategoryView(catId, focusId){
 
   function spiribonePageCardHTML(p){
     return `
-      <div class="spiribone-card${p.id === openSpiriboneId ? ' selected' : ''}" data-id="${p.id}">
-        <div class="spiribone-card-thumb">
+      <div class="spiribone-card card-spiribone${p.id === openSpiriboneId ? ' selected' : ''}" data-id="${p.id}" style="position:relative;">
+        <div style="position:absolute; top:6px; right:6px; z-index:3;">${favoriteStarHTML('objets', p.id, p.title, effectiveImage(p))}</div>
+        <div class="spiribone-card-thumb thumb-spiribone">
           ${effectiveImage(p) ? `<img src="${encodeURI(effectiveImage(p))}" alt="" loading="lazy">` : ''}
+          <span class="spiribone-star-badge">${starBadgeSvg()}</span>
         </div>
         <div class="spiribone-card-name">${p.title}</div>
       </div>
@@ -1062,6 +1594,12 @@ function renderCategoryView(catId, focusId){
       <div class="spiribone-desc-image"><img src="${encodeURI(effectiveImage(p))}" alt=""></div>
       <div class="spiribone-title-row"><h3>${p.title}</h3>${typeIcon}</div>
       ${p.subtitle ? `<div class="subtitle" style="text-align:center;">${p.subtitle}</div>` : ''}
+      <div style="display:flex; justify-content:center; margin:14px 0;">
+        <div class="download-txt-btn" onclick='downloadPageAsTxt(getPages("objets").find(x=>x.id==="${p.id}"), "Bag")'>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Download as .txt
+        </div>
+      </div>
       <div class="spiribone-meta-row">
         ${p.spiriboneRating ? `<span class="spiribone-rating">Rating: ${escapeHtml(p.spiriboneRating)}</span>` : ''}
         <div class="tag-row">${(p.tags||[]).map(t => `<span class="tag">${t}</span>`).join('')}</div>
@@ -1128,7 +1666,8 @@ function renderCategoryView(catId, focusId){
 
   function haloCardHTML(p){
     return `
-      <div class="spiribone-card${p.id === openHaloId ? ' selected' : ''}" data-id="${p.id}">
+      <div class="spiribone-card${p.id === openHaloId ? ' selected' : ''}" data-id="${p.id}" style="position:relative;">
+        <div style="position:absolute; top:6px; right:6px; z-index:3;">${favoriteStarHTML('objets', p.id, p.title, effectiveImage(p))}</div>
         <div class="spiribone-card-thumb">
           ${effectiveImage(p) ? `<img src="${encodeURI(effectiveImage(p))}" alt="" loading="lazy">` : ''}
         </div>
@@ -1178,6 +1717,12 @@ function renderCategoryView(catId, focusId){
       </div>
       <div class="spiribone-desc-image"><img src="${encodeURI(effectiveImage(p))}" alt=""></div>
       <div class="spiribone-title-row"><h3>${p.title}</h3>${spiritTypeIcon}${monsterTypeIcon}</div>
+      <div style="display:flex; justify-content:center; margin:14px 0;">
+        <div class="download-txt-btn" onclick='downloadPageAsTxt(getPages("objets").find(x=>x.id==="${p.id}"), "Bag")'>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Download as .txt
+        </div>
+      </div>
     `;
     const hasHaloStats = p.haloATK || p.haloHP || p.haloDEF;
     const hasGenericStats = p.stats && p.stats.length;
@@ -1260,6 +1805,13 @@ function renderCategoryView(catId, focusId){
           <div class="soulcore-detail-header">
             <h3>${p.title}</h3>
             ${p.rarity ? `<span class="rarity-pill rarity-${p.rarity}">${p.rarity}</span>` : ''}
+          </div>
+          <div style="display:flex; align-items:center; gap:10px; margin-bottom:16px;">
+            <div class="download-txt-btn" onclick='downloadPageAsTxt(getPages("objets").find(x=>x.id==="${p.id}"), "Bag")'>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Download as .txt
+            </div>
+            ${favoriteStarHTML('objets', p.id, p.title, bigImg)}
           </div>
           <div class="soulcore-set-block">
             <div class="soulcore-set-effect-title">
@@ -1425,7 +1977,10 @@ function renderCategoryView(catId, focusId){
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
         </div>
         <div class="beast-desc-info">
-          <h3>${p.title}</h3>
+          <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
+            <h3 style="margin:0;">${p.title}</h3>
+            ${(p.beastMode === 'huntbounty' && p.category) ? `<span class="beast-desc-level">${escapeHtml(p.category)}</span>` : ''}
+          </div>
           ${p.subtitle ? `<div class="subtitle">${p.subtitle}</div>` : ''}
           ${(p.stats && p.stats.length) ? `<table class="stat-table">${p.stats.map(statRowHTML).join('')}</table>` : ''}
           ${p.description ? `
@@ -1480,15 +2035,31 @@ function renderCategoryView(catId, focusId){
     renderBeastDescPanel(filteredList);
   }
 
+  function zonesWithContentFor(mode){
+    return allZones.filter(z =>
+      getPages('monstres').some(m => (m.beastMode || 'beastlord') === mode && m.zone === z.id)
+    );
+  }
+  function resolveZoneForMode(mode, preferredZoneId){
+    const withContent = zonesWithContentFor(mode);
+    if (!withContent.length) return '';
+    if (preferredZoneId && withContent.some(z => z.id === preferredZoneId)) return preferredZoneId;
+    return withContent[0].id;
+  }
   function renderZoneSelector(){
     const row = document.getElementById('zoneSelectorRow');
     if (!row) return;
-    if (selectedBeastMode !== 'beastlord' || !allZones.length){
+    if ((selectedBeastMode !== 'beastlord' && selectedBeastMode !== 'huntbounty') || !allZones.length){
+      row.style.display = 'none';
+      return;
+    }
+    const zonesWithContent = zonesWithContentFor(selectedBeastMode);
+    if (!zonesWithContent.length){
       row.style.display = 'none';
       return;
     }
     row.style.display = 'flex';
-    row.innerHTML = allZones.map(z => `
+    row.innerHTML = zonesWithContent.map(z => `
       <div class="zone-select-btn${z.id === selectedZone ? ' active' : ''}" data-zone="${z.id}">
         <div class="zone-select-icon" style="background-image:url('images/zone-icons/${z.id}.png')"></div>
         <span class="zone-select-name">${z.title}</span>
@@ -1523,6 +2094,7 @@ function renderCategoryView(catId, focusId){
       el.classList.add('active');
       moveBeastIndicator(el);
       selectedBeastMode = el.dataset.mode;
+      selectedZone = resolveZoneForMode(selectedBeastMode, selectedZone);
       currentPage = 1;
       selectedMonsterId = null;
       const beastPanel = document.getElementById('beastDescPanel');
@@ -1958,13 +2530,13 @@ function ruleBlocksHTML(page){
   if (!cats.length) return '';
   return `
     <div class="rule-blocks" style="max-width:760px; margin:0 auto 30px;">
-      ${cats.map(cat => `
-        <div class="rule-group">
+      ${cats.map((cat, ci) => `
+        <div class="rule-group" id="toc-rule-${ci}">
           ${cat.image ? `<div class="rule-group-image"><img src="${encodeURI(cat.image)}" alt="" loading="lazy"></div>` : ''}
           ${cat.title ? `<h2 class="rule-group-title">${escapeHtml(cat.title)}</h2>` : ''}
           ${cat.description ? `<div class="description" style="text-align:center; margin-bottom:16px;">${parseDesc(cat.description)}</div>` : ''}
-          ${(cat.subtitles || []).map(s => `
-            <div class="rule-item">
+          ${(cat.subtitles || []).map((s, si) => `
+            <div class="rule-item" id="toc-rule-${ci}-${si}">
               ${s.title ? `<h3 class="rule-item-title">${escapeHtml(s.title)}</h3>` : ''}
               ${s.description ? `<div class="description">${parseDesc(s.description)}</div>` : ''}
             </div>
@@ -2001,6 +2573,13 @@ function renderBeastSoloPage(page){
       <a href="#/monstres">${categoryLabel(cat)}</a><span class="sep">/</span>
       <span>${page.title}</span>
     </div>
+    <div style="display:flex; align-items:center; gap:10px; margin-bottom:16px;">
+      <div class="download-txt-btn" onclick='downloadPageAsTxt(getPages("monstres").find(p=>p.id==="${page.id}"), "${categoryLabel(cat).replace(/"/g,'&quot;')}")'>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Download as .txt
+      </div>
+      ${favoriteStarHTML('monstres', page.id, page.title, effectiveImage(page))}
+    </div>
     <div class="page-detail">
       <div class="detail-media">
         <img src="${page.image || page.imageUrl || ''}" alt="${page.title}">
@@ -2024,31 +2603,106 @@ function renderBeastSoloPage(page){
 
 function renderZoneDocPage(cat, page, catId){
   const bannerSrc = effectiveImage(page) || page.mapFile;
-  app.innerHTML = `
-    <div class="breadcrumbs">
-      <a href="#/">${LABELS.home}</a><span class="sep">/</span>
-      <a href="#/${cat.id}">${categoryLabel(cat)}</a><span class="sep">/</span>
-      <span>${page.title}</span>
-    </div>
-    <div class="zone-doc-page">
+  const isTrial = catId === 'trials';
+  const tocItems = [];
+  if (isTrial){
+    if (page.description) tocItems.push({ id: 'toc-description', label: 'Description', sub: [] });
+    (page.categoryBlocks || []).forEach((c, ci) => {
+      if (!c.title) return;
+      tocItems.push({
+        id: `toc-rule-${ci}`, label: c.title,
+        sub: (c.subtitles || []).map((s, si) => s.title ? { id: `toc-rule-${ci}-${si}`, label: s.title } : null).filter(Boolean),
+      });
+    });
+    if ((page.docBlocks || []).length) tocItems.push({ id: 'toc-details', label: 'Details', sub: [] });
+    if (getPages('objets').some(o => (o.sources || (o.source ? [o.source] : [])).includes(page.id))){
+      tocItems.push({ id: 'toc-rewards', label: 'Rewards', sub: [] });
+    }
+  }
+  const tocFlatCount = tocItems.reduce((n, it) => n + 1 + it.sub.length, 0);
+  const tocInnerHTML = tocItems.map(it => `
+        <a href="#${it.id}" class="trial-toc-link" data-toc-id="${it.id}"><span class="trial-toc-bar"></span>${escapeHtml(it.label)}</a>
+        ${it.sub.map(s => `<a href="#${s.id}" class="trial-toc-link sub" data-toc-id="${s.id}"><span class="trial-toc-bar"></span>${escapeHtml(s.label)}</a>`).join('')}
+      `).join('');
+  const tocHTML = tocFlatCount >= 2 ? `<div class="trial-toc-spacer"></div>` : '';
+  const bodyHTML = `
       ${bannerSrc ? `<div class="zone-doc-banner"><img src="${encodeURI(bannerSrc)}" alt=""></div>` : ''}
       <h1 class="zone-doc-title">${page.title}</h1>
       ${page.subtitle ? `<div class="subtitle" style="text-align:center;">${page.subtitle}</div>` : ''}
+      <div style="display:flex; justify-content:center; align-items:center; gap:10px; margin-bottom:10px;">
+        <div class="download-txt-btn" onclick='downloadPageAsTxt(getPages("${catId}").find(p=>p.id==="${page.id}"), "${categoryLabel(cat).replace(/"/g,'&quot;')}")'>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Download as .txt
+        </div>
+        ${catId !== 'trials' ? favoriteStarHTML(catId, page.id, page.title, bannerSrc) : ''}
+      </div>
       ${page.mapFile ? `<div style="display:flex; justify-content:center; margin-bottom:20px;">
         <div class="map-open-btn" id="openMapBtn">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg>
           ${LABELS.openMap}
         </div>
       </div>` : ''}
-      ${page.description ? `<div class="description" style="max-width:760px; margin:0 auto 30px;">${parseDesc(page.description)}</div>` : ''}
+      ${page.description ? `<div id="toc-description" class="description" style="max-width:760px; margin:0 auto 30px;">${parseDesc(page.description)}</div>` : ''}
       ${(catId === 'trials' || catId === 'events') ? ruleBlocksHTML(page) : ''}
-      ${docBlocksHTML(page)}
-      ${catId === 'trials' ? trialRewardsPanelHTML(page) : ''}
+      <div id="toc-details">${docBlocksHTML(page)}</div>
+      ${catId === 'trials' ? `<div id="toc-rewards">${trialRewardsPanelHTML(page)}</div>` : ''}
+  `;
+  app.innerHTML = `
+    <div class="breadcrumbs">
+      <a href="#/">${LABELS.home}</a><span class="sep">/</span>
+      <a href="#/${cat.id}">${categoryLabel(cat)}</a><span class="sep">/</span>
+      <span>${page.title}</span>
     </div>
+    ${tocHTML ? `
+      <div class="guide-detail-layout trial-layout">
+        ${tocHTML}
+        <div class="zone-doc-page" style="margin:0;">${bodyHTML}</div>
+      </div>
+    ` : `<div class="zone-doc-page">${bodyHTML}</div>`}
   `;
   if (page.mapFile){
     document.getElementById('openMapBtn').addEventListener('click', () => openZoneMap(page));
   }
+  if (tocHTML){
+    const fixedToc = document.createElement('div');
+    fixedToc.className = 'trial-toc';
+    fixedToc.innerHTML = `<div class="trial-toc-title">On this page</div>${tocInnerHTML}`;
+    document.body.appendChild(fixedToc);
+    initTrialTocScrollSpy(tocItems, fixedToc);
+  }
+}
+function initTrialTocScrollSpy(tocItems){
+  const ids = [];
+  tocItems.forEach(it => { ids.push(it.id); it.sub.forEach(s => ids.push(s.id)); });
+  const links = document.querySelectorAll('.trial-toc-link');
+  const setActive = (id) => {
+    links.forEach(l => l.classList.toggle('active', l.dataset.tocId === id));
+  };
+  let suppressObserver = false;
+  const observer = new IntersectionObserver((entries) => {
+    if (suppressObserver) return;
+    const visible = entries.filter(e => e.isIntersecting).sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
+    if (visible.length) setActive(visible[0].target.id);
+  }, { rootMargin: '-15% 0px -70% 0px' });
+  ids.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) observer.observe(el);
+  });
+  if (ids.length) setActive(ids[0]);
+
+  links.forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      const id = link.dataset.tocId;
+      const target = document.getElementById(id);
+      if (!target) return;
+      setActive(id); // reflect the click immediately, don't wait on the scroll or the observer
+      suppressObserver = true;
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      clearTimeout(initTrialTocScrollSpy._t);
+      initTrialTocScrollSpy._t = setTimeout(() => { suppressObserver = false; }, 700);
+    });
+  });
 }
 
 function renderDetailView(catId, pageId){
@@ -2087,6 +2741,13 @@ function renderDetailView(catId, pageId){
       <a href="#/">${LABELS.home}</a><span class="sep">/</span>
       <a href="#/${catId}">${categoryLabel(cat)}</a><span class="sep">/</span>
       <span>${page.title}</span>
+    </div>
+    <div style="display:flex; align-items:center; gap:10px; margin-bottom:16px;">
+      <div class="download-txt-btn" onclick='downloadPageAsTxt(getPages("${catId}").find(p=>p.id==="${page.id}"), "${categoryLabel(cat).replace(/"/g,'&quot;')}")'>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Download as .txt
+      </div>
+      ${favoriteStarHTML(catId, page.id, page.title, effectiveImage(page))}
     </div>
     <div class="page-detail">
       <div class="detail-media${page.rarity ? ' card-' + page.rarity.toLowerCase() : ''}">
@@ -2360,5 +3021,9 @@ function closeZoneMap(){
 
 /* ---------- Init ---------- */
 document.getElementById('brandLink').addEventListener('click', () => { location.hash = '#/'; });
-window.addEventListener('hashchange', render);
+window.addEventListener('hashchange', () => {
+  const hash = location.hash.replace(/^#\/?/, '');
+  if (hash.startsWith('toc-')) return; // in-page anchor link, not a route change
+  render();
+});
 render();

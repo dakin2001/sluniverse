@@ -5,18 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <title>Guides, Soul Land Universe</title>
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
-<link rel="stylesheet" href="css/style.css?v=1083">
+<link rel="stylesheet" href="css/style.css?v=1122">
 </head>
 <body class="cosmic-bg has-fixed-footer">
 
 <header class="site-header">
   <div class="header-inner">
     <div class="brand" onclick="location.href='index'" style="cursor:pointer;">
-      <svg class="brand-logo" viewBox="0 0 100 100" fill="none" aria-hidden="true">
-        <polygon points="50,4 96,50 50,96 4,50" stroke="#cfe0ff" stroke-width="4" fill="rgba(255,255,255,0.04)"/>
-        <polygon points="50,26 74,50 50,74 26,50" stroke="#cfe0ff" stroke-width="3"/>
-        <circle cx="50" cy="50" r="6" fill="#cfe0ff"/>
-      </svg>
+      <img src="favicon.svg" class="brand-logo" alt="">
       <div class="brand-text"><h1>Soul Land Universe</h1></div>
     </div>
   </div>
@@ -260,6 +256,7 @@
         <div class="tab-item" data-view="glossary" data-i18n="glossary_tab">Glossary</div>
         <div class="tab-item" data-view="all" id="tabAllGuides" style="display:none;" data-i18n="gr_sidebar_all">All Guides</div>
         <div class="tab-item" data-view="contributors" id="tabContributors" style="display:none;" data-i18n="gr_sidebar_contributors">Contributors</div>
+        <div class="tab-item" data-view="codes" id="tabCodes" style="display:none;">Gift Codes</div>
       </div>
       <div class="tabs-actions">
         <a href="guide-create" class="action-pill primary" id="createGuideBtn">
@@ -358,6 +355,45 @@
       <div id="contribGuidesGrid" class="dash-card-grid"></div>
       <div class="dash-section-title" style="margin-top:28px;" data-i18n="gr_recent_activity">Recent Activity</div>
       <div id="contribActivityFeed" class="activity-feed"></div>
+    </div>
+  </div>
+
+  <div id="codesView" class="glossary-view" style="display:none;">
+    <div class="dash-view active">
+      <div class="dash-section-title">Add a Code</div>
+      <div class="row2" style="max-width:660px;">
+        <div class="field">
+          <label>Code</label>
+          <input type="text" id="codeInputValue" placeholder="e.g. SOULLAND2026">
+        </div>
+        <div class="field">
+          <label>Published on</label>
+          <input type="date" id="codeInputDate">
+        </div>
+      </div>
+      <div class="field" style="max-width:200px;">
+        <label style="display:flex; align-items:center; gap:8px; cursor:pointer;">
+          <input type="checkbox" id="codeInputActive" checked style="width:16px; height:16px;">
+          Active
+        </label>
+      </div>
+      <div class="field">
+        <label>Rewards</label>
+        <div id="codeRewardsList" style="display:flex; flex-direction:column; gap:8px; margin-bottom:10px;"></div>
+        <div class="btn" id="addCodeRewardBtn">+ Add reward from Bag</div>
+      </div>
+      <div class="btn" id="saveCodeBtn" style="margin-top:16px;">Save Code</div>
+    </div>
+    <div class="dash-section-title" style="margin-top:34px;">Existing Codes</div>
+    <div id="codesAdminList" class="dash-card-grid"></div>
+  </div>
+
+  <div id="codeRewardPickerModal" class="modal-overlay" style="display:none;">
+    <div class="modal-box" style="max-width:480px;">
+      <div class="modal-title">Choose a reward item</div>
+      <input type="text" id="codeRewardPickerSearch" placeholder="Search Bag items…" style="margin-bottom:10px;">
+      <div id="codeRewardPickerList" style="max-height:340px; overflow-y:auto; display:flex; flex-direction:column; gap:6px;"></div>
+      <div class="btn btn-ghost" id="closeCodeRewardPickerBtn" style="margin-top:14px;">Cancel</div>
     </div>
   </div>
 
@@ -641,6 +677,7 @@
 <script src="js/notifications.js"></script>
 <script src="js/i18n.js"></script>
 <script>applyCachedLanguageInstantly();</script>
+<script src="content/objets.js"></script>
 <script src="js/guide-review.js"></script>
 <script src="js/guides-hub.js"></script>
 </body>

@@ -6,7 +6,7 @@
 <title>Editor: Soul Land Wiki (admin)</title>
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
-<link rel="stylesheet" href="css/style.css?v=1083">
+<link rel="stylesheet" href="css/style.css?v=1122">
 <meta name="robots" content="noindex, nofollow">
 </head>
 <body>
@@ -82,8 +82,11 @@
 <header class="site-header">
   <div class="header-inner">
     <div class="brand" style="cursor:default;">
-      <div class="eyebrow">Soul Land · Awakening World</div>
-      <h1>Content Editor <span style="font-size:0.55em; color:var(--text-dim); font-family:var(--font-body);">(admin, not indexed)</span></h1>
+      <img src="favicon.svg" class="brand-logo" alt="">
+      <div class="brand-text">
+        <div class="eyebrow">Soul Land · Awakening World</div>
+        <h1>Content Editor <span style="font-size:0.55em; color:var(--text-dim); font-family:var(--font-body);">(admin, not indexed)</span></h1>
+      </div>
     </div>
     <div></div>
     <div class="editor-header-actions">
@@ -503,6 +506,16 @@
                 <label>Zone (which map this monster belongs to)</label>
                 <select id="fBeastZone"></select>
               </div>
+              <div class="field" id="beastSpiritTypeField" style="display:none;">
+                <label>Spirit Type(s) (shown as an icon on the Hunter Bounty map card, can select several)</label>
+                <div class="tag-checkbox-list" id="beastSpiritTypeCheckboxes">
+                  <span class="tag-toggle" data-beast-spirit-type="Bruiser">Bruiser</span>
+                  <span class="tag-toggle" data-beast-spirit-type="Control">Control</span>
+                  <span class="tag-toggle" data-beast-spirit-type="Defense">Defense</span>
+                  <span class="tag-toggle" data-beast-spirit-type="Agility">Agility</span>
+                  <span class="tag-toggle" data-beast-spirit-type="Support">Support</span>
+                </div>
+              </div>
               <div class="field" style="max-width:220px;">
                 <label>Description Panel Color (border/accent when this monster's panel is open)</label>
                 <input type="color" id="fBeastPanelColor" value="#f0c14b" style="width:80px; height:40px; padding:2px; cursor:pointer;">
@@ -512,7 +525,7 @@
                 <div id="beastContainsChips" style="display:flex; flex-wrap:wrap; gap:8px; margin-bottom:10px;"></div>
                 <div class="btn" id="openBeastContainsPickerBtn">+ Add item</div>
               </div>
-              <div class="row2" style="max-width:660px;">
+              <div class="row2" id="monsterTypeField" style="max-width:660px;">
                 <div class="field">
                   <label>Monster Type (also determines the Halo type it provides)</label>
                   <select id="fMonsterType">
@@ -531,7 +544,7 @@
                   </select>
                 </div>
               </div>
-              <div class="row2" style="max-width:660px;">
+              <div class="row2" id="spiriboneDropsField" style="max-width:660px;">
                 <div class="field">
                   <label>Spiribone Type 1 (dropped by this monster, filtered by Monster Type)</label>
                   <select id="fSpiribone1"><option value="">None</option></select>
