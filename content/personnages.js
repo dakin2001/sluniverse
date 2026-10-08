@@ -1,4 +1,4 @@
-// "personnages" page: generated from editeur.html on 9/14/2026
+// "personnages" page: generated from editeur.html on 10/8/2026
 // You can also edit this file by hand: each object is one entry.
 window.WIKI = window.WIKI || {};
 window.WIKI.personnages = [
@@ -11247,6 +11247,295 @@ window.WIKI.personnages = [
           {
             "threshold": "100k Yr",
             "description": "[Harmony]'s [Support Dmg Bonus] increased to 55.2%, Duration extended to 8s. [Concerto]'s Skill Dmg Bonus, Passive Dmg Bonus and Ultimate Dmg Bonus increased to 50% (20% in PVP).",
+            "condition": "🔴 4★ activated"
+          }
+        ]
+      }
+    },
+    "fusion": null,
+    "skins": []
+  },
+  {
+    "id": "holylightdragon",
+    "title": "Holy Light Dragon",
+    "subtitle": "Twin Night-Slayers - Twin Dragon Hare - Lightning Shockware",
+    "date": "",
+    "image": "images/personnages/holylightdragon/holylightdragon-image.png",
+    "imageUrl": "",
+    "useLocalImage": true,
+    "tags": [
+      "Main DPS",
+      "Sub Dps",
+      "Bruiser"
+    ],
+    "stats": [
+      {
+        "label": "Name",
+        "value": "Bei Bei"
+      },
+      {
+        "label": "Gender",
+        "value": "Male"
+      },
+      {
+        "label": "Archetype",
+        "value": "Bruiser"
+      },
+      {
+        "label": "Role",
+        "value": "Main Dps, Sub Dps"
+      },
+      {
+        "label": "Mechanic",
+        "value": "Electrified, Flash"
+      },
+      {
+        "label": "Acquisition",
+        "value": "Dragon King's Tremor"
+      }
+    ],
+    "description": "Holy Light Dragon is a lightning brawler that plays like a battery: charge up, then blow it all at once. His whole kit revolves around [Thunderstrike] stacks, which he racks up just by fighting. His Innate Thunderstrike Dragon Claw gives him one every time, his Skills add more, and at max stacks his [Electrified] damage gets an extra boost. The trick is knowing when to cash in, because the more stacks you burn, the bigger the payoff.\n\nHis two Ultimates are two flavors of thunder. Dragon King Evil Breaker burns all your stacks and turns you into a lightning dragon [Fulminant Might]: Strong Super Armor, much harder-hitting basic attacks (Thunderbolt Cleave), and 1.5 extra seconds of transformation for every stack spent. Dragon King Tremor Realm drops a Dragon Pearl and opens a 20-second thunder domain where lightning keeps striking random enemies and makes them weaker to Electrified damage, perfect if you'd rather zap from a distance than brawl up close.\n\nFor Skills, Thunderstrike Dragon Howl is the fast, free one that keeps your stacks flowing, while Thunderstrike Dragon Head throws a big charged punch and leaves a [Thunder Domain] that boosts Electrified damage on enemies. In the Passive slot, Wrath of Thunder fires free [Volt-Storm] bolts after you ult, and Volt-Lord Realm turns overflow stacks into [Thunderball] shots and gives your Bruiser and Agility teammates a growing damage boost through [Surging Bolt]. You get one Ultimate, one Skill and one Passive at a time, so picking your combo is half the fun.\n\nMuch of his damage is Synergy Dmg, which counts as dealt by the highest-ATK Spirit on your team, so he stays useful even when he isn't hogging the spotlight. Stack up, go dragon, repeat. Basically a thunderstorm with really good timing.",
+    "rarity": "SSR",
+    "backgroundImage": "images/personnages/holylightdragon/background/holylightdragon-background.png",
+    "mechanics": [
+      "Electrified",
+      "Flash"
+    ],
+    "normalAttack": {
+      "title": "Thunder Dragon Body",
+      "key": "Dmg",
+      "icon": "◆",
+      "description": "Thunder commands the cosmos; might shakes all directions. Holy Light Dragon charges the battlefield, tearing enemies with Thunderstrike claws, executing a Combo of 5 Normal Attacks. The final strike seamlessly chains into an aerial Normal Attack drop kick, dealing a total of 90+633.3% ATK as Dmg."
+    },
+    "initiative": {
+      "title": "Thunderstrike Dragon Claw",
+      "key": "Dmg, Thunderstrike",
+      "icon": "◆",
+      "description": "Thunderstrike Flash decimates legions. Perform 3 Swift dodging attacks, then descend with Divine Thunder, dealing a total of 18+133.3% ATK as Dmg and applying 1 stack of [Thunderstrike] to self."
+    },
+    "ultimate": {
+      "skill1": {
+        "title": "Dragon King Evil Breaker",
+        "key": "Dmg",
+        "icon": "◆",
+        "description": "Divine Thunder descends upon all; demons and gods alike yield. Holy Light Dragon deploys [Tetra-Dragon Matrix], and surging Fulminant Might transforms the heavens and earth, bashing all enemies ahead, dealing 99+691.9% ATK as Ultimate Dmg. Unleashing Ultimate consumes all [Thunderstrike] stacks and enters [Fulminant Might] state. [Fulminant Might]: Base transformation lasting 6s. Each [Thunderstrike] stack consumed extends [Fulminant Might] duration by 1.5s, granting Strong Super Armor. Enhanced Normal Attack: Normal Attack form changes. Enhanced Normal Attack becomes Thunderbolt Cleave, dealing 90+598.2% ATK as Dmg.",
+        "cost": 3,
+        "cd": 30,
+        "haloTitle": "",
+        "haloDescription": "",
+        "tiers": [
+          {
+            "threshold": "1k Yr",
+            "description": "While in [Fulminant Might] state, this Spirit deals 15+100.6% ATK as additional Electrified Dmg, triggering once per second.",
+            "condition": ""
+          },
+          {
+            "threshold": "10k Yr",
+            "description": "When casting Ultimate, each stack of [Thunderstrike] consumed increases [Fulminant Might] Status Dmg Bonus by 8.0%.",
+            "condition": "🟡 4★ activated"
+          },
+          {
+            "threshold": "25k Yr",
+            "description": "In [Fulminant Might] Status, gain 1 stack of [Thunderstrike] after every 3 Normal Attacks hit the target.",
+            "condition": "🟡 5★ activated"
+          },
+          {
+            "threshold": "50k Yr",
+            "description": "When casting Ultimate, each stack of [Thunderstrike] consumed increases Dmg Bonus in [Fulminant Might] Status by 10.0%.",
+            "condition": "🔴 2★ activated"
+          },
+          {
+            "threshold": "100k Yr",
+            "description": "In [Fulminant Might] Status, Action Speed increases by 30%, effect removed upon exiting Status.",
+            "condition": "🔴 4★ activated"
+          }
+        ]
+      },
+      "skill4": {
+        "title": "Dragon King Tremor Realm",
+        "key": "Dmg",
+        "icon": "◆",
+        "description": "Dragon King Tremor Realm shakes the nine heavens. Summon [Dragon-Monarch Seismo] to drop a Dragon Pearl infused with Thunderstrike power. Holy Light Dragon catches it and unleashes Thunderstrike toward the earth, dealing damage. Subsequently, [Dragon Thunder] rains down every, dealing area damage for 7s. Finally, detonate accumulated Thunderstrike in the region. Ultimate deals 321+2208.0% ATK as Ultimate [Synergy Dmg]. Gain [Celestial Thunder Realm] effect: Duration 20s. Creates a domain where the Spirimaster moves. Every, strike 1 random target in the domain with [Radiant Holy Thunder], dealing 120+828.0% ATK as Ultimate [Synergy Dmg], applying 1 stack of [Flash]. Every 3 hits on Electrified targets, Spirimaster gains 1 stack of [Thunderstrike], dealing additional 80+552.0% ATK as Electrified [Synergy Dmg].",
+        "cost": 3,
+        "cd": 30,
+        "haloTitle": "",
+        "haloDescription": "",
+        "tiers": [
+          {
+            "threshold": "1k Yr",
+            "description": "After Thunderstrike hits the target, the target's received Electrified Build Dmg Up by 75.0%, for 20s.",
+            "condition": ""
+          },
+          {
+            "threshold": "10k Yr",
+            "description": "[Celestial Thunder Realm] ends and triggers a Divine Thunder Burst, dealing 40+276.0% ATK as Ultimate Dmg to targets in range. Gain [Thunderstrike] stacks equal to the number of targets hit, max 5 stacks.",
+            "condition": "🟡 4★ activated"
+          },
+          {
+            "threshold": "25k Yr",
+            "description": "[Radiant Holy Thunder] has a 50% chance to trigger an additional lightning strike on each hit, dealing 120+828.0%ATK as Ultimate Dmg.",
+            "condition": "🟡 5★ activated"
+          },
+          {
+            "threshold": "50k Yr",
+            "description": "Gain 3 stacks of [Thunderstrike] after unleashing Ultimate. At max stacks of [Thunderstrike], unleashing Ultimate grants 50.0% Ultimate Dmg Up.",
+            "condition": "🔴 2★ activated"
+          },
+          {
+            "threshold": "100k Yr",
+            "description": "Ultimate [Dragon Thunder] trigger frequency reduced to 0.8s, and targets take increased Electrified Build Dmg Up to 150.0%, lasting 20s.",
+            "condition": "🔴 4★ activated"
+          }
+        ]
+      }
+    },
+    "skill": {
+      "skill2": {
+        "title": "Thunderstrike Dragon Howl",
+        "key": "Dmg, Thunderstrike",
+        "icon": "◆",
+        "description": "Swift Dragon pierces sky; one strike seals fate. Summon Holy Light Dragon to Shock enemies, then crash down from above triggering intense Thunder Strike, dealing a total of 120+843.3% ATK as Skill Dmg.",
+        "cost": 0,
+        "cd": 15,
+        "haloTitle": "Asura Holy Light Dragon",
+        "haloDescription": "After triggering Lightning effect, burst out Volt-Storm Dmg, dealing 37+253.0% ATK as Skill Dmg, and this Spirit gains 20,0% Final Dmg Bonus, Duration 30s.",
+        "tiers": [
+          {
+            "threshold": "1k Yr",
+            "description": "Upon Skill hit, gain 2 stacks of [Thunderstrike].",
+            "condition": ""
+          },
+          {
+            "threshold": "10k Yr",
+            "description": "Skill hit per target increases 15% Dmg Bonus, max 2 targets calculated.",
+            "condition": "🟡 4★ activated"
+          },
+          {
+            "threshold": "25k Yr",
+            "description": "Upon Ultimate release, immediately Reset Skill cooldown with no cast animation. (In PVP, entering Combo hit or control state triggers [Thunderstrike Dragon Howl·Reversal], removing hit/control state and releasing Skill. Triggers once per 30s. After release, [Thunderstrike Dragon Howl] enters cooldown)",
+            "condition": "🟡 5★ activated"
+          },
+          {
+            "threshold": "50k Yr",
+            "description": "When Skill hits 1 target, gain 30% Dmg Bonus, up to 2 targets calculated.",
+            "condition": "🔴 2★ activated"
+          },
+          {
+            "threshold": "100k Yr",
+            "description": "When releasing Ultimate, if consuming [Thunderstrike] stacks exceeds 2, immediately trigger [Thunderstrike Dragon Howl·Apex] once. If consuming stacks exceeds 3, each additional stack increases [Thunderstrike Dragon Howl·Apex] 5.0% Dmg Bonus. When [Thunderstrike] stacks reach max, gaining more than 2 [Thunderstrike] stacks at once also immediately triggers [Thunderstrike Dragon Howl·Apex] once. Each stack gained beyond 3 additionally increases [Thunderstrike Dragon Howl·Apex] 5.0% Dmg Bonus. [Thunderstrike Dragon Howl·Apex]: Trigger Skill [Thunderstrike Dragon Howl] effect without casting animation, dealing 25+168.6% ATK as Skill damage.",
+            "condition": "🔴 4★ activated"
+          }
+        ]
+      },
+      "skill6": {
+        "title": "Thunderstrike Dragon Head",
+        "key": "Dmg, Thunderstrike",
+        "icon": "◆",
+        "description": "Thunder Dragon emerges from clouds; mountains and rivers shatter. Charged Fury Fist, Holy Light Dragon unleashes a devastating punch forward with surging intent, then crashes to the ground triggering Thunder Burst, dealing a total of 182+1255.8% ATK as Skill Dmg, finally forming [Thunder Domain] effect. [Thunder Domain]: Duration 10s. Each deals 7+48.9% ATK as Skill [Synergy Dmg].",
+        "cost": 0,
+        "cd": 30,
+        "haloTitle": "Asura Holy Light Dragon",
+        "haloDescription": "All targets within [Thunder Domain] gain 20.0% Final Dmg Bonus and 100.0% Electrified Build Dmg Bonus.",
+        "tiers": [
+          {
+            "threshold": "1k Yr",
+            "description": "Upon Skill hit, gain 2 stacks of [Thunderstrike].",
+            "condition": ""
+          },
+          {
+            "threshold": "10k Yr",
+            "description": "[Thunder Domain] Duration extended to 15s.",
+            "condition": "🟡 4★ activated"
+          },
+          {
+            "threshold": "25k Yr",
+            "description": "[Thunder Domain] range expanded by 100%, Electrified Build Dmg to targets in domain increased by 75.0%.",
+            "condition": "🟡 5★ activated"
+          },
+          {
+            "threshold": "50k Yr",
+            "description": "Using Skill at max stacks of [Thunderstrike] increases Skill Dmg by 50.0%.",
+            "condition": "🔴 2★ activated"
+          },
+          {
+            "threshold": "100k Yr",
+            "description": "[Thunder Domain] Duration extended to 20s, and targets in the domain take 150.0% increased Dmg from Electrified Build.",
+            "condition": "🔴 4★ activated"
+          }
+        ]
+      }
+    },
+    "passive": {
+      "skill3": {
+        "title": "Wrath of Thunder",
+        "key": "Dmg",
+        "icon": "◆",
+        "description": "After releasing Ultimate, gain [Wrath of Thunder] stacks based on current [Thunderstrike] stacks. [Wrath of Thunder]: After dealing Dmg to targets, randomly release [Volt-Storm] on 1 nearby target and reduce 1 stack of [Wrath of Thunder], dealing passive Dmg of 8+56.4% ATK to that target. Triggers max once per 0.5s.",
+        "cost": 0,
+        "cd": 0,
+        "haloTitle": "",
+        "haloDescription": "",
+        "tiers": [
+          {
+            "threshold": "1k Yr",
+            "description": "[Volt-Storm] trigger additionally deals small area electric shock, dealing 7+48.3% ATK as Electrified Dmg.",
+            "condition": ""
+          },
+          {
+            "threshold": "10k Yr",
+            "description": "[Thunderstrike] stack limit increased to 5 stacks.",
+            "condition": "🟡 4★ activated"
+          },
+          {
+            "threshold": "25k Yr",
+            "description": "Upon Skill release, trigger [Volt-Storm] 1 additional time.",
+            "condition": "🔴 1★ activated"
+          },
+          {
+            "threshold": "50k Yr",
+            "description": "[Thunderstrike] stack limit increased to 8 stacks, and [Volt-Storm] ATK range expanded.",
+            "condition": "🔴 3★ activated"
+          },
+          {
+            "threshold": "100k Yr",
+            "description": "[Volt-Storm] triggers 1 additional time on another target in range upon hitting a target, dealing 23+161.2% ATK as Dmg.",
+            "condition": "🔴 4★ activated"
+          }
+        ]
+      },
+      "skill5": {
+        "title": "Volt-Lord Realm",
+        "key": "Dmg",
+        "icon": "◆",
+        "description": "When [Thunderstrike] stacks reach max, gaining additional [Thunderstrike] stacks or casting [Draconic Evil-Sunder] consumes [Thunderstrike] stacks and grants an equal number of [Thunderball] stacks based on the [Thunderstrike] stacks consumed. [Thunderball]: on hit, fires a thunderball dealing 86+593.2% ATK as passive [Synergy Dmg].",
+        "cost": 0,
+        "cd": 0,
+        "haloTitle": "",
+        "haloDescription": "",
+        "tiers": [
+          {
+            "threshold": "1k Yr",
+            "description": "[Thunderball] additionally inflicts Electrified [Synergy Dmg] by 197.7% ATK.",
+            "condition": ""
+          },
+          {
+            "threshold": "10k Yr",
+            "description": "[Thunderstrike] stack cap adjusted to 2; at max stacks, this Spirit gains 30.0% Dmg Bonus.",
+            "condition": "🟡 4★ activated"
+          },
+          {
+            "threshold": "25k Yr",
+            "description": "All Bruiser or Agility Spirits gain 3 stacks of [Thunderstrike] after casting Ultimate. Each [Thunderball] trigger grants 1 stack of [Surging Bolt] to self. Each stack grants other Bruiser or Agility Characters in the team 0.8% additional increased Dmg dealt, max 150 stacks.",
+            "condition": "🔴 1★ activated"
+          },
+          {
+            "threshold": "50k Yr",
+            "description": "All Spirits gain 1 stack of [Thunderstrike] after inflicting Electrified Build Dmg.",
+            "condition": "🔴 3★ activated"
+          },
+          {
+            "threshold": "100k Yr",
+            "description": "[Thunderball] increases Dmg Bonus by 30.0%, and [Surging Bolt] per stack additionally increases other Bruiser or Agility Characters' Dmg dealt in the team to 1.2%.",
             "condition": "🔴 4★ activated"
           }
         ]

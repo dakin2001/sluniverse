@@ -1,4 +1,4 @@
-// "objets" page: generated from editeur.html on 9/26/2026
+// "objets" page: generated from editeur.html on 10/6/2026
 // You can also edit this file by hand: each object is one entry.
 window.WIKI = window.WIKI || {};
 window.WIKI.objets = [
@@ -5843,9 +5843,10 @@ window.WIKI.objets = [
     ]
   },
   {
-    "id": "swift-spirit",
+    "id": "swift-spirit-spiribone",
     "title": "Swift Spirit",
     "subtitle": "Battle Spiribone",
+    "date": "",
     "image": "images/objets/swift-spirit/swift-spirit-image.png",
     "imageUrl": "",
     "useLocalImage": true,
@@ -5860,7 +5861,7 @@ window.WIKI.objets = [
       "Mall",
       "Event Reward"
     ],
-    "spiriboneGenre": "Skull",
+    "spiriboneGenre": "Trunk",
     "spiriboneType": "",
     "spiriboneRating": "8300",
     "spiriboneSkill": {
@@ -5897,30 +5898,31 @@ window.WIKI.objets = [
     ],
     "spiriboneStarStats": [
       {
-        "label": "Serpent Halo Basic Stats",
+        "label": "Beast Halo Basic Stats",
         "value": ""
       },
       {
-        "label": "Plant Halo Basic Stats",
+        "label": "Volant Halo Basic Stats",
         "value": ""
       },
       {
-        "label": "Spider Halo Basic Stats",
+        "label": "Scorpion Halo Basic Stats",
         "value": ""
       },
       {
-        "label": "Phantasm Halo Basic Stats",
+        "label": "Insect Halo Basic Stats",
         "value": ""
       },
       {
-        "label": "Willpower Halo Basic Stats",
+        "label": "Direbear Halo Basic Stats",
         "value": ""
       },
       {
-        "label": "Bulwark Halo Basic Stats",
+        "label": "Wyvern Halo Basic Stats",
         "value": ""
       }
-    ]
+    ],
+    "mechanics": []
   },
   {
     "id": "mysticwaterturtlespirit",
@@ -9768,5 +9770,165 @@ window.WIKI.objets = [
       "Agility",
       "Support"
     ]
+  },
+  {
+    "id": "spiritheadofthewanderingdragon-spiribone",
+    "title": "Spirit Head of the Wandering Dragon",
+    "subtitle": "Battle Spiribone",
+    "date": "",
+    "image": "images/objets/spiritheadofthewanderingdragon/spiritheadofthewanderingdragon-image.png",
+    "imageUrl": "",
+    "useLocalImage": true,
+    "tags": [],
+    "stats": [],
+    "description": "",
+    "category": "Spiribones",
+    "bagType": "spiribone",
+    "sources": [],
+    "contains": [],
+    "textSources": [
+      "Event Reward"
+    ],
+    "spiriboneGenre": "Skull",
+    "spiriboneType": "",
+    "spiriboneRating": "5000",
+    "spiriboneSkill": {
+      "title": "Evil Spirit Rest",
+      "key": "",
+      "description": "Activate the [Spirit Silence] domain for a duration of 8s, instantly removing any summoned creatures that enter. Cooldown: 200s."
+    },
+    "spiriboneTiers": [
+      {
+        "threshold": "10k Yr",
+        "description": "Reduce Skill cooldown by 40s",
+        "condition": "Spiribone 2⭐ Effective"
+      },
+      {
+        "threshold": "25k Yr",
+        "description": "Restore 5% HP after [Spirit Silence] domain ends",
+        "condition": "Spiribone 3⭐ Effective"
+      },
+      {
+        "threshold": "50k Yr",
+        "description": "[Spirit Silence] domain duration extends to 12s",
+        "condition": "Spiribone 4⭐ Effective"
+      },
+      {
+        "threshold": "80k Yr",
+        "description": "Reduce Skill cooldown by 40s",
+        "condition": "Spiribone 5⭐ Effective"
+      },
+      {
+        "threshold": "100k Yr",
+        "description": "Restore HP increases to 10% after [Spirit Silence] domain ends",
+        "condition": "Spiribone 6⭐ Effective"
+      }
+    ],
+    "spiriboneStarStats": [
+      {
+        "label": "Serpent Halo Basic Stats",
+        "value": ""
+      },
+      {
+        "label": "Plant Halo Basic Stats",
+        "value": ""
+      },
+      {
+        "label": "Spider Halo Basic Stats",
+        "value": ""
+      },
+      {
+        "label": "Phantasm Halo Basic Stats",
+        "value": ""
+      },
+      {
+        "label": "Willpower Halo Basic Stats",
+        "value": ""
+      },
+      {
+        "label": "Bulwark Halo Basic Stats",
+        "value": ""
+      }
+    ],
+    "mechanics": []
+  },
+  {
+    "id": "souldevourertrunk-spiribone",
+    "title": "Soul Devourer Trunk",
+    "subtitle": "Battle Spiribone",
+    "date": "",
+    "image": "images/objets/souldevourertrunk/souldevourertrunk-image.png",
+    "imageUrl": "",
+    "useLocalImage": true,
+    "tags": [],
+    "stats": [],
+    "description": "",
+    "category": "Spiribones",
+    "bagType": "spiribone",
+    "sources": [],
+    "contains": [],
+    "textSources": [],
+    "spiriboneGenre": "Trunk",
+    "spiriboneType": "",
+    "spiriboneRating": "5000",
+    "spiriboneSkill": {
+      "title": "Bloodthirsty Feast",
+      "key": "",
+      "description": "For every 10% decrease in your HP compared to max HP, gain one stack of [Bloodthirst]; [Bloodthirst]: Provides 1.5% final Dmg Up, stacks up to 5 times."
+    },
+    "spiriboneTiers": [
+      {
+        "threshold": "10k Yr",
+        "description": "[Bloodthirst] stack limit increases to 7",
+        "condition": "Spiribone 2⭐ Effective"
+      },
+      {
+        "threshold": "25k Yr",
+        "description": "When [Bloodthirst] exceeds 5 stacks, gain [Potential Burst]. [Potential Burst]: Stamina Regen efficiency increases by 30%.",
+        "condition": "Spiribone 3⭐ Effective"
+      },
+      {
+        "threshold": "50k Yr",
+        "description": "Each stack of [Bloodthirst] increases final Dmg effect to 2.5%",
+        "condition": "Spiribone 4⭐ Effective"
+      },
+      {
+        "threshold": "80k Yr",
+        "description": "Each stack of [Bloodthirst] increases final Dmg effect to 3.5%",
+        "condition": "Spiribone 5⭐ Effective"
+      },
+      {
+        "threshold": "100k Yr",
+        "description": "[Potential Burst]: Stamina Regen efficiency increased to 50%.",
+        "condition": "Spiribone 6⭐ Effective"
+      }
+    ],
+    "spiriboneStarStats": [
+      {
+        "label": "Beast Halo Basic Stats",
+        "value": ""
+      },
+      {
+        "label": "Volant Halo Basic Stats",
+        "value": ""
+      },
+      {
+        "label": "Scorpion Halo Basic Stats",
+        "value": ""
+      },
+      {
+        "label": "Insect Halo Basic Stats",
+        "value": ""
+      },
+      {
+        "label": "Direbear Halo Basic Stats",
+        "value": ""
+      },
+      {
+        "label": "Wyvern Halo Basic Stats",
+        "value": ""
+      }
+    ],
+    "mechanics": []
   }
 ];

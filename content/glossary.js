@@ -1,4 +1,4 @@
-// Glossary: generated from editeur.html on 9/8/2026
+// Glossary: generated from editeur.html on 10/8/2026
 window.GLOSSARY = window.GLOSSARY || {};
 Object.assign(window.GLOSSARY, {
   "Laceration": "Stackable, triggers at 20 stacks to deal 6.5% ATK as Dmg per stack and remove, Duration is infinite.",
@@ -395,5 +395,21 @@ Object.assign(window.GLOSSARY, {
   "Noble Ring·Lingering": "The enhanced version of [Noble Ring] created via Skill 3's passive, releasing [Sound Wave] periodically and granting Shield/bonus effects.",
   "Noble Ring·Harmony": "The alternate enhanced version of [Noble Ring] via Skill 5's passive, releasing [Sound Wave] specifically when a Switch Skill is cast, granting [Harmony] to the current character.",
   "Aurora Sonata": "Referenced in Skill 3's passive as a condition, \"When holding [Aurora Sonata]\", implying that having this specific Skill/Ultimate equipped or active changes how [Sound Wave] behaves (also granting [Echo] on trigger).",
-  "Lute Play": "The Innate Skill itself. Each Normal Attack stage grants [Note: Mi], healing over the combo. The Charged Normal Attack restores a smaller amount but consumes all currently held Notes."
+  "Lute Play": "The Innate Skill itself. Each Normal Attack stage grants [Note: Mi], healing over the combo. The Charged Normal Attack restores a smaller amount but consumes all currently held Notes.",
+  "Thunderstrike": "At max stacks, [Electrified] Dmg Up additionally.",
+  "Tetra-Dragon Matrix": "A dragon formation deployed when you cast Dragon King Evil Breaker, right before the transformation smash.",
+  "Fulminant Might": "The dragon transformation from Dragon King Evil Breaker. It lasts 6 seconds, plus 1.5 seconds per Thunderstrike stack burned. You get Strong Super Armor (hard to interrupt) and your basic attacks become the stronger Thunderbolt Cleave.",
+  "Dragon-Monarch Seismo": "A summoned dragon from Dragon King Tremor Realm that drops the Dragon Pearl, which Holy Light Dragon catches and slams into the ground.",
+  "Dragon Thunder": "Thunder that rains down for 7 seconds after the Tremor Realm slam, dealing area damage. A late upgrade makes it hit faster (every 0.8 seconds).",
+  "Celestial Thunder Realm": "The 20-second lightning domain created by Tremor Realm. Lightning keeps striking random enemies inside it, and every 3 hits on Electrified targets earns you a Thunderstrike stack. With upgrades, it ends with a Divine Thunder Burst that hits everything in range and gives you stacks.",
+  "Radiant Holy Thunder": "The lightning strikes inside Celestial Thunder Realm. Each one hits a random enemy and applies Flash, with a 50% chance of a bonus strike at higher upgrades.",
+  "Thunder Domain": "A lightning zone left on the ground by Thunderstrike Dragon Head. It keeps zapping enemies standing in it (10 seconds at first, up to 20 with upgrades) and makes them take more Electrified damage.",
+  "Wrath of Thunder": "The buff from the passive of the same name. After you ult, you get charges based on your stacks, and each charge is spent to fire a free Volt-Storm.",
+  "Volt-Storm": "A free lightning bolt that hits a random nearby enemy after you deal damage (at most once every 0.5 seconds). Upgrades add a small electric shock around it and extra bolts.",
+  "Thunderball": "A free lightning ball from the Volt-Lord Realm passive. When you're already at max Thunderstrike stacks, the extra stacks become Thunderballs that shoot at enemies whenever you hit.",
+  "Surging Bolt": "A team buff from Volt-Lord Realm. Each Thunderball you fire gives you a stack, and each stack makes your Bruiser and Agility teammates deal a bit more damage (up to 150 stacks).",
+  "Thunderstrike Dragon Howl·Reversal": "A PvP-only emergency escape. If you get caught in a combo or control, it breaks you out and casts Thunderstrike Dragon Howl automatically. It works once every 30 seconds.",
+  "Draconic Evil-Sunder": "The text mentions it as a skill that converts your stacks into Thunderballs, but it isn't explained anywhere. It's probably another name for one of the Ultimates, so I'd check it in game before putting it on the wiki.",
+  "Thunderstrike Dragon Howl·Apex": "A bonus Howl hit with no cast animation, triggered when you burn more than 2 Thunderstrike stacks with your Ultimate. Burning even more stacks makes it hit harder.",
+  "Thunderstrike Dragon Howl": "Skill 2"
 });
