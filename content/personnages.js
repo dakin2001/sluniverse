@@ -1,4 +1,4 @@
-// "personnages" page: generated from editeur.html on 10/8/2026
+// "personnages" page: generated from editeur.html on 10/10/2026
 // You can also edit this file by hand: each object is one entry.
 window.WIKI = window.WIKI || {};
 window.WIKI.personnages = [
@@ -9243,12 +9243,13 @@ window.WIKI.personnages = [
     "id": "galewolf",
     "title": "Gale Wolf",
     "subtitle": "Moonlight Wolf Howl - Wind Climb Shadow Leap - Deathwind Wolf Howl",
+    "date": "",
     "image": "images/personnages/galewolf/galewolf-image.jpg",
     "imageUrl": "",
     "useLocalImage": true,
     "tags": [
       "Bruiser",
-      "Main DPS"
+      "Additional Attack"
     ],
     "stats": [
       {
@@ -9265,7 +9266,7 @@ window.WIKI.personnages = [
       },
       {
         "label": "Role",
-        "value": "Main DPS"
+        "value": "Off-field DMG Dealt"
       },
       {
         "label": "Mechanic",
@@ -9273,7 +9274,7 @@ window.WIKI.personnages = [
       },
       {
         "label": "Acquisition",
-        "value": "Regular Summon"
+        "value": "Gale Prowl"
       }
     ],
     "description": "Gale Wolf is a whirlwind of claws and gusts, hitting fast and stacking [Severe Wound] on enemies through nearly every Skill. His Ultimates aren't shy either, both explode on impact and immediately pile on stacks of Severe Wound, setting up huge follow-up damage from anything else that hits the wound afterward.\n\nHis core resource is [Gale], gained from his enhanced dash ([Gale Flurry]) and boosting Strike Damage the more stacks he's built up. His passives also introduce off-field mechanics through [Demon Wolf Hunt] and [Tornado Blade], letting him keep dishing out Severe Wound stacks and bonus attacks even when he's not the active Spirit on screen.",
@@ -9454,8 +9455,8 @@ window.WIKI.personnages = [
         "description": "After entering the Fight, Initiative is replaced with [Gale Flurry]. [Gale Flurry] grants 1 stack of [Gale] with each use. [Gale Flurry]: Unfurl wings to become a gale, dashing through enemies at high speed, dealing a total of 27+161.3% ATK as Dmg, with a cooldown of 30s. [Gale Flurry] reduces the remaining cooldowns of [Dual Wolf Possession] and [Demon Wolf Storm] by 5s after the final hit lands.",
         "cost": 0,
         "cd": 0,
-        "haloTitle": "",
-        "haloDescription": "",
+        "haloTitle": "Asura Twin-Headed Wolf Talent",
+        "haloDescription": "Blessed by the Wind God with sharp wings, the Two-Headed Giant Wolf cuts the world's edge. When [Gale] reaches 7 stacks, additionally gain [Wind God], granting [Final Dmg Up] by 40.0%.",
         "tiers": [
           {
             "threshold": "1k Yr",
@@ -9491,8 +9492,8 @@ window.WIKI.personnages = [
         "description": "When Gale Wolf is off-field, after the on-field Spirit inflicts 60 instances of [Severe Wound] Dmg, Gale Wolf's Initiative Skill cooldown is reduced by 20s, and the next use will be replaced with [Gale Blade]. [Gale Blade] grants 1 stack of [Demon Wolf Frenzy] with each use. [Gale Blade]: Feng Xiaotian swings his wings, swiftly releasing multiple wind blades at the target, dealing a total of 24+176.4% ATK as Dmg, with a cooldown of 60s.",
         "cost": 0,
         "cd": 0,
-        "haloTitle": "",
-        "haloDescription": "",
+        "haloTitle": "Asura Twin-Headed Wolf Talent",
+        "haloDescription": "The Wind God witnessed the Demon Wolf's raging heart and granted it a share of fierce wind assistance with a hearty laugh.\nWhen [Feral Wolf Rampage] reaches 7 stacks, additionally gain [Wind God], granting [Final Dmg Up] by 40.0%.",
         "tiers": [
           {
             "threshold": "1k Yr",
@@ -9522,7 +9523,32 @@ window.WIKI.personnages = [
         ]
       }
     },
-    "fusion": null,
+    "fusion": {
+      "title": "Dance of Wind and Fire",
+      "key": "Dmg, Severe Wound",
+      "icon": "◆",
+      "cost": 0,
+      "cd": 600,
+      "fuseWith": "fieryshadow",
+      "description": "Harness the power of the wind and fire in harmony. Channel the force of the gale into your fist, enchant it with flames, and unleash a two-headed wolf imbued with wind and fire, dealing 158+823.6% ATK as Dmg to all targets along a path. Inflicts [Wind Candle] and [Wolf Flame] on targets. [Wind Candle]: Each time [Scorch] Dmg is received, apply 1 stack of [Severe Wound], Duration 30s. [Wolf Flame]: Apply 1 stack of [Scorch] every 3s, Duration 30s.",
+      "tiers": [
+        {
+          "threshold": "All Spirit Combinations",
+          "description": "During [Wind Candle] Duration, increases target's [Severe Wound] Dmg by 100%.",
+          "condition": "🟡 5★ activated"
+        },
+        {
+          "threshold": "All Spirit Combinations",
+          "description": "[Wind Candle] and [Wolf Flame] Duration increased by 10s. Cooldown reduced to 180s.",
+          "condition": "🔴 2★ activated"
+        },
+        {
+          "threshold": "All Spirit Combinations",
+          "description": "[Wind Candle] Duration triggers an additional Dmg when the target takes [Scorch] Dmg, max once per second.",
+          "condition": "🔴 4★ activated"
+        }
+      ]
+    },
     "skins": []
   },
   {
