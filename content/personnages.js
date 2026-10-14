@@ -1,4 +1,4 @@
-// "personnages" page: generated from editeur.html on 10/10/2026
+// "personnages" page: generated from editeur.html on 10/13/2026
 // You can also edit this file by hand: each object is one entry.
 window.WIKI = window.WIKI || {};
 window.WIKI.personnages = [
@@ -7534,6 +7534,7 @@ window.WIKI.personnages = [
     "id": "deliatearoma",
     "title": "Delicate Aroma",
     "subtitle": "Fragant Glaze - Feathers Bloom - Jade Brocade",
+    "date": "",
     "image": "images/personnages/deliatearoma/deliatearoma-image.jpg",
     "imageUrl": "",
     "useLocalImage": true,
@@ -7571,6 +7572,7 @@ window.WIKI.personnages = [
     "description": "Delicate Aroma is a healer with a permanent floating companion, [Delicate Aroma] itself, a summoned entity that sticks around, connects to her for SP regeneration, and helps deliver healing zones. Her Ultimates lean into area-based support, creating flower domains and firing off healing seeds to allies across the whole field, all while cleansing negative status effects along the way.\n\nHer core resource is [Fragrance Trace] (or [Aroma], depending on which passive is active), a stacking buff gained over time that eventually converts into big bonuses like [Support Dmg Bonus] boosts and Soul Power restoration when consumed. Both passives also unlock [Enhanced Initiative], letting her react instantly with a powered-up defensive dodge even if she's mid-attack or under crowd control.",
     "rarity": "SSR",
     "backgroundImage": "images/personnages/deliatearoma/background/deliatearoma-background.png",
+    "mechanics": [],
     "normalAttack": {
       "title": "Jade Flower",
       "key": "Dmg",
@@ -7743,8 +7745,8 @@ window.WIKI.personnages = [
         "description": "[Delicate Aroma] continuously transmits floral scent to the Character, connected by ribbon-like light. The connection radius is 40 meters, restoring 8 Soul Power per second while connected. The Character gains one stack of [Fragrance Trace] per second. [Fragrance Trace]: When the Character approaches [Delicate Aroma], it triggers [Fragrance Trace], consuming all [Fragrance Trace] stacks, and granting a specified number of [Fragrance Tracking] based on the stack count. [Fragrance Trace] has a maximum of 10 stacks. Upon activating this passive, Initiative upgrades to [Enhanced Initiative]. When attacked or controlled, Initiative is immediately activated, allowing the use of [Enhanced Initiative] even while under attack or control. (This effect has a 60-second cooldown)",
         "cost": 0,
         "cd": 0,
-        "haloTitle": "",
-        "haloDescription": "",
+        "haloTitle": "God of Stars Delicate Aroma Talent",
+        "haloDescription": "The God of Stars, delighted by the fragrant bloom, pities its fragility and grants it strength.\nDuring [Fragrance Tracking] existence, gain an additional [Final Dmg Up] by 10%.",
         "tiers": [
           {
             "threshold": "1k Yr",
@@ -7780,8 +7782,8 @@ window.WIKI.personnages = [
         "description": "[Delicate Aroma] creates a Fragrance Domain. While in the field, players gain 1 stack of [Aroma] every second. [Aroma]: Each stack increases [Support Dmg Bonus] by 1% and restores 15 Soul Power per second. [Aroma] has a maximum of 10 stacks, Duration 2s. Upon activating this passive, Initiative upgrades to [Enhanced Initiative]. When the character is hit or controlled, Initiative is immediately activated, allowing [Enhanced Initiative] to be used while hit or controlled (this effect has a 60s independent cooldown)",
         "cost": 0,
         "cd": 0,
-        "haloTitle": "",
-        "haloDescription": "",
+        "haloTitle": "God of Stars Delicate Aroma Talent",
+        "haloDescription": "The pure land where Herbs flourish is the temple where stars descend.\n[Aroma] at full stack provides an additional [Final Dmg Up] by 8%.",
         "tiers": [
           {
             "threshold": "1k Yr",
